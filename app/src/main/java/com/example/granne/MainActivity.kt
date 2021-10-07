@@ -10,4 +10,6 @@ class MainActivity : AppCompatActivity() {
 var a = 20
 
     }
+
+    var b = 10
 }
