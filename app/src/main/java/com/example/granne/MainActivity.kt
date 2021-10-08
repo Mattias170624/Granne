@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         var mattias = "testtest"
         var mattias2 = "testing 22222222222222222"
 
+        var fahir = "testingtesting"
+
 
 
 var a = 20
