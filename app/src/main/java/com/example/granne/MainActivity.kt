@@ -10,6 +10,9 @@ class MainActivity : AppCompatActivity() {
 
         var abc = "wefwewe"
 
+        var melissa = "hej"
+
+
 
 var a = 20
 
