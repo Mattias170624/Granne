@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
 
         var e: Int = 4
 
+        var y: Int = 6
+
 
     }
 }
