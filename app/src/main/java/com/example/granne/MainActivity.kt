@@ -11,6 +11,8 @@ class MainActivity : AppCompatActivity() {
         //start
         var m: Int = 2
 
+        var e: Int = 4
+
 
     }
 }
