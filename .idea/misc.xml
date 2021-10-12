@@ -3,8 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/melis/AndroidStudioProjects/Granne/app/src/main/res/layout/activity_create_account.xml" value="0.24003623188405798" />
-        <entry key="..\:/Users/melis/AndroidStudioProjects/Granne/app/src/main/res/layout/activity_main.xml" value="0.24003623188405798" />
+        <entry key="app/src/main/res/drawable/circle_btn.xml" value="0.25885416666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>
