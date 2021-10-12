@@ -27,4 +27,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(loginIntent)
     }
 
+    fun startCreateAccount(view: View){
+        val createAccountIntent = Intent(this, CreateAccountActivity::class.java  )
+        startActivity(createAccountIntent)
+    }
+
 }
