@@ -1,5 +1,6 @@
 package com.example.granne
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +25,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun startMainScreenActivity(view: View) {
+
         Log.d("!Login", "Login button pressed. Autologin = ${autoLoginSwitch.isChecked}")
+        val startHomeIntent = Intent(this, HomeActivity::class.java)
+        startActivity(startHomeIntent)
 
         // här ska man först kolla om username och password matchar någon användare i databasen
         // sen om det username + password matchar med någon, så ska man skickas till Mainscreen

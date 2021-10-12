@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <ImageView
+        android:id="@+id/userImageView"
+        android:layout_width="76dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/userimage" />
+
+    <Button
+        android:id="@+id/buttonFindMatch"
+        android:layout_width="140sp"
+        android:layout_height="140sp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/circle_btn"
+        android:text="Find Match"
+        app:backgroundTint="#A6746F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.789"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOptions"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginBottom="316dp"
+        android:background="@drawable/circle_btn"
+        android:text="Options"
+        app:backgroundTint="#C4C4C4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonInformation"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/circle_btn"
+        android:text="Info"
+        app:backgroundTint="#C4C4C4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonStatistics"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginBottom="184dp"
+        android:background="@drawable/circle_btn"
+        android:text="Stats"
+        app:backgroundTint="#C4C4C4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonChat"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginBottom="288dp"
+        android:background="@drawable/circle_btn"
+        android:text="Chat"
+        app:backgroundTint="#C4C4C4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

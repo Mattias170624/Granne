@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Granne">
         <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StartScreenActivity"
+            android:exported="true" />
+        <activity
             android:name=".CreateAccountActivity"
             android:exported="true" />
         <activity
