@@ -17,7 +17,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startLoginActivity(view: View) {
-        Log.d("Main", "Pressed login button")
+        Log.d("!Main", "Pressed login button")
+
+        // När man trycker på login knappen på första sidan så ska programmet kolla om
+        // switchen "keep me logged in" == true. och då ska man skickas direkt till mainscreen
+        // när man trycker på "Login" knappen
+
         val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
         startActivity(loginIntent)
     }
