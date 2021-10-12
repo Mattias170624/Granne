@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Granne</string>
+    <string name="logInPage">LogIn</string>"
+    <string name="createAccount">CreateAccount</string>
 </resources>
