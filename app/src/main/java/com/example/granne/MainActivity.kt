@@ -9,11 +9,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //start
-        var m: Int = 2
 
-        var e: Int = 4
-
-        var y: Int = 6
 
 
     }
