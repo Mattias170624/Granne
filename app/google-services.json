@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "539761878240",
+    "project_id": "friendzone-c9127",
+    "storage_bucket": "friendzone-c9127.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539761878240:android:af68ea284dda8fff32dc85",
+        "android_client_info": {
+          "package_name": "com.example.granne"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539761878240-hlnjth1ggqksrgkoccha58ni9rqp91lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBBTWWK3Iz7365qw4KTq_3l8p3HrpU2nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539761878240-hlnjth1ggqksrgkoccha58ni9rqp91lr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
