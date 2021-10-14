@@ -7,30 +7,36 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CreateAccountActivity : AppCompatActivity() {
 
+    lateinit var createNicknameEditText: EditText
     lateinit var createUsernameEditText: EditText
     lateinit var createPasswordEditText: EditText
-    lateinit var createAboutYourselfEditText: EditText
+    lateinit var createAboutMeEditText: EditText
     lateinit var createPhoneNumberEditText: EditText
     lateinit var createConfirmPhoneNumberEditText: EditText
     private lateinit var createNewAccountButton: Button
 
+    lateinit var nicknameText: String
     lateinit var usernameText: String
     lateinit var passwordText: String
-    lateinit var aboutYourselfText: String
+    lateinit var aboutMeText: String
     lateinit var phoneNumberText: String
     lateinit var phoneCodeText: String
 
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
 
+        createNicknameEditText = findViewById(R.id.createNicknameEditText)
         createUsernameEditText = findViewById(R.id.createUsernameEditText)
         createPasswordEditText = findViewById(R.id.createPasswordEditText)
-        createAboutYourselfEditText = findViewById(R.id.createAboutYourselfEditText)
+        createAboutMeEditText = findViewById(R.id.createAboutYourselfEditText)
         createPhoneNumberEditText = findViewById(R.id.createPhoneNumberEditText)
         createConfirmPhoneNumberEditText = findViewById(R.id.createConfirmPhoneNumberEditText)
         createNewAccountButton = findViewById(R.id.createNewAccountButton)
@@ -51,29 +57,37 @@ class CreateAccountActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
-    private fun createUserInFirebase() {
+    private fun createUserInFirebase() {  // Adds the user inputs in database
+        val user = hashMapOf(
+            "nickname" to nicknameText,
+            "username" to usernameText,
+            "password" to passwordText,
+            "aboutMe" to aboutMeText
+            // To be added: phone number and confirmation code
+        )
 
-        // Här skapas en firebase User med:
-        //
-        // usernameText, passwordText, aboutYourselfText, etc...
-        //
-        // Sen efter den här funktionen är klar, så körs ju Intent där man blir skickad till mainscreenen.
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d("!", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("!", "Error adding document", e)
+            }
 
     }
 
     private fun checkUserInputs(): Boolean {
+        nicknameText = createUsernameEditText.text.toString()
         usernameText = createUsernameEditText.text.toString()
         passwordText = createPasswordEditText.text.toString()
-        aboutYourselfText = createAboutYourselfEditText.text.toString()
-        phoneNumberText =
-            createPhoneNumberEditText.toString()         // Phone number och Phone code
-        phoneCodeText = createConfirmPhoneNumberEditText.toString()    // används inte just nu
+        aboutMeText = createAboutMeEditText.text.toString()
+        phoneNumberText = createPhoneNumberEditText.toString()       // Phone number och Phone code
+        phoneCodeText = createConfirmPhoneNumberEditText.toString()  // används inte just nu
 
-        return !(usernameText.isEmpty() || passwordText.isEmpty() || aboutYourselfText.isEmpty())
+        return !(nicknameText.isEmpty() || usernameText.isEmpty() || passwordText.isEmpty() || aboutMeText.isEmpty())
     }
 
     fun showToast(toastMessage: String) {
