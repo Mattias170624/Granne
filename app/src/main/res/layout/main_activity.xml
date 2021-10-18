@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="284dp"
         android:onClick="startLoginActivity"
-        android:text="Login"
+        android:text="@string/login"
+        android:backgroundTint="#A6746F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -24,8 +25,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="208dp"
         android:onClick="startCreateAccount"
-        android:text="Create account"
+        android:text="@string/create_account"
+        android:backgroundTint="#A6746F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#A6746F"
+        android:text="@string/change_language"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
