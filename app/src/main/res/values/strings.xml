@@ -1,5 +1,30 @@
 <resources>
+    <!--Startskärmen-->
     <string name="app_name">Granne</string>
     <string name="logInPage">LogIn</string>"
-    <string name="createAccount">CreateAccount</string>
+    <string name="change_language">Change Language</string>
+    <string name="create_account">Create account</string>
+    <string name="login">Login</string>
+    <string name="spinner">Select Language</string>
+    <!--Logga in aktivitet-->
+    <string name="login_Username">Username</string>
+    <string name="login_Password">Password</string>
+    <string name="Keep_logged_in">Keep me logged in</string>
+    <string name="Login">Login</string>
+    <!--Skapa konto aktivitet-->
+    <string name="create_Nickname">Nickname</string>
+    <string name="create_Username">Username</string>
+    <string name="create_Password">Password</string>
+    <string name="Phone_number">Phone number</string>
+    <string name="Code">Code</string>
+    <string name="Tell_us_about_yourself">Tell us about yourself</string>
+    <string name="Create_account">Create account</string>
+    <!--Hemskärmen-->
+    <string name="Find_Match">Find Match</string>
+    <string name="Options">Options</string>
+    <string name="Info">Info</string>
+    <string name="Stats">Stats</string>
+    <string name="Chat">Chat</string>
+
+
 </resources>
