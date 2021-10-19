@@ -46,7 +46,8 @@ class CreateAccountActivity : AppCompatActivity() {
             when {
                 checkUserInputs() -> {
                     Log.d("!", "User inputs are good")
-                    checkForDuplicateAccount()
+                    checkDuplicateAccountInfo()
+
                 }
                 !checkUserInputs() -> {
                     Log.d("!", "Some texts are empty")
@@ -56,21 +57,39 @@ class CreateAccountActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkForDuplicateAccount() {
+    private fun checkDuplicateAccountInfo() {
         db.collection("users")
             .whereEqualTo("nickname", nicknameText)
             .get()
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
                     Log.d("!", "No duplicate found")
-                    createUserInFirebase()
+                    checkDuplicateAccountInfoContinue()
                 } else {
-                    Log.d("!", "Duplicate found")
+                    Log.d("!", "Duplicate found!")
                     showToast("Nickname already exists")
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("!", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun checkDuplicateAccountInfoContinue() { // Continuation of checkDuplicateAccountInfo function
+        db.collection("users")
+            .whereEqualTo("username", usernameText)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Log.d("!", "No duplicate found")
+                    createUserInFirebase()
+                } else {
+                    Log.d("!", "Duplicate found!")
+                    showToast("Username already exists")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("!", "Error>> $exception")
             }
     }
 
