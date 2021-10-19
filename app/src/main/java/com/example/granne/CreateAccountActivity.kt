@@ -46,10 +46,8 @@ class CreateAccountActivity : AppCompatActivity() {
             when {
                 checkUserInputs() -> {
                     Log.d("!", "User inputs are good")
-                    createUserInFirebase()
+                    checkDuplicateAccountInfo()
 
-                    val createNewAccountActivity = Intent(this, HomeActivity::class.java)
-                    startActivity(createNewAccountActivity)
                 }
                 !checkUserInputs() -> {
                     Log.d("!", "Some texts are empty")
@@ -57,6 +55,42 @@ class CreateAccountActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun checkDuplicateAccountInfo() {
+        db.collection("users")
+            .whereEqualTo("nickname", nicknameText)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Log.d("!", "No duplicate found")
+                    checkDuplicateAccountInfoContinue()
+                } else {
+                    Log.d("!", "Duplicate found!")
+                    showToast("Nickname already exists")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("!", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun checkDuplicateAccountInfoContinue() { // Continuation of checkDuplicateAccountInfo function
+        db.collection("users")
+            .whereEqualTo("username", usernameText)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Log.d("!", "No duplicate found")
+                    createUserInFirebase()
+                } else {
+                    Log.d("!", "Duplicate found!")
+                    showToast("Username already exists")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("!", "Error>> $exception")
+            }
     }
 
     private fun createUserInFirebase() {  // Adds the user inputs in database
@@ -77,10 +111,12 @@ class CreateAccountActivity : AppCompatActivity() {
                 Log.w("!", "Error adding document", e)
             }
 
+        val createNewAccountActivity = Intent(this, HomeActivity::class.java)
+        startActivity(createNewAccountActivity)
     }
 
     private fun checkUserInputs(): Boolean {
-        nicknameText = createUsernameEditText.text.toString()
+        nicknameText = createNicknameEditText.text.toString()
         usernameText = createUsernameEditText.text.toString()
         passwordText = createPasswordEditText.text.toString()
         aboutMeText = createAboutMeEditText.text.toString()
