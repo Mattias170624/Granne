@@ -30,7 +30,7 @@ class SettingsDialogFragment : DialogFragment() {
             val usernameText = usernameEditText.text.toString()
 
             when (usernameText.isEmpty()) {
-                true -> showToast("Please enter a Username")
+                true -> showToast("Please enter a Username!")
 
                 false -> {
                     if (!checkForExistingUserDetails(usernameText)) {
@@ -44,23 +44,29 @@ class SettingsDialogFragment : DialogFragment() {
 
         passwordButton.setOnClickListener {
             val passwordText = passwordEditText.text.toString()
-            showToast("Password button pressed")
-            Log.d("!", "Password = $passwordText")
 
-            // Ändra databas password till det som står i passwordText
+            when (passwordText.isEmpty()) {
+                true -> showToast("Please enter a Password!")
+
+                false -> {
+                    if (!checkForExistingUserDetails(passwordText)) {
+                        Log.d("!", "No password found")
+                    } else {
+                        showToast("Password already exists!")
+                    }
+                }
+            }
         }
-
         return rootView
     }
 
     private fun checkForExistingUserDetails(text: String): Boolean {
         // jämför med databasen om det finns användare där text == username eller password
-        return false
+        return true
     }
 
     fun showToast(toastMessage: String) {
         val toast = Toast.makeText(activity, toastMessage, Toast.LENGTH_SHORT)
         toast.show()
     }
-
 }
