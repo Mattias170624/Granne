@@ -25,6 +25,11 @@
     <string name="Info">Info</string>
     <string name="Stats">Stats</string>
     <string name="Chat">Chat</string>
+    <string name="this_app_is_about_finding_new_friends_you_can_search_for_people_near_you_and_you_can_click_on_all_the_interest_you_have_and_found_a_new_friend_to_do_all_the_fun_stuff_together">This app is about finding new friends. You can search for people near you and you can click on all the interest you have and found a new friend to do all the fun stuff together.</string>
+    <string name="cancel">Cancel</string>
+    <string name="about_this_app">About this app</string>
+    <string name="order_confirmation" />
+    <string name="ok" />
 
     <!--Settings dropdown locations-->
     <string name="spinner_location">SpinnerInKotlin</string>

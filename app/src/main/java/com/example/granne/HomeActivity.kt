@@ -1,8 +1,8 @@
 package com.example.granne
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 
 class HomeActivity : AppCompatActivity() {
@@ -20,7 +20,13 @@ class HomeActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "optionsdialog")
         }
 
+        var infoButton = findViewById<Button>(R.id.buttonInformation)
+        infoButton.setOnClickListener{
+
+            var dialog = CustomDialogFragment()
+
+            dialog.show(supportFragmentManager,"customDialog")
+        }
 
     }
-
 }
