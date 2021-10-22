@@ -98,7 +98,7 @@ class SettingsDialogFragment : DialogFragment() {
 
     private fun checkForExistingUserDetails(text: String): Boolean {
         // jämför med databasen om det finns användare där text == username eller password
-        return true
+        return false
     }
 
     fun showToast(toastMessage: String) {
