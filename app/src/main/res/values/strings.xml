@@ -31,5 +31,14 @@
     <string name="order_confirmation" />
     <string name="ok" />
 
+    <!--Settings dropdown locations-->
+    <string name="spinner_location">SpinnerInKotlin</string>
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Locations">
+        <item>Svealand</item>
+        <item>Götaland</item>
+        <item>Norrland</item>
+    </string-array>
 
 </resources>
