@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -93,6 +90,9 @@ class MainActivity : AppCompatActivity() {
         val createAccountIntent = Intent(this, CreateAccountActivity::class.java)
         startActivity(createAccountIntent)
     }
+
+
+
 
 }
 
