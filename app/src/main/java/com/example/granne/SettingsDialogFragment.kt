@@ -5,10 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
+import android.widget.AdapterView
+import kotlin.math.log
+
 
 class SettingsDialogFragment : DialogFragment() {
 
@@ -21,10 +22,11 @@ class SettingsDialogFragment : DialogFragment() {
 
         val usernameEditText = rootView.findViewById<EditText>(R.id.usernameEditText)
         val passwordEditText = rootView.findViewById<EditText>(R.id.passwordEditText)
+        val locations = resources.getStringArray(R.array.Locations)
+        val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
 
         val usernameButton = rootView.findViewById<Button>(R.id.usernameButton)
         val passwordButton = rootView.findViewById<Button>(R.id.passwordButton)
-
 
         usernameButton.setOnClickListener {
             val usernameText = usernameEditText.text.toString()
@@ -57,6 +59,40 @@ class SettingsDialogFragment : DialogFragment() {
                 }
             }
         }
+
+        if (spinner != null) {
+            val adapter = activity?.let {
+                ArrayAdapter(it, android.R.layout.simple_spinner_item, locations)
+            }
+            spinner.adapter = adapter
+        }
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) { // Position = spinner options converted into Integer
+                    0 -> {
+                        // Change user location in database to Svealand
+                        Log.d("!", "Svealand")
+                    }
+                    1 -> {
+                        // Change user location in database to Götaland
+                        Log.d("!", "Götaland")
+                    }
+                    2 -> {
+                        // Change user location in database to Norrland
+                        Log.d("!", "Norrland")
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+
         return rootView
     }
 
