@@ -37,6 +37,10 @@ class SettingsDialogFragment : DialogFragment() {
                 false -> {
                     if (!checkForExistingUserDetails(usernameText)) {
                         Log.d("!", "No username found")
+                        // Change the username in the database
+
+
+
                     } else {
                         showToast("Username already exists!")
                     }
@@ -53,6 +57,9 @@ class SettingsDialogFragment : DialogFragment() {
                 false -> {
                     if (!checkForExistingUserDetails(passwordText)) {
                         Log.d("!", "No password found")
+                        // Change the password in the database
+
+
                     } else {
                         showToast("Password already exists!")
                     }
