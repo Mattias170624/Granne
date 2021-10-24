@@ -9,9 +9,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
+    val db = Firebase.firestore
     lateinit var usernameEditText: EditText
     lateinit var passwordEditText: EditText
     lateinit var loginButton2: Button
@@ -42,17 +45,20 @@ class LoginActivity : AppCompatActivity() {
                         // Om checkDataBaseForAccount returnerar ett true, så ska man tas till homeScreenActivity
                         // med användarens data.
 
-                        startHomeActivity()
+                        fun startHomeActivity() {
+
+
+                        }
 
                     } else {
                         Log.d("!", "No account matched")
-                        showToast("Invalid username or password")
+                        Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT.)
                     }
                 }
 
                 !checkUserInputs() -> {
                     Log.d("!", "Missing some text fields")
-                    showToast("Please enter a username and password")
+                    Toast.makeText(this, "Please enter a username and password", Toast.LENGTH_SHORT)
                 }
             }
         }
@@ -73,17 +79,38 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkDatabaseForAccount(): Boolean {
-        // Compare $usernameText and $passwordText with database...
-        return true
-    }
+        db.collection("users")
+            .whereEqualTo("username", usernameText)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Log.d("!", "No duplicate found")
+                    checkDatabaseForAccount()
+                } else {
+                    Log.d("!", "Duplicate found!")
+                    Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("!", "Error getting documents: ", exception)
+                // Compare $usernameText and $passwordText with database...
+                true
+            }
 
-    fun showToast(toastMessage: String) {
-        val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
-        toast.show()
-    }
+        fun showToast(toastMessage: String) {
+            val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
+            toast.show()
+        }
 
-    private fun startHomeActivity() {
-        val startHomeIntent = Intent(this, HomeActivity::class.java)
-        startActivity(startHomeIntent)
-    }
+        fun startHomeActivity() {
+            val startHomeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(startHomeIntent)
+        }
+
+
+    return true}
+
 }
+
+
+
