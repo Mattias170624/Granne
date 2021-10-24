@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Startskärmen-->
+    <string name="app_name">Granne</string>
+    <string name="logInPage">LogIn</string>"
+    <string name="change_Language">Ändra språk</string>
+    <string name="create_Account">Skapa konto</string>
+    <string name="login">Logga in</string>
+    <string name="spinner">Välj Språk</string>
+    <!--Logga in aktivitet-->
+    <string name="login_Username">Användarnamn</string>
+    <string name="login_Password">Lösenord</string>
+    <string name="Keep_logged_in">Håll mig inloggad</string>
+    <string name="Login">Logga in</string>
+    <!--Skapa konto aktivitet-->
+    <string name="create_Nickname">Smeknamn</string>
+    <string name="create_Username">Användarnamn</string>
+    <string name="create_Password">Lösenord</string>
+    <string name="Phone_number">Telefonnummer</string>
+    <string name="Code">Kod</string>
+    <string name="Tell_us_about_yourself">Berätta om dig själv</string>
+    <string name="Create_account">Skapa konto</string>
+    <!--Hemskärmen-->
+    <string name="Find_Match">Hitta matchningar</string>
+    <string name="Options">Alternativ</string>
+    <string name="Info">Info</string>
+    <string name="Stats">Statistik</string>
+    <string name="Chat">Chatt</string>
+    <!--Settingsmeny-->
+    <string name="Settings">Inställningar</string>
+    <string name="Username...">Användarnamn...</string>
+    <string name="Password...">Lösenord...</string>
+    <string name="ApplyUsername">Tillämpa</string>
+    <string name="ApplyPassword">Tillämpa</string>
+    <string name="Change_username">Byt användarnamn:</string>
+    <string name="Change_password">Byt lösenord:</string>
+    <string name="Change_location">Byt plats:</string>
+</resources>
