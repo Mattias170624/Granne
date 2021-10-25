@@ -26,6 +26,9 @@
     <string name="Info">Info</string>
     <string name="Stats">Statistik</string>
     <string name="Chat">Chatt</string>
+    <!--Find Match-->
+    <string name="My_Interests">Mina intressen</string>
+    <string name="Search_Match">Sök matchning</string>
     <!--Settingsmeny-->
     <string name="Settings">Inställningar</string>
     <string name="Username...">Användarnamn...</string>

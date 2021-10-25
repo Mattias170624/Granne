@@ -25,11 +25,12 @@
     <string name="Info">Info</string>
     <string name="Stats">Stats</string>
     <string name="Chat">Chat</string>
-
+    <!--Find Match-->
+    <string name="My_Interests">My interests</string>
+    <string name="Search_Match">Search match</string>
     <!--StatsFragment-->
     <string name="statistics"><u>Category Chart</u></string>
     <string name="stats_overview"><u>Personal Statistics</u></string>
-
     <!--Settingsmeny-->
     <string name="Settings">Settings</string>
     <string name="Username...">Username...</string>
