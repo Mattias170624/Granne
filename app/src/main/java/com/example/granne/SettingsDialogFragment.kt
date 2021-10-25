@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import android.widget.AdapterView
-import kotlin.math.log
-
 
 class SettingsDialogFragment : DialogFragment() {
 
@@ -38,7 +36,6 @@ class SettingsDialogFragment : DialogFragment() {
                     if (!checkForExistingUserDetails(usernameText)) {
                         Log.d("!", "No username found")
                         // Change the username in the database
-
 
 
                     } else {
@@ -105,8 +102,6 @@ class SettingsDialogFragment : DialogFragment() {
 
     private fun checkForExistingUserDetails(text: String): Boolean {
         // jämför med databasen om det finns användare där text == username eller password
-        // Test edit
-        // Test edit 2
         return false
     }
 
