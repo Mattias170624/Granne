@@ -2,8 +2,8 @@
     <!--Startskärmen-->
     <string name="app_name">Granne</string>
     <string name="logInPage">LogIn</string>"
-    <string name="change_language">Change Language</string>
-    <string name="create_account">Create account</string>
+    <string name="change_Language">Change Language</string>
+    <string name="create_Account">Create account</string>
     <string name="login">Login</string>
     <string name="spinner">Select Language</string>
     <!--Logga in aktivitet-->
@@ -25,6 +25,15 @@
     <string name="Info">Info</string>
     <string name="Stats">Stats</string>
     <string name="Chat">Chat</string>
+    <!--Settingsmeny-->
+    <string name="Settings">Settings</string>
+    <string name="Username...">Username...</string>
+    <string name="Password...">Password...</string>
+    <string name="ApplyUsername">Apply</string>
+    <string name="ApplyPassword">Apply</string>
+    <string name="Change_username">Change username:</string>
+    <string name="Change_password">Change password:</string>
+    <string name="Change_location">Change location:</string>
 
     <!--Settings dropdown locations-->
     <string name="spinner_location">SpinnerInKotlin</string>
@@ -35,5 +44,9 @@
         <item>Götaland</item>
         <item>Norrland</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about_this_app">About this app</string>
+    <string name="hfksdhfdhfdfdsfkjdsfsdgjs_dgsdgjsdjfsdfjsfjsdfk_kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr_akjfkfkdhfdksfhdsfhdsfkdsljfs_sdkljsdfk">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
 
 </resources>

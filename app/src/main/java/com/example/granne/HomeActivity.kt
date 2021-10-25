@@ -20,6 +20,13 @@ class HomeActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "optionsdialog")
         }
 
+        var infoButton = findViewById<Button>(R.id.buttonInformation)
+        infoButton.setOnClickListener{
+
+            var dialog = CustomDialogFragment()
+
+            dialog.show(supportFragmentManager,"customDialog")
+        }
 
     }
 
