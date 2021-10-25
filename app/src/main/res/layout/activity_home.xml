@@ -57,11 +57,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonStatistics"
+        android:id="@+id/buttonStats"
         android:layout_width="70sp"
         android:layout_height="70sp"
         android:layout_marginBottom="184dp"
         android:background="@drawable/circle_btn"
+        android:onClick="statsDialogButton"
         android:text="@string/Stats"
         app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,5 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ExozT/AndroidStudioProjects/Granne/app/src/main/res/drawable/circle_btn.xml" value="0.3828125" />      
+        <entry key="..\:/Users/ExozT/AndroidStudioProjects/Granne/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3828125" />
+        <entry key="app/src/main/res/drawable/circle_btn.xml" value="0.25885416666666666" />       
+        <entry key="app/src/main/res/layout/fragment_stats.xml" value="0.22" />       
+        <entry key="app/src/main/res/layout/stats_dialog_fragment.xml" value="0.18" />
         <entry key="..\:/Users/ExozT/AndroidStudioProjects/Granne/app/src/main/res/layout/activity_create_account.xml" value="0.26403985507246375" />
         <entry key="..\:/Users/ExozT/AndroidStudioProjects/Granne/app/src/main/res/layout/fragment_settings_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/melis/AndroidStudioProjects/Granne/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.25" />
