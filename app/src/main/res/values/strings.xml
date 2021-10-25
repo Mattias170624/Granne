@@ -44,5 +44,9 @@
         <item>Götaland</item>
         <item>Norrland</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about_this_app">About this app</string>
+    <string name="hfksdhfdhfdfdsfkjdsfsdgjs_dgsdgjsdjfsdfjsfjsdfk_kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr_akjfkfkdhfdksfhdsfhdsfkdsljfs_sdkljsdfk">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
 
 </resources>
