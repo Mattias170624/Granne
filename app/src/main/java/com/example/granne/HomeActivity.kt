@@ -13,6 +13,7 @@ class HomeActivity : AppCompatActivity() {
 
     lateinit var buttonOptions: Button
     lateinit var buttonFindMatch: Button
+    lateinit var buttonChat: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +21,13 @@ class HomeActivity : AppCompatActivity() {
     
         buttonOptions = findViewById(R.id.buttonOptions)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
+        buttonChat = findViewById(R.id.buttonChat)
+
+        buttonChat.setOnClickListener{
+            val chatIntent = Intent(this, ChatActivity::class.java)
+            startActivity(chatIntent)
+
+        }
 
         buttonOptions.setOnClickListener {
             var dialog = SettingsDialogFragment()
