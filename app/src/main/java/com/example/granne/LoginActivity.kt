@@ -64,9 +64,12 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
+
         val currentUser = auth.currentUser
         if (currentUser != null) {  // Check if user is signed in
             reload()
+        } else {
+            Log.d("!", "xxxxxxxxxxxxxxxxxxxxx")
         }
     }
 
@@ -81,14 +84,28 @@ class LoginActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign in success
                     showToast("Successfully created account")
                     val user = auth.currentUser
+
+                    val currentUser = hashMapOf(
+                        "email" to email,
+                        "uid" to user!!.uid,
+                    )
+
+                    db.collection("userData")
+                        .add(currentUser)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d("!", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("!", "Error adding document", e)
+                        }
+
                     updateUI(user)
 
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // Sign in failed
                     Log.w("!", "createUserWithEmail:failure", task.exception)
                     showToast("Email already in use or badly written")
                     updateUI(null)
@@ -119,27 +136,12 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             Log.d("!", "Account created / logged in")
+            Log.d("!", "----------------------------")
+            Log.d("!", "Email: ${email}")
+            Log.d("!", "Uid: ${user.uid}")
 
-            Log.d("!", ">> ${user.email}")
-            Log.d("!", ">> ${user.uid}")
-
-            Log.d("!", "-----------------------------")
-
-            var currentUser = hashMapOf(
-                "email" to email,
-                "uid" to user.uid
-
-            )
-
-            db.collection("userData")
-                .add(currentUser)
-                .addOnSuccessListener { documentReference ->
-                    Log.d("!", "DocumentSnapshot added with ID: ${documentReference.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("!", "Error adding document", e)
-                }
-
+            val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
+            startActivity(startHomeActivityIntent)
 
         } else {
             Log.d("!", "User failed to log in")
@@ -152,6 +154,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun reload() {
-        Log.d("!", "Reloaded")
+        Log.d("!", "$email is already logged in")
+
+
     }
 }
