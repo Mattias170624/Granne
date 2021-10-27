@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -22,10 +23,14 @@ class LoginActivity : AppCompatActivity() {
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
 
+    lateinit var email: String
+    lateinit var password: String
+
+    val db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         auth = Firebase.auth
 
         buttonSignIn = findViewById(R.id.buttonSignIn)
@@ -33,26 +38,27 @@ class LoginActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
 
-        buttonSignIn.setOnClickListener {
-            val email: String = emailEditText.text.toString()
-            val password: String = passwordEditText.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                showToast("Empty inputs")
-            } else signIn(email, password)
+        buttonSignIn.setOnClickListener {
+            when {
+                checkUserInputs() -> signIn(email, password)
+
+                !checkUserInputs() -> showToast("Empty inputs")
+            }
         }
 
         buttonRegister.setOnClickListener {
-            val email: String = emailEditText.text.toString()
-            val password: String = passwordEditText.text.toString()
+            when {
+                checkUserInputs() -> {
+                    if (password.length >= 6) {
+                        createAccount(email, password)
+                    } else showToast("Password must be at least 6 characters")
+                }
 
-            if (email.isEmpty() || password.isEmpty()) {
-                showToast("Empty inputs")
-            } else {
-                if (password.length < 6) showToast("Password must be at least 6 characters")
-                else createAccount(email, password)
+                !checkUserInputs() -> showToast("Empty inputs")
             }
         }
+
 
     }
 
@@ -60,20 +66,27 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {  // Check if user is signed in
-            reload();
+            reload()
         }
     }
 
+    fun checkUserInputs(): Boolean {
+        email = emailEditText.text.toString()
+        password = passwordEditText.text.toString()
+
+        return !(email.isEmpty() || password.isEmpty())
+    }
+
     private fun createAccount(email: String, password: String) {
-        // [START create_user_with_email]
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("!", "createUserWithEmail:success")
                     showToast("Successfully created account")
                     val user = auth.currentUser
                     updateUI(user)
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("!", "createUserWithEmail:failure", task.exception)
@@ -81,19 +94,19 @@ class LoginActivity : AppCompatActivity() {
                     updateUI(null)
                 }
             }
-        // [END create_user_with_email]
     }
 
     private fun signIn(email: String, password: String) {
-        // [START sign_in_with_email]
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("!", "signInWithEmail:success")
                     showToast("Logged in")
                     val user = auth.currentUser
                     updateUI(user)
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("!", "signInWithEmail:failure", task.exception)
@@ -101,16 +114,33 @@ class LoginActivity : AppCompatActivity() {
                     updateUI(null)
                 }
             }
-        // [END sign_in_with_email]
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        Log.d("!", "updated UI")
-
         if (user != null) {
             Log.d("!", "Account created / logged in")
-            val goToHomeActivity = Intent(this, HomeActivity::class.java)
-            startActivity(goToHomeActivity)
+
+            Log.d("!", ">> ${user.email}")
+            Log.d("!", ">> ${user.uid}")
+
+            Log.d("!", "-----------------------------")
+
+            var currentUser = hashMapOf(
+                "email" to email,
+                "uid" to user.uid
+
+            )
+
+            db.collection("userData")
+                .add(currentUser)
+                .addOnSuccessListener { documentReference ->
+                    Log.d("!", "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("!", "Error adding document", e)
+                }
+
+
         } else {
             Log.d("!", "User failed to log in")
         }
@@ -122,6 +152,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun reload() {
-        Log.d("!", "Reloaded, user är inte null! :) BRA")
+        Log.d("!", "Reloaded")
     }
 }
