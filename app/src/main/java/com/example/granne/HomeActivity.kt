@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var nameUnderIcon: TextView
     lateinit var buttonOptions: ImageButton
     lateinit var buttonFindMatch: Button
-    lateinit var buttonChat: Button
+    lateinit var buttonChat: ImageButton
     lateinit var buttonLogout: Button
 
     val db = Firebase.firestore
@@ -42,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
         buttonChat = findViewById(R.id.buttonChat)
         buttonLogout = findViewById(R.id.buttonLogout)
+
         nameUnderIcon.text = currentUser!!.email
         
 
@@ -49,6 +50,8 @@ class HomeActivity : AppCompatActivity() {
             val chatIntent = Intent(this, ChatActivity::class.java)
             startActivity(chatIntent)
         }
+
+
 
         buttonLogout.setOnClickListener {
             Log.d("!", "Logout pressed")

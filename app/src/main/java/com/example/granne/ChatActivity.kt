@@ -34,35 +34,37 @@ class ChatActivity : AppCompatActivity() {
         buttonSendMessage = findViewById(R.id.buttonSendMessage)
         edit_name = findViewById(R.id.edit_name)
         edit_message = findViewById(R.id.edit_message)
-        buttonSendMessage.setOnClickListener{
+        buttonSendMessage.setOnClickListener {
             sendMessage()
         }
     }
 
-    private fun sendMessage(){
+    private fun sendMessage() {
         val newMessage = mapOf(
             NAME_FIELD to edit_name.text.toString(),
-            TEXT_FIELD to edit_message.text.toString())
-        firestoreChat.set(newMessage).addOnSuccessListener({
+            TEXT_FIELD to edit_message.text.toString()
+        )
+        firestoreChat.set(newMessage).addOnSuccessListener {
             Toast.makeText(this@ChatActivity, "Message Sent", Toast.LENGTH_SHORT).show()
-        }).addOnFailureListener{ e -> e.message?.let { Log.e("ERROR", it) } }
+        }.addOnFailureListener { e -> e.message?.let { Log.e("ERROR", it) } }
 
-        }
-    private fun realtimeUpdateListener(){
+    }
+
+    private fun realtimeUpdateListener() {
         firestoreChat.addSnapshotListener { documentSnapshot, e ->
-            when{
+            when {
                 e != null -> e.message?.let { Log.e("ERROR", it) }
                 documentSnapshot != null && documentSnapshot.exists() -> {
                     with(documentSnapshot) {
                         if (data != null)
-                            textDisplay.setText( "${data!![NAME_FIELD]}:${data!![TEXT_FIELD]}")
+                            textDisplay.text = "${data!![NAME_FIELD]}: ${data!![TEXT_FIELD]}"
                     }
                 }
             }
 
         }
     }
-        }
+}
 
 
 
