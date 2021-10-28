@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -16,10 +18,10 @@ import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
 
     lateinit var nameUnderIcon: TextView
-    lateinit var buttonOptions: Button
+    private lateinit var auth: FirebaseAuth
+    lateinit var buttonOptions: ImageButton
     lateinit var buttonFindMatch: Button
     lateinit var buttonLogout: Button
 
@@ -58,8 +60,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(findMatchIntent)
         }
 
-        var infoButton = findViewById<Button>(R.id.buttonInformation)
-        infoButton.setOnClickListener {
+        var infoImageButton = findViewById<ImageButton>(R.id.buttonInformation)
+        infoImageButton.setOnClickListener{
 
             var dialog = CustomDialogFragment()
 
