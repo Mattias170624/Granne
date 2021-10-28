@@ -1,5 +1,6 @@
 package com.example.granne
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +9,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import android.widget.AdapterView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class SettingsDialogFragment : DialogFragment() {
+
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +34,28 @@ class SettingsDialogFragment : DialogFragment() {
 
         val usernameButton = rootView.findViewById<Button>(R.id.usernameButton)
         val passwordButton = rootView.findViewById<Button>(R.id.passwordButton)
+        val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
+
+        auth = Firebase.auth
+
+        val currentUser = auth.currentUser
+
+        deleteAccountButton.setOnClickListener {
+            Log.d("!", currentUser!!.uid)
+
+            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid).delete()
+                .addOnSuccessListener {
+                    FirebaseAuth.getInstance().currentUser!!.delete()
+                        .addOnCompleteListener {
+                            Log.d("!", "User deleted in cloud database and auth")
+                            val returnToLoginScreen = Intent(activity, MainActivity::class.java)
+                            startActivity(returnToLoginScreen)
+                        }
+                }
+                .addOnFailureListener { error ->
+                    Log.d("!", "Error! $error")
+                }
+        }
 
         usernameButton.setOnClickListener {
             val usernameText = usernameEditText.text.toString()

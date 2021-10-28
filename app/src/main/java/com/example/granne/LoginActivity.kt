@@ -91,16 +91,17 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success
                     showToast("Successfully created account")
                     val user = auth.currentUser
+                    val uid: String = user!!.uid
 
                     val currentUser = hashMapOf(
                         "email" to email,
-                        "uid" to user!!.uid,
+                        "uid" to user.uid,
                     )
 
                     db.collection("userData")
-                        .add(currentUser)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d("!", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        .document(uid).set(currentUser)
+                        .addOnSuccessListener {
+                            Log.d("!", "User added to Database with same UID as Firestore Auth ")
                         }
                         .addOnFailureListener { e ->
                             Log.w("!", "Error adding document", e)

@@ -25,6 +25,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var buttonFindMatch: Button
     lateinit var buttonLogout: Button
 
+    val db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -38,7 +40,6 @@ class HomeActivity : AppCompatActivity() {
         buttonLogout = findViewById(R.id.buttonLogout)
 
         nameUnderIcon.text = currentUser!!.email
-        Log.d("!", "${currentUser.email}")
 
         buttonLogout.setOnClickListener {
             Log.d("!", "Logout pressed")
