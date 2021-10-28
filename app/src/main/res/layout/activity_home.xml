@@ -35,6 +35,7 @@
         android:layout_width="70sp"
         android:layout_height="70sp"
         android:layout_marginBottom="316dp"
+        <!--lägger till optionsikon-->
         app:srcCompat="@drawable/ic_options_button"
         android:background="@drawable/circle_btn"
         app:backgroundTint="#C4C4C4"
