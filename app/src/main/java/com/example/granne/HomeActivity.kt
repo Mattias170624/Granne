@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var buttonOptions: Button
+    lateinit var buttonOptions: ImageButton
     lateinit var buttonFindMatch: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +32,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(findMatchIntent)
         }
 
-        var infoButton = findViewById<Button>(R.id.buttonInformation)
-        infoButton.setOnClickListener{
+        var infoImageButton = findViewById<ImageButton>(R.id.buttonInformation)
+        infoImageButton.setOnClickListener{
 
             var dialog = CustomDialogFragment()
 
