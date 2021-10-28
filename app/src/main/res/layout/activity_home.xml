@@ -61,34 +61,35 @@
         android:layout_width="70sp"
         android:layout_height="70sp"
         android:layout_marginBottom="316dp"
-        app:srcCompat="@drawable/ic_options_button"
         android:background="@drawable/circle_btn"
         app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.803"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_options_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/buttonInformation"
         android:layout_width="70sp"
         android:layout_height="70sp"
         android:layout_marginBottom="64dp"
-        app:srcCompat="@drawable/ic_info_button"
         android:background="@drawable/circle_btn"
         android:text="@string/Info"
         app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.158"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_info_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/buttonStats"
         android:layout_width="70sp"
         android:layout_height="70sp"
         android:layout_marginBottom="184dp"
-        app:srcCompat="@drawable/ic_stats_button"
         android:background="@drawable/circle_btn"
         android:onClick="statsDialogButton"
         android:text="@string/Stats"
@@ -96,7 +97,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.237"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_stats_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <ImageButton
@@ -110,7 +113,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"/>
 
 
 

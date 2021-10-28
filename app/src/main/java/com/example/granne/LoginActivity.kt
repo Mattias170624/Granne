@@ -22,9 +22,11 @@ class LoginActivity : AppCompatActivity() {
     lateinit var buttonRegister: Button
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
+    lateinit var nicknameEditText: EditText
 
     lateinit var email: String
     lateinit var password: String
+    lateinit var nickname: String
 
     val db = Firebase.firestore
 
@@ -37,14 +39,15 @@ class LoginActivity : AppCompatActivity() {
         buttonRegister = findViewById(R.id.buttonRegister)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
+        nicknameEditText = findViewById(R.id.nameEdiText)
 
 
         buttonSignIn.setOnClickListener {
             when {
                 checkUserInputs() -> {
-                    if (password.length >= 6) {
-                        signIn(email, password)
-                    } else showToast("Password must be at least 6 characters")
+                    if (password.length < 6) {
+                        showToast("Password must be at least 6 characters")
+                    } else signIn(email, password)
                 }
 
                 !checkUserInputs() -> showToast("Empty inputs")
@@ -55,8 +58,12 @@ class LoginActivity : AppCompatActivity() {
             when {
                 checkUserInputs() -> {
                     if (password.length >= 6) {
-                        createAccount(email, password)
-                    } else showToast("Password must be at least 6 characters")
+                        if (nickname.length >= 6) {
+                            createAccount(email, password, nickname)
+                        } else showToast("Nickname must be at least 6 characters")
+                    } else {
+                        showToast("Password must be at least 6 characters")
+                    }
                 }
 
                 !checkUserInputs() -> showToast("Empty inputs")
@@ -80,11 +87,12 @@ class LoginActivity : AppCompatActivity() {
     fun checkUserInputs(): Boolean {
         email = emailEditText.text.toString()
         password = passwordEditText.text.toString()
+        nickname = nicknameEditText.text.toString()
 
         return !(email.isEmpty() || password.isEmpty())
     }
 
-    private fun createAccount(email: String, password: String) {
+    private fun createAccount(email: String, password: String, nickname: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -96,6 +104,7 @@ class LoginActivity : AppCompatActivity() {
                     val currentUser = hashMapOf(
                         "email" to email,
                         "uid" to user.uid,
+                        "nickname" to nickname,
                     )
 
                     db.collection("userData")
@@ -144,6 +153,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d("!", "----------------------------")
             Log.d("!", "Email: ${email}")
             Log.d("!", "Uid: ${user.uid}")
+            Log.d("!","Nickname: $nickname")
 
             homeScreenIntent()
 
