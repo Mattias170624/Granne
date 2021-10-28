@@ -41,7 +41,11 @@ class LoginActivity : AppCompatActivity() {
 
         buttonSignIn.setOnClickListener {
             when {
-                checkUserInputs() -> signIn(email, password)
+                checkUserInputs() -> {
+                    if (password.length >= 6) {
+                        signIn(email, password)
+                    } else showToast("Password must be at least 6 characters")
+                }
 
                 !checkUserInputs() -> showToast("Empty inputs")
             }
@@ -66,10 +70,10 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
 
         val currentUser = auth.currentUser
-        if (currentUser != null) {  // Check if user is signed in
+        if (currentUser != null) { // Check if user is signed in
             reload()
         } else {
-            Log.d("!", "xxxxxxxxxxxxxxxxxxxxx")
+            Log.d("!", "No user logged in")
         }
     }
 
@@ -140,8 +144,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d("!", "Email: ${email}")
             Log.d("!", "Uid: ${user.uid}")
 
-            val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
-            startActivity(startHomeActivityIntent)
+            homeScreenIntent()
 
         } else {
             Log.d("!", "User failed to log in")
@@ -154,8 +157,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun reload() {
-        Log.d("!", "$email is already logged in")
+        val user = auth.currentUser
+        Log.d("!", "${user?.email} is already logged in")
 
+        homeScreenIntent()
+    }
 
+    fun homeScreenIntent() {
+        val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
+        startActivity(startHomeActivityIntent)
     }
 }
