@@ -38,4 +38,19 @@
     <string name="Change_username">Byt användarnamn:</string>
     <string name="Change_password">Byt lösenord:</string>
     <string name="Change_location">Byt plats:</string>
+    <string name="ApplyPicture">Välj bild</string>
+    <string name="BrowsePictures">Bläddra bilder</string>
+    <string name="Change_profile_picture">Byt profilbild:</string>
+    <!--stats_dialog_fragment-->
+    <string name="stats_overview">Statistiköversikt</string>
+    <string name="TotalMatches">Totala matchningar</string>
+    <string name="ThumbsUp">Tummar upp</string>
+    <string name="statistics">Statistik</string>
+    <!--Settings dropdown locations-->
+    <string name="spinner_location">SpinnerIKotlin</string>
+    <string name="selected_item">Valda objekt:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hej tomt fragment</string>
+    <string name="about_this_app">Om den här appen</string>
+    <string name="AboutThisAppText">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
 </resources>

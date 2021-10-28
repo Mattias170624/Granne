@@ -1,5 +1,6 @@
 package com.example.granne
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +9,17 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import android.widget.AdapterView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class SettingsDialogFragment : DialogFragment() {
+
+    private lateinit var auth: FirebaseAuth
+
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,28 +28,49 @@ class SettingsDialogFragment : DialogFragment() {
     ): View {
         val rootView: View = inflater.inflate(R.layout.fragment_settings_dialog, container, false)
 
-        val usernameEditText = rootView.findViewById<EditText>(R.id.usernameEditText)
+        val nicknameEditText = rootView.findViewById<EditText>(R.id.nicknameEditText)
         val passwordEditText = rootView.findViewById<EditText>(R.id.passwordEditText)
         val locations = resources.getStringArray(R.array.Locations)
         val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
 
-        val usernameButton = rootView.findViewById<Button>(R.id.usernameButton)
+        val nicknameButton = rootView.findViewById<Button>(R.id.nicknameButton)
         val passwordButton = rootView.findViewById<Button>(R.id.passwordButton)
+        val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
 
-        usernameButton.setOnClickListener {
-            val usernameText = usernameEditText.text.toString()
+        auth = Firebase.auth
 
-            when (usernameText.isEmpty()) {
-                true -> showToast("Please enter a Username!")
+        val currentUser = auth.currentUser
+
+        deleteAccountButton.setOnClickListener {
+
+            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid)
+                .delete()
+                .addOnSuccessListener {
+                    FirebaseAuth.getInstance().currentUser!!.delete()
+                        .addOnCompleteListener {
+                            Log.d("!", "User deleted in cloud database and auth")
+                            val returnToLoginScreen = Intent(activity, MainActivity::class.java)
+                            startActivity(returnToLoginScreen)
+                        }
+                }
+                .addOnFailureListener { error ->
+                    Log.d("!", "Error! $error")
+                }
+        }
+
+        nicknameButton.setOnClickListener {
+            val nickname = nicknameEditText.text.toString()
+            when (nickname.isEmpty()) {
+                true -> showToast("Please enter a new username!")
 
                 false -> {
-                    if (!checkForExistingUserDetails(usernameText)) {
-                        Log.d("!", "No username found")
-                        // Change the username in the database
-
-
+                    if (nickname.length < 6) {
+                        showToast("Username cant be less than 6 characters")
                     } else {
-                        showToast("Username already exists!")
+                        db.collection("userData").document(currentUser!!.uid)
+                            .update("nickname", nickname)
+                            .addOnSuccessListener { Log.d("!", "Sucess!!") }
+                            .addOnFailureListener { e -> Log.d("!", "Error:", e) }
                     }
                 }
             }

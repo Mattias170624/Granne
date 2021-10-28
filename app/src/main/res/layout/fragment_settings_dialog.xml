@@ -5,12 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/titleTextView"
@@ -18,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingTop="15dp"
-            android:text="Settings"
+            android:text="@string/Settings"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -26,16 +25,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/nicknameEditText"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:hint="Username..."
+            android:hint="Nickname"
+            android:text=""
             android:minHeight="48dp"
             android:textSize="18dp"
-            app:layout_constraintEnd_toStartOf="@+id/usernameButton"
+            app:layout_constraintEnd_toStartOf="@+id/nicknameButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -46,7 +46,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:hint="Username..."
+            android:hint="@string/Password..."
             android:minHeight="48dp"
             android:textSize="18dp"
             app:layout_constraintEnd_toStartOf="@+id/passwordButton"
@@ -54,16 +54,17 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Button
-            android:id="@+id/usernameButton"
+            android:id="@+id/nicknameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="40dp"
-            android:text="Apply"
+            android:text="@string/ApplyUsername"
+            android:backgroundTint="#A6746F"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/usernameEditText"
+            app:layout_constraintStart_toEndOf="@+id/nicknameEditText"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <Button
@@ -73,7 +74,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="40dp"
-            android:text="Apply"
+            android:text="@string/ApplyPassword"
+            android:backgroundTint="#A6746F"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/passwordEditText"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -86,11 +88,13 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:text="Apply Picture"
+            android:text="@string/ApplyPicture"
+            android:backgroundTint="#A6746F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/browsePicturesButton"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/browsePicturesButton"
@@ -100,12 +104,27 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="20dp"
-            android:text="Browse Pictures"
+            android:text="@string/BrowsePictures"
+            android:backgroundTint="#A6746F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/applyPicturesButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.519" />
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/deleteAccountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="20dp"
+            android:text="Delete my account"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/applyPicturesButton" />
 
         <Spinner
             android:id="@+id/spinnerLocation"
@@ -128,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Change username:"
+            android:text="Change nickname"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -140,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
-            android:text="Change password:"
+            android:text="@string/Change_password"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -152,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
-            android:text="Change location:"
+            android:text="@string/Change_location"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
@@ -164,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
-            android:text="Change profile picture:"
+            android:text="@string/Change_profile_picture"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
