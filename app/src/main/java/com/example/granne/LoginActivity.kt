@@ -123,14 +123,14 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
 
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign in success. Start HomeActivity
                     Log.d("!", "signInWithEmail:success")
                     showToast("Logged in")
                     val user = auth.currentUser
                     updateUI(user)
 
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // If sign in fails. Display a toast to the user
                     Log.w("!", "signInWithEmail:failure", task.exception)
                     showToast("Email doesn't exist or is badly written")
                     updateUI(null)
@@ -147,17 +147,11 @@ class LoginActivity : AppCompatActivity() {
 
             homeScreenIntent()
 
-        } else {
-            Log.d("!", "User failed to log in")
-        }
-    }
-
-    fun showToast(toastMessage: String) {
-        val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
-        toast.show()
+        } else Log.d("!", "User failed to log in")
     }
 
     private fun reload() {
+        // Reload == keep user logged in
         val user = auth.currentUser
         Log.d("!", "${user?.email} is already logged in")
 
@@ -167,5 +161,10 @@ class LoginActivity : AppCompatActivity() {
     fun homeScreenIntent() {
         val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
         startActivity(startHomeActivityIntent)
+    }
+
+    fun showToast(toastMessage: String) {
+        val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
+        toast.show()
     }
 }

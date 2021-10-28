@@ -18,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 class SettingsDialogFragment : DialogFragment() {
 
     private lateinit var auth: FirebaseAuth
+
     val db = Firebase.firestore
 
     override fun onCreateView(

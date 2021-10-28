@@ -7,14 +7,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,6 +24,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var buttonLogout: Button
 
     val db = Firebase.firestore
+    // Use cloud database to add additional information to user later on
+    // Ex: Interests, name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,6 @@ class HomeActivity : AppCompatActivity() {
         buttonOptions = findViewById(R.id.buttonOptions)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
         buttonLogout = findViewById(R.id.buttonLogout)
-
         nameUnderIcon.text = currentUser!!.email
 
         buttonLogout.setOnClickListener {
