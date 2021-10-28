@@ -28,12 +28,12 @@ class SettingsDialogFragment : DialogFragment() {
     ): View {
         val rootView: View = inflater.inflate(R.layout.fragment_settings_dialog, container, false)
 
-        val usernameEditText = rootView.findViewById<EditText>(R.id.usernameEditText)
+        val nicknameEditText = rootView.findViewById<EditText>(R.id.nicknameEditText)
         val passwordEditText = rootView.findViewById<EditText>(R.id.passwordEditText)
         val locations = resources.getStringArray(R.array.Locations)
         val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
 
-        val usernameButton = rootView.findViewById<Button>(R.id.usernameButton)
+        val nicknameButton = rootView.findViewById<Button>(R.id.nicknameButton)
         val passwordButton = rootView.findViewById<Button>(R.id.passwordButton)
         val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
 
@@ -42,9 +42,9 @@ class SettingsDialogFragment : DialogFragment() {
         val currentUser = auth.currentUser
 
         deleteAccountButton.setOnClickListener {
-            Log.d("!", currentUser!!.uid)
 
-            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid).delete()
+            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid)
+                .delete()
                 .addOnSuccessListener {
                     FirebaseAuth.getInstance().currentUser!!.delete()
                         .addOnCompleteListener {
@@ -58,20 +58,19 @@ class SettingsDialogFragment : DialogFragment() {
                 }
         }
 
-        usernameButton.setOnClickListener {
-            val usernameText = usernameEditText.text.toString()
-
-            when (usernameText.isEmpty()) {
-                true -> showToast("Please enter a Username!")
+        nicknameButton.setOnClickListener {
+            val nickname = nicknameEditText.text.toString()
+            when (nickname.isEmpty()) {
+                true -> showToast("Please enter a new username!")
 
                 false -> {
-                    if (!checkForExistingUserDetails(usernameText)) {
-                        Log.d("!", "No username found")
-                        // Change the username in the database
-
-
+                    if (nickname.length < 6) {
+                        showToast("Username cant be less than 6 characters")
                     } else {
-                        showToast("Username already exists!")
+                        db.collection("userData").document(currentUser!!.uid)
+                            .update("nickname", nickname)
+                            .addOnSuccessListener { Log.d("!", "Sucess!!") }
+                            .addOnFailureListener { e -> Log.d("!", "Error:", e) }
                     }
                 }
             }
