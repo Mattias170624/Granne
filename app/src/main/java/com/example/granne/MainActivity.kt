@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         spinner = findViewById(R.id.spinner)
 
         val list = ArrayList<String>()
-        list.add("Select language")
+        list.add("Language")
         list.add("English")
         list.add("Svenska")
 
@@ -50,8 +50,7 @@ class MainActivity : AppCompatActivity() {
                 id: Long
             ) {
                 when (position) {
-                    0 -> {
-                    }
+                    0 -> {}
                     1 -> setLocale("en")
                     2 -> setLocale("sv")
                 }
