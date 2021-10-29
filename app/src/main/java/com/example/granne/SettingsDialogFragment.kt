@@ -31,10 +31,10 @@ class SettingsDialogFragment : DialogFragment() {
         val nicknameEditText = rootView.findViewById<EditText>(R.id.nicknameEditText)
         val nicknameButton = rootView.findViewById<Button>(R.id.nicknameButton)
         val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
-        val locations = resources.getStringArray(R.array.Locations)
         val buttonSignOut = rootView.findViewById<Button>(R.id.buttonSignOut)
-
+        val locationButton = rootView.findViewById<Button>(R.id.locationButton)
         val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
+        val locations = resources.getStringArray(R.array.Locations)
 
         auth = Firebase.auth
 
@@ -51,21 +51,38 @@ class SettingsDialogFragment : DialogFragment() {
                     } else {
                         db.collection("userData").document(currentUser!!.uid)
                             .update("nickname", nickname)
-                            .addOnSuccessListener { Log.d("!", "Sucess!!") }
+                            .addOnSuccessListener {
+                                showToast("Nickname changed!")
+                                nicknameEditText.setText("")
+                            }
+
                             .addOnFailureListener { e -> Log.d("!", "Error:", e) }
                     }
                 }
             }
         }
 
-        buttonSignOut.setOnClickListener {
-            Log.d("!", "Logout pressed")
-            showToast("Logged out")
+        if (spinner != null) {
+            val adapter = activity?.let {
+                ArrayAdapter(it, android.R.layout.simple_spinner_item, locations)
+            }
+            spinner.adapter = adapter
+        }
 
+        val arrayAdapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
+        spinner.adapter = arrayAdapter
+
+        locationButton.setOnClickListener {
+            Log.d("!", "Clicked")
+            // Koppla med användarens firebase och lägg till location till collection
+        }
+
+        buttonSignOut.setOnClickListener {
+            showToast("Logged out")
             auth.signOut()
             val startLoginScreen = Intent(activity, MainActivity::class.java)
             startActivity(startLoginScreen)
-
         }
 
         deleteAccountButton.setOnClickListener {
@@ -85,43 +102,10 @@ class SettingsDialogFragment : DialogFragment() {
                 }
         }
 
-        if (spinner != null) {
-            val adapter = activity?.let {
-                ArrayAdapter(it, android.R.layout.simple_spinner_item, locations)
-            }
-            spinner.adapter = adapter
-        }
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View?,
-                position: Int,
-                id: Long
-            ) {
-                when (position) { // Position = spinner options converted into Integer
-                    0 -> {
-                        // Change user location in database to Svealand
-                        Log.d("!", "Svealand")
-                    }
-                    1 -> {
-                        // Change user location in database to Götaland
-                        Log.d("!", "Götaland")
-                    }
-                    2 -> {
-                        // Change user location in database to Norrland
-                        Log.d("!", "Norrland")
-                    }
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
-
         return rootView
     }
 
-    fun showToast(toastMessage: String) {
+    private fun showToast(toastMessage: String) {
         val toast = Toast.makeText(activity, toastMessage, Toast.LENGTH_SHORT)
         toast.show()
     }

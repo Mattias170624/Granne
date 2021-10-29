@@ -93,7 +93,7 @@ class CreateAccountActivity : AppCompatActivity() {
             Log.d("!", "Account created / logged in")
             Log.d("!", "----------------------------")
             Log.d("!", "Nickname: $nickname")
-            Log.d("!", "Email: ${email}")
+            Log.d("!", "Email: $email")
             Log.d("!", "Uid: ${user.uid}")
 
             val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
