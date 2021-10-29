@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import java.util.HashMap
 
 class InterestDialogFragment : DialogFragment() {
 
@@ -42,43 +43,45 @@ class InterestDialogFragment : DialogFragment() {
 
         saveChangesButton.setOnClickListener {
             var count = 0
+            var userInterests = hashMapOf<String, Any?>()
 
             if (checkBox1.isChecked) {
                 count++
-                Log.d("!", "1")
+                userInterests["interest1"] = "Wildlife"
             }
             if (checkBox2.isChecked) {
                 count++
-                Log.d("!", "2")
+                userInterests["interest2"] = "Travel"
             }
             if (checkBox3.isChecked) {
                 count++
-                Log.d("!", "3")
+                userInterests["interest3"] = "Food"
             }
             if (checkBox4.isChecked) {
                 count++
-                Log.d("!", "4")
+                userInterests["interest4"] = "Socialising"
             }
             if (checkBox5.isChecked) {
                 count++
-                Log.d("!", "5")
+                userInterests["interest5"] = "Books"
             }
             if (checkBox6.isChecked) {
                 count++
-                Log.d("!", "6")
+                userInterests["interest6"] = "Games"
             }
             if (checkBox7.isChecked) {
                 count++
-                Log.d("!", "7")
+                userInterests["interest7"] = "Netflix"
             }
 
             if (count > 6) {
-                showToast("You can only a maximum of 6 interests!")
+                showToast("Max 6 interests allowed!")
             } else {
-                Log.d("!", "Good. count <= 6")
+                showToast("Saved changes")
+                for (interest in userInterests) {
+                    Log.d("!", ">> $interest")
+                }
             }
-
-
         }
 
         return rootView

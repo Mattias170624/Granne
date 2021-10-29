@@ -19,12 +19,11 @@ import com.google.firebase.ktx.Firebase
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-  
-    lateinit var nameUnderIcon: TextView
+
+    lateinit var nicknameUnderIcon: TextView
     lateinit var buttonOptions: ImageButton
     lateinit var buttonFindMatch: Button
     lateinit var buttonChat: ImageButton
-    lateinit var buttonLogout: Button
 
     val db = Firebase.firestore
     // Use cloud database to add additional information to user later on
@@ -37,28 +36,16 @@ class HomeActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
 
-        nameUnderIcon = findViewById(R.id.nameUnderIconTextView)
+        nicknameUnderIcon = findViewById(R.id.nicknameUnderIcon)
         buttonOptions = findViewById(R.id.buttonOptions)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
         buttonChat = findViewById(R.id.buttonChat)
-        buttonLogout = findViewById(R.id.buttonLogout)
+        nicknameUnderIcon.text = currentUser!!.email
 
-        nameUnderIcon.text = currentUser!!.email
-        
 
-        buttonChat.setOnClickListener{
+        buttonChat.setOnClickListener {
             val chatIntent = Intent(this, ChatActivity::class.java)
             startActivity(chatIntent)
-        }
-
-
-
-        buttonLogout.setOnClickListener {
-            Log.d("!", "Logout pressed")
-
-            auth.signOut()
-            val startLoginScreen = Intent(this, MainActivity::class.java)
-            startActivity(startLoginScreen)
         }
 
         buttonOptions.setOnClickListener {
@@ -72,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         var infoImageButton = findViewById<ImageButton>(R.id.buttonInformation)
-        infoImageButton.setOnClickListener{
+        infoImageButton.setOnClickListener {
 
             var dialog = CustomDialogFragment()
 

@@ -29,34 +29,16 @@ class SettingsDialogFragment : DialogFragment() {
         val rootView: View = inflater.inflate(R.layout.fragment_settings_dialog, container, false)
 
         val nicknameEditText = rootView.findViewById<EditText>(R.id.nicknameEditText)
-        val passwordEditText = rootView.findViewById<EditText>(R.id.passwordEditText)
-        val locations = resources.getStringArray(R.array.Locations)
-        val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
-
         val nicknameButton = rootView.findViewById<Button>(R.id.nicknameButton)
-        val passwordButton = rootView.findViewById<Button>(R.id.passwordButton)
+        val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
+        val locations = resources.getStringArray(R.array.Locations)
+        val buttonSignOut = rootView.findViewById<Button>(R.id.buttonSignOut)
+
         val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
 
         auth = Firebase.auth
 
         val currentUser = auth.currentUser
-
-        deleteAccountButton.setOnClickListener {
-
-            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid)
-                .delete()
-                .addOnSuccessListener {
-                    FirebaseAuth.getInstance().currentUser!!.delete()
-                        .addOnCompleteListener {
-                            Log.d("!", "User deleted in cloud database and auth")
-                            val returnToLoginScreen = Intent(activity, MainActivity::class.java)
-                            startActivity(returnToLoginScreen)
-                        }
-                }
-                .addOnFailureListener { error ->
-                    Log.d("!", "Error! $error")
-                }
-        }
 
         nicknameButton.setOnClickListener {
             val nickname = nicknameEditText.text.toString()
@@ -76,23 +58,31 @@ class SettingsDialogFragment : DialogFragment() {
             }
         }
 
-        passwordButton.setOnClickListener {
-            val passwordText = passwordEditText.text.toString()
+        buttonSignOut.setOnClickListener {
+            Log.d("!", "Logout pressed")
+            showToast("Logged out")
 
-            when (passwordText.isEmpty()) {
-                true -> showToast("Please enter a Password!")
+            auth.signOut()
+            val startLoginScreen = Intent(activity, MainActivity::class.java)
+            startActivity(startLoginScreen)
 
-                false -> {
-                    if (!checkForExistingUserDetails(passwordText)) {
-                        Log.d("!", "No password found")
-                        // Change the password in the database
+        }
 
-
-                    } else {
-                        showToast("Password already exists!")
-                    }
+        deleteAccountButton.setOnClickListener {
+            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid)
+                .delete()
+                .addOnSuccessListener {
+                    FirebaseAuth.getInstance().currentUser!!.delete()
+                        .addOnCompleteListener {
+                            Log.d("!", "User deleted in cloud database and auth")
+                            showToast("Account deleted!")
+                            val returnToLoginScreen = Intent(activity, MainActivity::class.java)
+                            startActivity(returnToLoginScreen)
+                        }
                 }
-            }
+                .addOnFailureListener { error ->
+                    Log.d("!", "Error! $error")
+                }
         }
 
         if (spinner != null) {
@@ -129,11 +119,6 @@ class SettingsDialogFragment : DialogFragment() {
         }
 
         return rootView
-    }
-
-    private fun checkForExistingUserDetails(text: String): Boolean {
-        // jämför med databasen om det finns användare där text == username eller password
-        return false
     }
 
     fun showToast(toastMessage: String) {

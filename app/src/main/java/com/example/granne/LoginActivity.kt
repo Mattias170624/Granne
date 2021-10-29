@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
     private fun reload() {
         // Reload == keep user logged in
         val user = auth.currentUser
-        Log.d("!", "${user?.email} is already logged in")
+        Log.d("!", "Auto logged in with email: ${user?.email}")
 
         homeScreenIntent()
     }
