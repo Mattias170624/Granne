@@ -8,65 +8,49 @@
 
     <ImageView
         android:id="@+id/userImageView"
-        android:layout_width="76dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/userimage" />
 
     <TextView
-        android:id="@+id/nameUnderIconTextView"
+        android:id="@+id/nicknameUnderIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text=""
+        android:layout_marginTop="10dp"
+        android:hint="Nickname"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImageView" />
+
 
     <Button
         android:id="@+id/buttonFindMatch"
         android:layout_width="140sp"
         android:layout_height="140sp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="76dp"
         android:background="@drawable/circle_btn"
         android:text="@string/Find_Match"
         app:backgroundTint="#A6746F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Logout"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageButton
         android:id="@+id/buttonOptions"
         android:layout_width="70sp"
         android:layout_height="70sp"
-        android:layout_marginBottom="316dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="115dp"
         android:background="@drawable/circle_btn"
         app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.803"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonFindMatch"
         app:srcCompat="@drawable/ic_options_button"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -74,14 +58,13 @@
         android:id="@+id/buttonInformation"
         android:layout_width="70sp"
         android:layout_height="70sp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="115dp"
         android:background="@drawable/circle_btn"
         android:text="@string/Info"
         app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFindMatch"
         app:srcCompat="@drawable/ic_info_button"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -89,34 +72,29 @@
         android:id="@+id/buttonStats"
         android:layout_width="70sp"
         android:layout_height="70sp"
-        android:layout_marginBottom="184dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/circle_btn"
         android:onClick="statsDialogButton"
         android:text="@string/Stats"
         app:backgroundTint="#C4C4C4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFindMatch"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_stats_button"
         tools:ignore="SpeakableTextPresentCheck" />
-
 
     <ImageButton
         android:id="@+id/buttonChat"
         android:layout_width="70sp"
         android:layout_height="70sp"
-        android:layout_marginBottom="288dp"
-        app:srcCompat="@drawable/ic_chat_button"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/circle_btn"
         app:backgroundTint="#C4C4C4"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFindMatch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck"/>
-
-
+        app:srcCompat="@drawable/ic_chat_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

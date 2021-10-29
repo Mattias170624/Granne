@@ -3,15 +3,11 @@ package com.example.granne
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ImageButton
-import androidx.fragment.app.Fragment
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -19,16 +15,14 @@ import com.google.firebase.ktx.Firebase
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-  
-    lateinit var nameUnderIcon: TextView
-    lateinit var buttonOptions: ImageButton
-    lateinit var buttonFindMatch: Button
-    lateinit var buttonChat: ImageButton
-    lateinit var buttonLogout: Button
-
     val db = Firebase.firestore
-    // Use cloud database to add additional information to user later on
-    // Ex: Interests, name
+
+    lateinit var nicknameUnderIcon: TextView
+    lateinit var buttonFindMatch: Button
+    lateinit var buttonOptions: ImageButton
+    lateinit var buttonChat: ImageButton
+    lateinit var buttonInfo: ImageButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,32 +31,21 @@ class HomeActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
 
-        nameUnderIcon = findViewById(R.id.nameUnderIconTextView)
-        buttonOptions = findViewById(R.id.buttonOptions)
+        nicknameUnderIcon = findViewById(R.id.nicknameUnderIcon)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
+        buttonOptions = findViewById(R.id.buttonOptions)
         buttonChat = findViewById(R.id.buttonChat)
-        buttonLogout = findViewById(R.id.buttonLogout)
+        buttonInfo = findViewById(R.id.buttonInformation)
+        nicknameUnderIcon.text = currentUser!!.email
 
-        nameUnderIcon.text = currentUser!!.email
-        
 
-        buttonChat.setOnClickListener{
+        buttonChat.setOnClickListener {
             val chatIntent = Intent(this, ChatActivity::class.java)
             startActivity(chatIntent)
         }
 
-
-
-        buttonLogout.setOnClickListener {
-            Log.d("!", "Logout pressed")
-
-            auth.signOut()
-            val startLoginScreen = Intent(this, MainActivity::class.java)
-            startActivity(startLoginScreen)
-        }
-
         buttonOptions.setOnClickListener {
-            var dialog = SettingsDialogFragment()
+            val dialog = SettingsDialogFragment()
             dialog.show(supportFragmentManager, "optionsdialog")
         }
 
@@ -71,14 +54,16 @@ class HomeActivity : AppCompatActivity() {
             startActivity(findMatchIntent)
         }
 
-        var infoImageButton = findViewById<ImageButton>(R.id.buttonInformation)
-        infoImageButton.setOnClickListener{
-
-            var dialog = CustomDialogFragment()
-
+        buttonInfo.setOnClickListener {
+            val dialog = CustomDialogFragment()
             dialog.show(supportFragmentManager, "customDialog")
         }
 
+    }
+
+    fun statsDialogButton(view: View) {
+        val statsDialogFragment = StatsDialogFragment()
+        statsDialogFragment.show(supportFragmentManager, "statsDialog")
     }
 
     override fun onBackPressed() { // When user presses back, application closes
@@ -87,10 +72,4 @@ class HomeActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
-
-    fun statsDialogButton(view: View) {
-        var statsDialogFragment = StatsDialogFragment()
-        statsDialogFragment.show(supportFragmentManager, "statsDialog")
-    }
-
 }

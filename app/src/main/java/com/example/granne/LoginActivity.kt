@@ -17,18 +17,14 @@ import com.google.firebase.ktx.Firebase
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
 
     lateinit var buttonSignIn: Button
-    lateinit var buttonRegister: Button
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
-    lateinit var nicknameEditText: EditText
 
     lateinit var email: String
     lateinit var password: String
-    lateinit var nickname: String
-
-    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +32,8 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         buttonSignIn = findViewById(R.id.buttonSignIn)
-        buttonRegister = findViewById(R.id.buttonRegister)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        nicknameEditText = findViewById(R.id.nameEdiText)
 
 
         buttonSignIn.setOnClickListener {
@@ -54,23 +48,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        buttonRegister.setOnClickListener {
-            when {
-                checkUserInputs() -> {
-                    if (password.length >= 6) {
-                        if (nickname.length >= 6) {
-                            createAccount(email, password, nickname)
-                        } else showToast("Nickname must be at least 6 characters")
-                    } else {
-                        showToast("Password must be at least 6 characters")
-                    }
-                }
-
-                !checkUserInputs() -> showToast("Empty inputs")
-            }
-        }
-
-
     }
 
     public override fun onStart() {
@@ -84,47 +61,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun checkUserInputs(): Boolean {
+    private fun checkUserInputs(): Boolean {
         email = emailEditText.text.toString()
         password = passwordEditText.text.toString()
-        nickname = nicknameEditText.text.toString()
 
         return !(email.isEmpty() || password.isEmpty())
-    }
-
-    private fun createAccount(email: String, password: String, nickname: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    showToast("Successfully created account")
-                    val user = auth.currentUser
-                    val uid: String = user!!.uid
-
-                    val currentUser = hashMapOf(
-                        "email" to email,
-                        "uid" to user.uid,
-                        "nickname" to nickname,
-                    )
-
-                    db.collection("userData")
-                        .document(uid).set(currentUser)
-                        .addOnSuccessListener {
-                            Log.d("!", "User added to Database with same UID as Firestore Auth ")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("!", "Error adding document", e)
-                        }
-
-                    updateUI(user)
-
-                } else {
-                    // Sign in failed
-                    Log.w("!", "createUserWithEmail:failure", task.exception)
-                    showToast("Email already in use or badly written")
-                    updateUI(null)
-                }
-            }
     }
 
     private fun signIn(email: String, password: String) {
@@ -149,12 +90,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Log.d("!", "Account created / logged in")
-            Log.d("!", "----------------------------")
-            Log.d("!", "Email: ${email}")
-            Log.d("!", "Uid: ${user.uid}")
-            Log.d("!","Nickname: $nickname")
-
+            Log.d("!", "Logged in")
             homeScreenIntent()
 
         } else Log.d("!", "User failed to log in")
@@ -163,17 +99,17 @@ class LoginActivity : AppCompatActivity() {
     private fun reload() {
         // Reload == keep user logged in
         val user = auth.currentUser
-        Log.d("!", "${user?.email} is already logged in")
+        Log.d("!", "Auto logged in with email: ${user?.email}")
 
         homeScreenIntent()
     }
 
-    fun homeScreenIntent() {
+    private fun homeScreenIntent() {
         val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
         startActivity(startHomeActivityIntent)
     }
 
-    fun showToast(toastMessage: String) {
+    private fun showToast(toastMessage: String) {
         val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
         toast.show()
     }
