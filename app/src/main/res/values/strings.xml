@@ -53,11 +53,6 @@
     <string name="spinner_location">SpinnerInKotlin</string>
     <string name="selected_item">Selected item:</string>
 
-    <string-array name="Locations">
-        <item>Svealand</item>
-        <item>Götaland</item>
-        <item>Norrland</item>
-    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_this_app">About this app</string>
