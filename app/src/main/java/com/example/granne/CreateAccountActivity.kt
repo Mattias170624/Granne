@@ -66,7 +66,8 @@ class CreateAccountActivity : AppCompatActivity() {
                         "nickname" to nickname,
                         "email" to email,
                         "uid" to user.uid,
-                        "location" to ""
+                        "location" to "",
+                        "aboutme" to "",  //  These will be filled later in the app
                     )
 
                     db.collection("userData")
