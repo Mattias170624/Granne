@@ -34,7 +34,6 @@ class SettingsDialogFragment : DialogFragment() {
         val buttonSignOut = rootView.findViewById<Button>(R.id.buttonSignOut)
         val locationButton = rootView.findViewById<Button>(R.id.locationButton)
         val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
-        val locations = resources.getStringArray(R.array.Locations)
 
         auth = Firebase.auth
 
@@ -62,20 +61,27 @@ class SettingsDialogFragment : DialogFragment() {
             }
         }
 
-        if (spinner != null) {
-            val adapter = activity?.let {
-                ArrayAdapter(it, android.R.layout.simple_spinner_item, locations)
-            }
-            spinner.adapter = adapter
-        }
+        val locations = listOf(
+            "Svealand",
+            "Götaland",
+            "Norrland"
+        )
 
         val arrayAdapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
         spinner.adapter = arrayAdapter
 
         locationButton.setOnClickListener {
-            Log.d("!", "Clicked")
-            // Koppla med användarens firebase och lägg till location till collection
+            val newLocation = spinner.selectedItem.toString()
+
+            db.collection("userData").document(currentUser!!.uid)
+                .update("location", newLocation)
+                .addOnSuccessListener {
+                    showToast("Updated location")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("!", "Error adding document", e)
+                }
         }
 
         buttonSignOut.setOnClickListener {
