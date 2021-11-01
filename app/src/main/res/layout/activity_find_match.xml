@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#A6746F"
+        android:background="@color/color4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
             android:text="@string/My_Interests"
+            android:backgroundTint="#A6746F"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
             android:text="@string/Search_Match"
+            android:backgroundTint="#A6746F"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

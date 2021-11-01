@@ -1,12 +1,17 @@
 package com.example.granne
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import java.util.HashMap
 
 class InterestDialogFragment : DialogFragment() {
 
@@ -16,7 +21,8 @@ class InterestDialogFragment : DialogFragment() {
     private lateinit var checkBox4: CheckBox
     private lateinit var checkBox5: CheckBox
     private lateinit var checkBox6: CheckBox
-
+    private lateinit var checkBox7: CheckBox
+    lateinit var saveChangesButton: Button
 
 
     override fun onCreateView(
@@ -32,12 +38,59 @@ class InterestDialogFragment : DialogFragment() {
         checkBox4 = rootView.findViewById(R.id.checkBox4)
         checkBox5 = rootView.findViewById(R.id.checkBox5)
         checkBox6 = rootView.findViewById(R.id.checkBox6)
+        checkBox7 = rootView.findViewById(R.id.checkBox7)
+        saveChangesButton = rootView.findViewById(R.id.saveChangesButton)
 
+        saveChangesButton.setOnClickListener {
+            var count = 0
+            var userInterests = hashMapOf<String, Any?>()
+
+            if (checkBox1.isChecked) {
+                count++
+                userInterests["interest1"] = "Wildlife"
+            }
+            if (checkBox2.isChecked) {
+                count++
+                userInterests["interest2"] = "Travel"
+            }
+            if (checkBox3.isChecked) {
+                count++
+                userInterests["interest3"] = "Food"
+            }
+            if (checkBox4.isChecked) {
+                count++
+                userInterests["interest4"] = "Socialising"
+            }
+            if (checkBox5.isChecked) {
+                count++
+                userInterests["interest5"] = "Books"
+            }
+            if (checkBox6.isChecked) {
+                count++
+                userInterests["interest6"] = "Games"
+            }
+            if (checkBox7.isChecked) {
+                count++
+                userInterests["interest7"] = "Netflix"
+            }
+
+            if (count > 6) {
+                showToast("Max 6 interests allowed!")
+            } else {
+                showToast("Saved changes")
+                for (interest in userInterests) {
+                    Log.d("!", ">> $interest")
+                }
+            }
+        }
 
         return rootView
-
     }
 
+    private fun showToast(toastMessage: String) {
+        val toast = Toast.makeText(activity, toastMessage, Toast.LENGTH_SHORT)
+        toast.show()
+    }
 }
 
 

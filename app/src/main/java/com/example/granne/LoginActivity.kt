@@ -7,83 +7,110 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Switch
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var usernameEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var loginButton2: Button
-    lateinit var autoLoginSwitch: Switch
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
 
-    lateinit var usernameText: String
-    lateinit var passwordText: String
+    lateinit var buttonSignIn: Button
+    lateinit var emailEditText: EditText
+    lateinit var passwordEditText: EditText
+
+    lateinit var email: String
+    lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        auth = Firebase.auth
 
-        usernameEditText = findViewById(R.id.usernameEditText)
+        buttonSignIn = findViewById(R.id.buttonSignIn)
+        emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        loginButton2 = findViewById(R.id.loginButton2)
-        autoLoginSwitch = findViewById(R.id.autoLoginSwitch)
 
 
-        loginButton2.setOnClickListener {
-            Log.d("!Login", "Login button2 pressed")
-            usernameText = usernameEditText.text.toString()
-            passwordText = passwordEditText.text.toString()
-
+        buttonSignIn.setOnClickListener {
             when {
                 checkUserInputs() -> {
-                    if (checkDatabaseForAccount()) {
-                        //autoLoginChecker()
-                        // Om checkDataBaseForAccount returnerar ett true, så ska man tas till homeScreenActivity
-                        // med användarens data.
-
-                        startHomeActivity()
-
-                    } else {
-                        Log.d("!", "No account matched")
-                        showToast("Invalid username or password")
-                    }
+                    if (password.length < 6) {
+                        showToast("Password must be at least 6 characters")
+                    } else signIn(email, password)
                 }
 
-                !checkUserInputs() -> {
-                    Log.d("!", "Missing some text fields")
-                    showToast("Please enter a username and password")
-                }
+                !checkUserInputs() -> showToast("Empty inputs")
             }
         }
+
     }
 
-    private fun autoLoginChecker(): Boolean { // SharedPreferences om användaren vill bli auto inloggad
-        if (!autoLoginSwitch.isChecked) {
-            Log.d("!", "Auto login False")
-            return false
+    public override fun onStart() {
+        super.onStart()
+
+        val currentUser = auth.currentUser
+        if (currentUser != null) { // Check if user is signed in
+            reload()
         } else {
-            Log.d("!", "Auto login: True")
-            return true
+            Log.d("!", "No user logged in")
         }
     }
 
     private fun checkUserInputs(): Boolean {
-        return !(usernameText.isEmpty() || passwordText.isEmpty())
+        email = emailEditText.text.toString()
+        password = passwordEditText.text.toString()
+
+        return !(email.isEmpty() || password.isEmpty())
     }
 
-    private fun checkDatabaseForAccount(): Boolean {
-        // Compare $usernameText and $passwordText with database...
-        return true
+    private fun signIn(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+
+                if (task.isSuccessful) {
+                    // Sign in success. Start HomeActivity
+                    Log.d("!", "signInWithEmail:success")
+                    showToast("Logged in")
+                    val user = auth.currentUser
+                    updateUI(user)
+
+                } else {
+                    // If sign in fails. Display a toast to the user
+                    Log.w("!", "signInWithEmail:failure", task.exception)
+                    showToast("Email doesn't exist or is badly written")
+                    updateUI(null)
+                }
+            }
     }
 
-    fun showToast(toastMessage: String) {
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
+            Log.d("!", "Logged in")
+            homeScreenIntent()
+
+        } else Log.d("!", "User failed to log in")
+    }
+
+    private fun reload() {
+        // Reload == keep user logged in
+        val user = auth.currentUser
+        Log.d("!", "Auto logged in with email: ${user?.email}")
+
+        homeScreenIntent()
+    }
+
+    private fun homeScreenIntent() {
+        val startHomeActivityIntent = Intent(this, HomeActivity::class.java)
+        startActivity(startHomeActivityIntent)
+    }
+
+    private fun showToast(toastMessage: String) {
         val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
         toast.show()
-    }
-
-    private fun startHomeActivity() {
-        val startHomeIntent = Intent(this, HomeActivity::class.java)
-        startActivity(startHomeIntent)
     }
 }

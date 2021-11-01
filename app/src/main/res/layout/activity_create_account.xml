@@ -6,98 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccountActivity">
 
-
     <EditText
-        android:id="@+id/createAboutYourselfEditText"
-        android:layout_width="226dp"
-        android:layout_height="101dp"
-        android:layout_marginTop="304dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/Tell_us_about_yourself"
-        android:inputType="textMultiLine"
-        android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/createConfirmPhoneNumberEditText"
-        android:layout_width="wrap_content"
+        android:id="@+id/nicknameEditText"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
-        android:ems="10"
-        android:hint="@string/Code"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Nickname"
+        android:singleLine="true"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/createPhoneNumberEditText"
-        android:layout_width="wrap_content"
+        android:id="@+id/emailEditText"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
-        android:ems="10"
-        android:hint="@string/Phone_number"
-        android:inputType="phone"
-        android:minHeight="48dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Example@gmail.com"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/createPasswordEditText"
-        android:layout_width="wrap_content"
+        android:id="@+id/passwordEditText"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
-        android:ems="10"
-        android:hint="@string/create_Password"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:layout_marginBottom="60dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/createUsernameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:ems="10"
-        android:hint="@string/create_Username"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/createNicknameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:hint="@string/create_Nickname"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/createNewAccountButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
-        android:text="@string/Create_account"
+        android:id="@+id/buttonRegister"
+        android:layout_width="175dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="120dp"
+        android:backgroundTint="@color/color5"
+        android:text="Register"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
