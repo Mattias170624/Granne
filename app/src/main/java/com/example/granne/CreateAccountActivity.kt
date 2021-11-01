@@ -61,7 +61,6 @@ class CreateAccountActivity : AppCompatActivity() {
                     showToast("Successfully created account")
                     val user = auth.currentUser
                     val uid: String = user!!.uid
-                    user.uid
 
                     val currentUser = hashMapOf(
                         "nickname" to nickname,
