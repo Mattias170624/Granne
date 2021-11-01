@@ -61,12 +61,14 @@ class CreateAccountActivity : AppCompatActivity() {
                     showToast("Successfully created account")
                     val user = auth.currentUser
                     val uid: String = user!!.uid
+                    user.uid
 
                     val currentUser = hashMapOf(
                         "nickname" to nickname,
                         "email" to email,
                         "uid" to user.uid,
-                        "location" to ""
+                        "location" to "",
+                        "aboutme" to "",  //  These will be filled later in the app
                     )
 
                     db.collection("userData")

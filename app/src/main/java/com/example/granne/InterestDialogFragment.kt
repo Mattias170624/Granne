@@ -11,6 +11,11 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.HashMap
 
 class InterestDialogFragment : DialogFragment() {
@@ -24,6 +29,9 @@ class InterestDialogFragment : DialogFragment() {
     private lateinit var checkBox7: CheckBox
     lateinit var saveChangesButton: Button
 
+    lateinit var auth: FirebaseAuth
+
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +40,8 @@ class InterestDialogFragment : DialogFragment() {
     ): View? {
         val rootView: View = inflater.inflate(R.layout.fragment_interest_dialog, container, false)
 
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
         checkBox1 = rootView.findViewById(R.id.checkBox1)
         checkBox2 = rootView.findViewById(R.id.checkBox2)
         checkBox3 = rootView.findViewById(R.id.checkBox3)
@@ -42,49 +52,64 @@ class InterestDialogFragment : DialogFragment() {
         saveChangesButton = rootView.findViewById(R.id.saveChangesButton)
 
         saveChangesButton.setOnClickListener {
+            val docRef = db.collection("userData").document(currentUser!!.uid)
+            val userInterests = hashMapOf<String, String>()
             var count = 0
-            var userInterests = hashMapOf<String, Any?>()
 
             if (checkBox1.isChecked) {
                 count++
-                userInterests["interest1"] = "Wildlife"
+                userInterests["interest$count"] = "Wildlife"
             }
             if (checkBox2.isChecked) {
                 count++
-                userInterests["interest2"] = "Travel"
+                userInterests["interest$count"] = "Travel"
             }
             if (checkBox3.isChecked) {
                 count++
-                userInterests["interest3"] = "Food"
+                userInterests["interest$count"] = "Food"
             }
             if (checkBox4.isChecked) {
                 count++
-                userInterests["interest4"] = "Socialising"
+                userInterests["interest$count"] = "Socialising"
             }
             if (checkBox5.isChecked) {
                 count++
-                userInterests["interest5"] = "Books"
+                userInterests["interest$count"] = "Books"
             }
             if (checkBox6.isChecked) {
                 count++
-                userInterests["interest6"] = "Games"
+                userInterests["interest$count"] = "Games"
             }
             if (checkBox7.isChecked) {
                 count++
-                userInterests["interest7"] = "Netflix"
+                userInterests["interest$count"] = "Netflix"
             }
 
-            if (count > 6) {
-                showToast("Max 6 interests allowed!")
-            } else {
-                showToast("Saved changes")
-                for (interest in userInterests) {
-                    Log.d("!", ">> $interest")
+            when {
+                count > 6 -> showToast("Max 6 interests allowed!")
+
+                count <= 0 -> showToast("Please select at least 1 interest!")
+
+                else -> {
+                    // Deletes old list and then adds a new one
+                    docRef.update("interests", FieldValue.delete())
+                        .addOnSuccessListener {
+                            Log.d("!", "Successfully deleted old list")
+                            docRef.update("interests", FieldValue.arrayUnion(userInterests))
+                                .addOnSuccessListener {
+                                    dismiss()
+                                    showToast("Successfully updated your interests!")
+                                }
+                        }
                 }
             }
         }
 
         return rootView
+    }
+
+
+    private fun updateUi() {
     }
 
     private fun showToast(toastMessage: String) {
