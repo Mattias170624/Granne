@@ -12,11 +12,12 @@ import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.HashMap
+import kotlin.collections.HashMap
 
 class InterestDialogFragment : DialogFragment() {
 
@@ -42,6 +43,7 @@ class InterestDialogFragment : DialogFragment() {
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        val docRef = db.collection("userData").document(currentUser!!.uid)
         checkBox1 = rootView.findViewById(R.id.checkBox1)
         checkBox2 = rootView.findViewById(R.id.checkBox2)
         checkBox3 = rootView.findViewById(R.id.checkBox3)
@@ -52,7 +54,6 @@ class InterestDialogFragment : DialogFragment() {
         saveChangesButton = rootView.findViewById(R.id.saveChangesButton)
 
         saveChangesButton.setOnClickListener {
-            val docRef = db.collection("userData").document(currentUser!!.uid)
             val userInterests = hashMapOf<String, String>()
             var count = 0
 
@@ -91,14 +92,18 @@ class InterestDialogFragment : DialogFragment() {
                 count <= 0 -> showToast("Please select at least 1 interest!")
 
                 else -> {
-                    // Deletes old list and then adds a new one
-                    docRef.update("interests", FieldValue.delete())
+                    docRef.collection("interests")
+                        .document("interestsList")
+                        .delete()
                         .addOnSuccessListener {
-                            Log.d("!", "Successfully deleted old list")
-                            docRef.update("interests", FieldValue.arrayUnion(userInterests))
+                            Log.d("!", "Deleted old interests")
+                            docRef.collection("interests")
+                                .document("interestlist")
+                                .set(userInterests)
                                 .addOnSuccessListener {
+                                    Log.d("!", "Created new interest!")
                                     dismiss()
-                                    showToast("Successfully updated your interests!")
+                                    showToast("New interests updated!")
                                 }
                         }
                 }
@@ -106,10 +111,6 @@ class InterestDialogFragment : DialogFragment() {
         }
 
         return rootView
-    }
-
-
-    private fun updateUi() {
     }
 
     private fun showToast(toastMessage: String) {
