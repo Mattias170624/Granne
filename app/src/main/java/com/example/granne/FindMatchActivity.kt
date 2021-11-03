@@ -25,9 +25,11 @@ class FindMatchActivity : AppCompatActivity() {
     lateinit var interestButton: Button
     lateinit var searchMatchButton: Button
     lateinit var recyclerView: RecyclerView
-    var userInterests = mutableListOf<String>()
     var persons = mutableListOf<PersonFindMatch>()
+
+    var userInterests = mutableListOf<String>()
     val allUsersUid = mutableListOf<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,99 +44,108 @@ class FindMatchActivity : AppCompatActivity() {
 
 
         interestButton.setOnClickListener {
-            //val dialog = InterestDialogFragment()
-            //dialog.show(supportFragmentManager, "interestdialog")
-            Log.d("!", "Test")
-
-            db.collection("userData")
-                .get()
-                .addOnSuccessListener { documents ->
-                    allUsersUid.clear()
-                    for (user in documents) {
-                        allUsersUid.add(user.id)
-                        //Log.d("!", "${user.id} cxxxxx=> ${user.data}")
-                    }
-                    checkForSameInterests()
-                }
-
-            /*  db.collection("userData").document("5hxBE047RdNvV40vlVOlvXtQWNC3")
-                  .collection("interests").document("interestlist")
-                  .get()
-                  .addOnSuccessListener { documents ->
-                      Log.d("!", "$documents")
-
-                      if (documents.contains("interest")) {
-                          Log.d("!", "contains!")
-                      }
-
-
-                  }
-                  .addOnFailureListener { e ->
-                      Log.d("!", "Error:", e)
-                  }
-
-             */
-
-
-            /*docRef.collection("interests").document("interestlist").get()
-                .addOnSuccessListener { document ->
-
-                    Log.d("!","$document")
-
-                    if (document.contains("travel")) {
-                        Log.d("!","Yes")
-                    } else Log.d("!","No")
-
-
-                    //Log.d("!", "vvvvvvvvvvvvvvvvvvv ${document["interest1"]}")
-
-                }
-
-             */
-
-            //Log.d("!",">> $docRef")
-            //for (document in docRef.toString()) {
-            //   Log.d("!",">> $document")
-
-            //}
+            val dialog = InterestDialogFragment()
+            dialog.show(supportFragmentManager, "interestdialog")
 
         }
 
         searchMatchButton.setOnClickListener {
-            recyclerView.isVisible = true //
+            recyclerView.isVisible = true
 
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Hur man lägger till sina egna intressen i userInterests:
+            db.collection("userData").document(auth.currentUser!!.uid)
+                .collection("interests").document("interestlist")
+                .get()
 
-            val docRefMyInterests = db.collection("userData")
-                .document(currentUser!!.uid)
-                .collection("interests")
-                .document("interestlist")
-
-            docRefMyInterests.get()
                 .addOnSuccessListener { document ->
                     userInterests.clear()
-                    for (item in document.data!!) {
+                    for (item in document.data!!.values) {
                         userInterests.add(item.toString())
                     }
-                    Log.d("!", "User intressen finns i en mutable list: \n $userInterests")
+
+                    db.collection("userData")
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            Log.d("!", "My interests: $userInterests")
+                            for (userID in documents) {
+                              checkForSameInterests(userID.id)
+                            }
+
+                        }
                 }
                 .addOnFailureListener { e ->
                     Log.d("!", "Error:", e)
                 }
 
 
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Hur man får ANDRAS intressen
+/*
+            db.collection("userData")
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (userID in documents) {
+                        checkForSameInterests(userID.id)
+                    }
+                }
 
-
+ */
         }
 
         recyclerView()
     }
 
-    private fun checkForSameInterests() {
-        for (userUID in allUsersUid) {
-            Log.d("!", userUID)
-        }
+    private fun checkForSameInterests(UID: String) {
+        db.collection("userData").document(UID)
+            .collection("interests").document("interestlist")
+            .get()
+            .addOnSuccessListener { documents ->
+
+                Log.d("!", "Other users interests: ${documents.data!!.values}")
+
+                val secondUserInterests = documents.data!!.values
+
+                userInterests.forEachIndexed { index, value ->
+                    if (secondUserInterests.contains(value)) {
+                        Log.d("!", ">>> MATCH $value")
+                    }
+
+
+                }
+
+
+                /*if (userInterests.containsAll(secondUserInterests)) {
+                    Log.d("!","True")
+                } else Log.d("!","False")
+
+                 */
+
+
+/*
+                if (secondUserInterests.contains(userInterests.forEachIndexed { index, s ->
+                        Log.d("!","Match $index /// $s")
+
+                    })) {
+
+                    //Log.d("!", "Match!")
+                } else Log.d("!", "No Match!")
+
+ */
+
+                /*
+                val interestCount =  documents.data!!.count()
+                for (interest in 0..interestCount) {
+                    Log.d("!",">>>>>>>>>>> ${documents.data!!.values}")
+                }
+
+                 */
+
+
+                //if (documents.data!!.containsValue("Travel")){
+                //    Log.d("!","FOUND FOUND FOUND FOUND")
+                //}
+
+
+            }
+
+
     }
 
     fun recyclerView() {
@@ -148,5 +159,5 @@ class FindMatchActivity : AppCompatActivity() {
         recyclerView.isVisible = false
     }
 
-
 }
+
