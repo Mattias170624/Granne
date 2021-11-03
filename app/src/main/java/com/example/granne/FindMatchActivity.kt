@@ -66,9 +66,12 @@ class FindMatchActivity : AppCompatActivity() {
                         .get()
                         .addOnSuccessListener { documents ->
                             Log.d("!", "My interests: $userInterests")
+
                             for (userID in documents) {
-                              checkForSameInterests(userID.id)
+                                if (userID.id != currentUser!!.uid) // Removes being able to find yourself in interest search
+                                    checkForSameInterests(userID.id)
                             }
+
 
                         }
                 }
