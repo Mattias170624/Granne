@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class FindMatchActivity : AppCompatActivity() {
         searchMatchButton = findViewById(R.id.searchMatchButton)
         recyclerView = findViewById(R.id.rwFindMatch)
 
+        recyclerView()
 
         interestButton.setOnClickListener {
             val dialog = InterestDialogFragment()
@@ -52,43 +54,33 @@ class FindMatchActivity : AppCompatActivity() {
                 .get()
 
                 .addOnSuccessListener { document ->
-                    userInterests.clear()
-                    for (item in document.data!!.values) {
-                        userInterests.add(item.toString())
-                    }
-
-                    db.collection("userData")
-                        .get()
-                        .addOnSuccessListener { documents ->
-                            Log.d("!", "<-------------- My interests: $userInterests -------------->")
-
-                            for (userID in documents) {
-                                if (userID.id != currentUser!!.uid) // Removes being able to find yourself in interest search
-                                    checkForSameInterests(userID.id)
-                            }
-
-
+                    if (document.data.isNullOrEmpty()) {
+                        showToast("Add your interests before searching!")
+                    } else {
+                        userInterests.clear()
+                        for (item in document.data!!.values) {
+                            userInterests.add(item.toString())
                         }
+
+                        db.collection("userData")
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                Log.d("!",
+                                    "<-------------- My interests: $userInterests -------------->")
+                                for (userID in documents) {
+                                    if (userID.id != currentUser!!.uid) // Removes being able to find yourself in interest search
+                                        checkForSameInterests(userID.id)
+                                }
+                            }
+                    }
                 }
                 .addOnFailureListener { e ->
                     Log.d("!", "Error:", e)
                 }
-
-
-/*
-            db.collection("userData")
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (userID in documents) {
-                        checkForSameInterests(userID.id)
-                    }
-                }
-
- */
         }
 
-        recyclerView()
     }
+
 
     private fun checkForSameInterests(UID: String) {
         db.collection("userData").document(UID)
@@ -135,7 +127,8 @@ class FindMatchActivity : AppCompatActivity() {
                 Log.d("!", "You matched with: $matchedUsersNickname")
                 Log.d("!", "The persons location: $matchedUsersLocation")
                 Log.d("!", "About this person: $matchedUsersAboutMe")
-                Log.d("!", "You have: $numOfInterests common interests, you both like $sameInterestsList")
+                Log.d("!",
+                    "You have: $numOfInterests common interests, you both like $sameInterestsList")
                 Log.d("!", "The other person also likes these things: $secondUserInterests")
 
             }
@@ -150,6 +143,11 @@ class FindMatchActivity : AppCompatActivity() {
         val adapter = PersonFindMatchRecycleViewAdapter(this, persons)
         recyclerView.adapter = adapter
         recyclerView.isVisible = false
+    }
+
+    private fun showToast(toastMessage: String) {
+        val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
+        toast.show()
     }
 
 }
