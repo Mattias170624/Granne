@@ -3,18 +3,13 @@ package com.example.granne
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ListView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 
 class FindMatchActivity : AppCompatActivity() {
@@ -65,7 +60,7 @@ class FindMatchActivity : AppCompatActivity() {
                     db.collection("userData")
                         .get()
                         .addOnSuccessListener { documents ->
-                            Log.d("!", "My interests: $userInterests")
+                            Log.d("!", "<-------------- My interests: $userInterests -------------->")
 
                             for (userID in documents) {
                                 if (userID.id != currentUser!!.uid) // Removes being able to find yourself in interest search
@@ -104,51 +99,46 @@ class FindMatchActivity : AppCompatActivity() {
                 Log.d("!", "Other users interests: ${documents.data!!.values}")
 
                 val secondUserInterests = documents.data!!.values
+                val sameInterestsList = mutableListOf<String>()
+                sameInterestsList.clear()
 
                 userInterests.forEachIndexed { index, value ->
                     if (secondUserInterests.contains(value)) {
-                        Log.d("!", ">>> MATCH $value")
+                        sameInterestsList.add(value)
                     }
-
-
                 }
 
-
-                /*if (userInterests.containsAll(secondUserInterests)) {
-                    Log.d("!","True")
-                } else Log.d("!","False")
-
-                 */
-
-
-/*
-                if (secondUserInterests.contains(userInterests.forEachIndexed { index, s ->
-                        Log.d("!","Match $index /// $s")
-
-                    })) {
-
-                    //Log.d("!", "Match!")
-                } else Log.d("!", "No Match!")
-
- */
-
-                /*
-                val interestCount =  documents.data!!.count()
-                for (interest in 0..interestCount) {
-                    Log.d("!",">>>>>>>>>>> ${documents.data!!.values}")
+                if (sameInterestsList.isNotEmpty()) {
+                    val numOfInterests = sameInterestsList.size
+                    showMatchedUsersInfo(UID,
+                        secondUserInterests,
+                        sameInterestsList,
+                        numOfInterests)
                 }
+            }
+    }
 
-                 */
+    private fun showMatchedUsersInfo(
+        matchedUID: String,
+        secondUserInterests: MutableCollection<Any>,
+        sameInterestsList: MutableList<String>,
+        numOfInterests: Int,
+    ) {
+        db.collection("userData").document(matchedUID).get()
+            .addOnSuccessListener { document ->
 
+                val matchedUsersNickname = document.data!!.getValue("nickname")
+                val matchedUsersLocation = document.data!!.getValue("location")
+                val matchedUsersAboutMe = document.data!!.getValue("aboutme")
 
-                //if (documents.data!!.containsValue("Travel")){
-                //    Log.d("!","FOUND FOUND FOUND FOUND")
-                //}
-
+                Log.d("!", "<------------------------ Matched user info ------------------------>")
+                Log.d("!", "You matched with: $matchedUsersNickname")
+                Log.d("!", "The persons location: $matchedUsersLocation")
+                Log.d("!", "About this person: $matchedUsersAboutMe")
+                Log.d("!", "You have: $numOfInterests common interests, you both like $sameInterestsList")
+                Log.d("!", "The other person also likes these things: $secondUserInterests")
 
             }
-
-
     }
 
     fun recyclerView() {
