@@ -23,8 +23,8 @@ class FindMatchActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     var persons = mutableListOf<PersonFindMatch>()
 
+    lateinit var userLocation: Any
     var userInterests = mutableListOf<String>()
-    val allUsersUid = mutableListOf<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,30 +49,37 @@ class FindMatchActivity : AppCompatActivity() {
         searchMatchButton.setOnClickListener {
             recyclerView.isVisible = true
 
-            db.collection("userData").document(auth.currentUser!!.uid)
-                .collection("interests").document("interestlist")
-                .get()
+            val userDocRef = db.collection("userData").document(auth.currentUser!!.uid)
 
-                .addOnSuccessListener { document ->
-                    if (document.data.isNullOrEmpty()) {
-                        showToast("Add your interests before searching!")
-                    } else {
-                        userInterests.clear()
-                        for (item in document.data!!.values) {
-                            userInterests.add(item.toString())
-                        }
+            userDocRef.get()
+                .addOnSuccessListener { documents ->
+                    userLocation = documents.data!!.getValue("location")
 
-                        db.collection("userData")
-                            .get()
-                            .addOnSuccessListener { documents ->
-                                Log.d("!",
-                                    "<-------------- My interests: $userInterests -------------->")
-                                for (userID in documents) {
-                                    if (userID.id != currentUser!!.uid) // Removes being able to find yourself in interest search
-                                        checkForSameInterests(userID.id)
+
+                    userDocRef.collection("interests").document("interestlist")
+                        .get()
+
+                        .addOnSuccessListener { document ->
+                            if (document.data.isNullOrEmpty()) {
+                                showToast("Add your interests before searching!")
+                            } else {
+                                userInterests.clear()
+                                for (item in document.data!!.values) {
+                                    userInterests.add(item.toString())
                                 }
+
+                                db.collection("userData")
+                                    .get()
+                                    .addOnSuccessListener { documents ->
+                                        Log.d("!",
+                                            "<-------------- My interests: $userInterests -------------->")
+                                        for (userID in documents) {
+                                            if (userID.id != currentUser!!.uid) // Removes being able to find yourself in interest search
+                                                checkUserLocation(userID.id)
+                                        }
+                                    }
                             }
-                    }
+                        }
                 }
                 .addOnFailureListener { e ->
                     Log.d("!", "Error:", e)
@@ -81,13 +88,21 @@ class FindMatchActivity : AppCompatActivity() {
 
     }
 
+    private fun checkUserLocation(UID: String) {
+        db.collection("userData").document(UID)
+            .get()
+            .addOnSuccessListener { documents ->
+                var secondUserLocation = documents.data!!.getValue("location")
 
-    private fun checkForSameInterests(UID: String) {
+                if (userLocation.toString() == secondUserLocation.toString()) checkUserInterests(UID)
+            }
+    }
+
+    private fun checkUserInterests(UID: String) {
         db.collection("userData").document(UID)
             .collection("interests").document("interestlist")
             .get()
             .addOnSuccessListener { documents ->
-
                 Log.d("!", "Other users interests: ${documents.data!!.values}")
 
                 val secondUserInterests = documents.data!!.values
