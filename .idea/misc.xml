@@ -27,8 +27,9 @@
         <entry key="app/src/main/res/layout/activity_find_match.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_log_in_page.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.10833333333333334" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_recover_password.xml" value="0.10833333333333334" />
         <entry key="app/src/main/res/layout/fragment_custom_dialog.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/fragment_interest_dialog.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/fragment_settings_dialog.xml" value="0.21" />
