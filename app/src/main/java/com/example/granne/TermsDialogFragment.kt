@@ -36,6 +36,7 @@ class TermsDialogFragment :DialogFragment (), View.OnClickListener {
         var checkBoxTwo = rootView.findViewById<CheckBox>(R.id.twoCheckBox)
         var checkBoxThree = rootView.findViewById<CheckBox>(R.id.threeCheckBox)
         var checkBoxFour = rootView.findViewById<CheckBox>(R.id.fourCheckBox)
+        var radioGroup = rootView.findViewById<RadioGroup>(R.id.TermsRadioGroup)
 
 
         cancelButton.setOnClickListener(object : View.OnClickListener {
@@ -68,6 +69,7 @@ class TermsDialogFragment :DialogFragment (), View.OnClickListener {
                     if (checkBoxFour.isChecked) {
                     }
                 }else {
+
                     val intent = Intent(this@TermsDialogFragment, MainActivity::class.java)
                 }
             }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -22,6 +23,7 @@ class CreateAccountActivity : AppCompatActivity() {
     lateinit var nicknameEditText: EditText
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
+    lateinit var AgreeButton:Button
 
     lateinit var nickname: String
     lateinit var email: String
@@ -117,4 +119,6 @@ class CreateAccountActivity : AppCompatActivity() {
         val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
         toast.show()
     }
+
+
 }

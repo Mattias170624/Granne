@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(){
 
     lateinit var spinner: Spinner
     lateinit var locale: Locale
+    lateinit var TermsRadioGroup: RadioGroup
 
     private var currentLanguage = "en"
     private var currentLang: String? = null
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        var termsTextView = findViewById<TextView>(R.id.termsTextView)
+       var termsTextView = findViewById<TextView>(R.id.termsTextView)
         termsTextView.setOnClickListener{
             var dialog = TermsDialogFragment()
 
