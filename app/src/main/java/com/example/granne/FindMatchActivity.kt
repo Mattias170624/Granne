@@ -103,24 +103,27 @@ class FindMatchActivity : AppCompatActivity() {
             .collection("interests").document("interestlist")
             .get()
             .addOnSuccessListener { documents ->
-                Log.d("!", "Other users interests: ${documents.data!!.values}")
 
-                val secondUserInterests = documents.data!!.values
-                val sameInterestsList = mutableListOf<String>()
-                sameInterestsList.clear()
+                if (!documents.data.isNullOrEmpty()) {
+                    Log.d("!", "Other users interests: ${documents.data!!.values}")
 
-                userInterests.forEachIndexed { index, value ->
-                    if (secondUserInterests.contains(value)) {
-                        sameInterestsList.add(value)
+                    val secondUserInterests = documents.data!!.values
+                    val sameInterestsList = mutableListOf<String>()
+                    sameInterestsList.clear()
+
+                    userInterests.forEachIndexed { index, value ->
+                        if (secondUserInterests.contains(value)) {
+                            sameInterestsList.add(value)
+                        }
                     }
-                }
 
-                if (sameInterestsList.isNotEmpty()) {
-                    val numOfInterests = sameInterestsList.size
-                    showMatchedUsersInfo(UID,
-                        secondUserInterests,
-                        sameInterestsList,
-                        numOfInterests)
+                    if (sameInterestsList.isNotEmpty()) {
+                        val numOfInterests = sameInterestsList.size
+                        showMatchedUsersInfo(UID,
+                            secondUserInterests,
+                            sameInterestsList,
+                            numOfInterests)
+                    }
                 }
             }
     }
