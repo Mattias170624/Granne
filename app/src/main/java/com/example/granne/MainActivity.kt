@@ -1,14 +1,14 @@
 package com.example.granne
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     lateinit var spinner: Spinner
     lateinit var locale: Locale
@@ -24,10 +24,18 @@ class MainActivity : AppCompatActivity() {
     private var currentLanguage = "en"
     private var currentLang: String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        var termsTextView = findViewById<TextView>(R.id.termsTextView)
+        termsTextView.setOnClickListener{
+            var dialog = TermsDialogFragment()
+
+            dialog.show(supportFragmentManager, "customDialog")
+
+        }
+
 
         title = "Granne"
         currentLanguage = intent.getStringExtra(currentLang).toString()
@@ -60,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
 
     private fun setLocale(localeName: String) {
         if (localeName != currentLanguage) {
@@ -101,6 +110,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(createAccountIntent)
     }
 
+
+}
+
+fun Button.setOnClickListener() {
 
 }
 
