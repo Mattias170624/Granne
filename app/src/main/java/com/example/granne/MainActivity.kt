@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -28,6 +25,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        var textViewTerms = findViewById<TextView>(R.id.textViewTerms)
+        textViewTerms.setOnClickListener{
+            var dialog = TermsDialogFragment()
+
+            dialog.show(supportFragmentManager,"termsDialog")
+        }
+
 
         title = "Granne"
         currentLanguage = intent.getStringExtra(currentLang).toString()
