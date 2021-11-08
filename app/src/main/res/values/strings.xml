@@ -57,5 +57,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_this_app">About this app</string>
     <string name="AboutThisAppText">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
+    <string name="friendzone_always_strives_to_improve_the_service_and_give_you_more_features_that_are_interesting_and_useful_to_you_this_means_that_from_time_to_time_we_may_add_new_product_features_or_make_improvements_and_even_remove_certain_features_and_if_these_actions_do_not_significantly_affect_your_rights_or_obligations_we_may_not_notify_you_before_implementing_them">Friendzone always strives to improve the service and give you more features that are interesting and useful to you this means that from time to time we may add new product features or make improvements and even remove certain features and if these actions do not significantly affect your rights or obligations we may not notify you before implementing them</string>
+    <string name="you_can_terminate_your_account_at_any_time_for_any_reason">You can terminate your account at any time for any reason</string>
+    <string name="you_must_be_at_least_18_years_old_to_create_an_account_on_friendzone_and_use_the_service">You must be at least 18 years old to create an account on friendzone and use the service</string>
+    <string name="by_creating_a_friendzone_account_or_using_the_app_via_a_mobile_device_mobile_application_or_computer_you_agree_that_you_are_bound_by_these_terms_of_use_we_may_from_time_to_time_make_changes_to_this_agreement_and_the_service_we_can_do_this_for_a_variety_of_reasons_reflecting_changes_in_or_legal_requirements_new_features_or_changes_in_business_practices">By creating a Friendzone account or using the app via a mobile device mobile application or computer you agree that you are bound by these terms of use we may from time to time make changes to this agreement and the service we can do this for a variety of reasons reflecting_changes in or legal requirements new features or changes in business practices</string>
+    <string name="terms_and_condition">Terms and condition</string>
+    <string name="agree">agree</string>
+    <string name="cancel">cancel</string>
+    <string name="register">Register</string>
 
 </resources>
