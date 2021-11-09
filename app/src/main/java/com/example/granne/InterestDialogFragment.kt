@@ -34,7 +34,7 @@ class InterestDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val rootView: View = inflater.inflate(R.layout.fragment_interest_dialog, container, false)
 
