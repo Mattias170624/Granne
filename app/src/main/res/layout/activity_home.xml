@@ -4,94 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:background="@drawable/background_1"
+    tools:context=".HomeActivity"
+    tools:ignore="HardcodedText">
 
     <ImageView
         android:id="@+id/userImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_user_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/userimage" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/nicknameUnderIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Nickname"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImageView" />
 
-
-    <Button
-        android:id="@+id/buttonFindMatch"
-        android:layout_width="140sp"
-        android:layout_height="140sp"
-        android:layout_marginBottom="76dp"
-        android:background="@drawable/circle_btn"
-        android:text="@string/Find_Match"
-        app:backgroundTint="#A6746F"
+    <RelativeLayout
+        android:id="@+id/findMatchLayout"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="60dp">
+
+        <ImageButton
+            android:id="@+id/buttonFindMatch"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/circle_btn"
+            android:paddingBottom="30dp"
+            android:src="@drawable/ic_find_user"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="85dp"
+            android:text="@string/Find_Match"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
 
     <ImageButton
         android:id="@+id/buttonOptions"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
         android:layout_marginStart="30dp"
-        android:layout_marginBottom="115dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/circle_btn"
-        app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonFindMatch"
+        app:layout_constraintStart_toEndOf="@+id/findMatchLayout"
         app:srcCompat="@drawable/ic_options_button"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/buttonInformation"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="115dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/circle_btn"
+        android:src="@drawable/ic_info_button"
         android:text="@string/Info"
-        app:backgroundTint="#C4C4C4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonFindMatch"
-        app:srcCompat="@drawable/ic_info_button"
+        app:layout_constraintEnd_toStartOf="@+id/findMatchLayout"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/buttonStats"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
-        android:layout_marginStart="105dp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:layout_marginStart="95dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/circle_btn"
         android:onClick="statsDialogButton"
         android:text="@string/Stats"
-        app:backgroundTint="#C4C4C4"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFindMatch"
+        app:layout_constraintBottom_toTopOf="@+id/findMatchLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_stats_button"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/buttonChat"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
-        android:layout_marginEnd="105dp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:layout_marginEnd="95dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/circle_btn"
-        app:backgroundTint="#C4C4C4"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFindMatch"
+        app:layout_constraintBottom_toTopOf="@+id/findMatchLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_chat_button"
         tools:ignore="SpeakableTextPresentCheck" />
