@@ -12,4 +12,7 @@
     <color name="color3">#FF255459</color>
     <color name="color4">#FF728A8C</color>
     <color name="color5">#FFA6746F</color>
+    <color name="colorPrimary">#F2B29B</color>
+    <color name="colorSecondary">#d76d77</color>
+    <color name="colorButton">#323240</color>
 </resources>

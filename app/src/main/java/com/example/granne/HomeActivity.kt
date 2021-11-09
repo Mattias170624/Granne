@@ -3,6 +3,7 @@ package com.example.granne
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -18,7 +19,7 @@ class HomeActivity : AppCompatActivity() {
     val db = Firebase.firestore
 
     lateinit var nicknameUnderIcon: TextView
-    lateinit var buttonFindMatch: Button
+    lateinit var buttonFindMatch: ImageButton
     lateinit var buttonOptions: ImageButton
     lateinit var buttonChat: ImageButton
     lateinit var buttonInfo: ImageButton
@@ -29,14 +30,12 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         auth = Firebase.auth
 
-        val currentUser = auth.currentUser
 
         nicknameUnderIcon = findViewById(R.id.nicknameUnderIcon)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
         buttonOptions = findViewById(R.id.buttonOptions)
         buttonChat = findViewById(R.id.buttonChat)
         buttonInfo = findViewById(R.id.buttonInformation)
-        nicknameUnderIcon.text = currentUser!!.email
 
 
         buttonChat.setOnClickListener {
@@ -59,6 +58,25 @@ class HomeActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "customDialog")
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Listen for changes in nickname
+        db.collection("userData").document(auth.currentUser!!.uid)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    return@addSnapshotListener // Stop listening to this snapshot
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d("!", "Current data: ${snapshot.data}")
+                    nicknameUnderIcon.text = snapshot.data!!.getValue("nickname").toString()
+                } else {
+                    Log.d("!", "Current data: null")
+                }
+            }
     }
 
     fun statsDialogButton(view: View) {
