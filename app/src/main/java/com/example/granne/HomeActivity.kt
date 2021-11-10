@@ -39,8 +39,10 @@ class HomeActivity : AppCompatActivity() {
 
 
         buttonChat.setOnClickListener {
-            val chatIntent = Intent(this, ChatActivity::class.java)
-            startActivity(chatIntent)
+            startActivity(Intent(this, ChatListActivity::class.java))
+
+            //val chatIntent = Intent(this, ChatActivity::class.java)
+            //startActivity(chatIntent)
         }
 
         buttonOptions.setOnClickListener {

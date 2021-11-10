@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Granne">
         <activity
+            android:name=".ChatRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
