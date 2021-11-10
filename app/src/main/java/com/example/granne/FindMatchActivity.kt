@@ -175,5 +175,4 @@ class FindMatchActivity : AppCompatActivity() {
     }
 
 
-
 }

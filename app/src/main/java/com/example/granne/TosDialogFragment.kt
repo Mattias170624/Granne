@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
-class CustomDialogFragment : DialogFragment() {
-
+class TosDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return inflater.inflate(R.layout.fragment_custom_dialog, container, false)
+
+        return inflater.inflate(R.layout.fragment_tos_dialog, container, false)
     }
 }
