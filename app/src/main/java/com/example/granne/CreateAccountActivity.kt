@@ -54,10 +54,12 @@ class CreateAccountActivity : AppCompatActivity() {
     }
 
     private fun createAccount(email: String, password: String, nickname: String) {
+        //1
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
+                        //2
                     showToast("Successfully created account")
                     val user = auth.currentUser
                     val uid: String = user!!.uid
@@ -73,12 +75,13 @@ class CreateAccountActivity : AppCompatActivity() {
                     db.collection("userData")
                         .document(uid).set(currentUser)
                         .addOnSuccessListener {
+                            //3
                             Log.d("!", "User added to Database with same UID as Firestore Auth ")
                         }
                         .addOnFailureListener { e ->
                             Log.w("!", "Error adding document", e)
                         }
-
+            //4
                     updateUI(user)
 
                 } else {
@@ -88,6 +91,7 @@ class CreateAccountActivity : AppCompatActivity() {
                     updateUI(null)
                 }
             }
+        //5
     }
 
     private fun updateUI(user: FirebaseUser?) {

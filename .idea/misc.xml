@@ -50,6 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_custom_dialog.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/fragment_interest_dialog.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/fragment_settings_dialog.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/list_item_match.xml" value="0.33" />
         <entry key="app/src/main/res/layout/main_activity.xml" value="0.25" />
         <entry key="app/src/main/res/layout/stats_dialog_fragment.xml" value="0.1381340579710145" />
       </map>
