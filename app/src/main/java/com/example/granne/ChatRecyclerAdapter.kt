@@ -35,6 +35,7 @@ class ChatRecyclerAdapter(
         holder.itemNickname.text = nickname[position]
 
         holder.itemView.setOnClickListener {
+            //When pressing on a user in the list, go to ChatRoomActivity
             val intent = Intent(holder.itemView.context, ChatRoomActivity::class.java)
                 .putExtra("secondUserNickname", nickname[position])
                 .putExtra("secondUserUid", userUid[position])
