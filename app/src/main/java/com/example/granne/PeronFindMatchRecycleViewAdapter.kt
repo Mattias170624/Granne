@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -28,15 +30,21 @@ class PersonFindMatchRecycleViewAdapter(val context: Context, val persons: List<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val person = persons[position]
 
-        holder.nameTextView.text = person.name
-        holder.interestTextView.text = person.interests
-        holder.imageView.setImageResource(R.drawable.userimage)
+        holder.nameTextView.text = person.name.toString()
+        holder.interestTextView.text = person.intressen.toString()
+        holder.aboutMeTextView.text = person.aboutMe.toString()
+        holder.imageView.setImageResource(R.drawable.userim)
+        holder.buttonAdd.setOnClickListener {
+
+        }
     }
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         val nameTextView = itemView.findViewById<TextView>(R.id.tvName)
-        val interestTextView = itemView.findViewById<TextView>(R.id.tvInterests)
+        val interestTextView = itemView.findViewById<TextView>(R.id.tvIntressen)
+        val aboutMeTextView = itemView.findViewById<TextView>(R.id.tvAboutMe)
+        val buttonAdd = itemView.findViewById<ImageButton>(R.id.btnAdd)
         val imageView = itemView.findViewById<ImageView>(R.id.iwImage)
 
     }

@@ -38,7 +38,6 @@ class FindMatchActivity : AppCompatActivity() {
         searchMatchButton = findViewById(R.id.searchMatchButton)
         recyclerView = findViewById(R.id.rwFindMatch)
 
-        recyclerView()
 
         interestButton.setOnClickListener {
             val dialog = InterestDialogFragment()
@@ -149,18 +148,25 @@ class FindMatchActivity : AppCompatActivity() {
                     "You have: $numOfInterests common interests, you both like $sameInterestsList")
                 Log.d("!", "The other person also likes these things: $secondUserInterests")
 
+                recyclerView(matchedUsersNickname, matchedUsersAboutMe, secondUserInterests)
+
             }
     }
 
-    fun recyclerView() {
+    fun recyclerView(
+        nickname: Any,
+        aboutMe: Any,
+        allInterests: MutableCollection<Any>
+    ) {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+        persons.add(PersonFindMatch(nickname, aboutMe, allInterests))
+        //persons.add(PersonFindMatch(nickname, aboutMe, allInterests, ))
 
-        persons.add(PersonFindMatch("testNamn", "Bio"))
 
         val adapter = PersonFindMatchRecycleViewAdapter(this, persons)
         recyclerView.adapter = adapter
-        recyclerView.isVisible = false
+       // recyclerView.isVisible = false
     }
 
     private fun showToast(toastMessage: String) {
