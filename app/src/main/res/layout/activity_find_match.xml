@@ -5,49 +5,52 @@
     android:id="@+id/btnTry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FindMatchActivity">
+    android:background="@drawable/background_1"
+    tools:context=".FindMatchActivity"
+    tools:ignore="HardcodedText">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/color4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="145dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/interestButton"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:backgroundTint="#A6746F"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@color/colorButton"
             android:text="@string/My_Interests"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/searchMatchButton"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="#A6746F"
-            android:text="@string/Search_Match"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/colorButton"
+            android:text="Search users"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rwFindMatch"
-        android:layout_width="409dp"
-        android:layout_height="450dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="5"
+        tools:listitem="@layout/list_item_match" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,16 +28,6 @@ class ChatListActivity : AppCompatActivity() {
         getAllMatchedUsers()
     }
 
-
-    private fun addToList(nickname: String, userUid: String) {
-        recyclerView = findViewById(R.id.chatRecycleView)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ChatRecyclerAdapter(nicknameList, userUidList)
-        nicknameList.add(nickname)
-        userUidList.add(userUid)
-    }
-
     private fun getAllMatchedUsers() {
         val docRefSecondUser = db.collection("userData").document(auth.currentUser!!.uid)
             .collection("matchedUsers")
@@ -67,5 +57,13 @@ class ChatListActivity : AppCompatActivity() {
             }
     }
 
+    private fun addToList(nickname: String, userUid: String) {
+        recyclerView = findViewById(R.id.chatRecycleView)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = ChatRecyclerAdapter(nicknameList, userUidList)
+        nicknameList.add(nickname)
+        userUidList.add(userUid)
+    }
 
 }

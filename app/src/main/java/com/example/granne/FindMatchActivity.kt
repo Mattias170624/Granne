@@ -42,18 +42,14 @@ class FindMatchActivity : AppCompatActivity() {
         interestButton.setOnClickListener {
             val dialog = InterestDialogFragment()
             dialog.show(supportFragmentManager, "interestdialog")
-
         }
 
         searchMatchButton.setOnClickListener {
-            recyclerView.isVisible = true
-
             val userDocRef = db.collection("userData").document(auth.currentUser!!.uid)
 
             userDocRef.get()
                 .addOnSuccessListener { documents ->
                     userLocation = documents.data!!.getValue("location")
-
 
                     userDocRef.collection("interests").document("interestlist")
                         .get()
@@ -62,6 +58,8 @@ class FindMatchActivity : AppCompatActivity() {
                             if (document.data.isNullOrEmpty()) {
                                 showToast("Add your interests before searching!")
                             } else {
+                                persons.clear()
+                                recyclerView.isVisible = true
                                 userInterests.clear()
                                 for (item in document.data!!.values) {
                                     userInterests.add(item.toString())
@@ -91,7 +89,7 @@ class FindMatchActivity : AppCompatActivity() {
         db.collection("userData").document(UID)
             .get()
             .addOnSuccessListener { documents ->
-                var secondUserLocation = documents.data!!.getValue("location")
+                val secondUserLocation = documents.data!!.getValue("location")
 
                 if (userLocation.toString() == secondUserLocation.toString()) checkUserInterests(UID)
             }
@@ -136,9 +134,10 @@ class FindMatchActivity : AppCompatActivity() {
         db.collection("userData").document(matchedUID).get()
             .addOnSuccessListener { document ->
 
-                val matchedUsersNickname = document.data!!.getValue("nickname")
-                val matchedUsersLocation = document.data!!.getValue("location")
-                val matchedUsersAboutMe = document.data!!.getValue("aboutme")
+                val matchedUsersNickname = document.data!!.getValue("nickname").toString()
+                val matchedUsersLocation = document.data!!.getValue("location").toString()
+                val matchedUsersAboutMe = document.data!!.getValue("aboutme").toString()
+                val matchedUsersUid = document.data!!.getValue("uid").toString()
 
                 Log.d("!", "<------------------------ Matched user info ------------------------>")
                 Log.d("!", "You matched with: $matchedUsersNickname")
@@ -148,25 +147,26 @@ class FindMatchActivity : AppCompatActivity() {
                     "You have: $numOfInterests common interests, you both like $sameInterestsList")
                 Log.d("!", "The other person also likes these things: $secondUserInterests")
 
-                recyclerView(matchedUsersNickname, matchedUsersAboutMe, secondUserInterests)
+
+                addToList(matchedUsersNickname,
+                    matchedUsersAboutMe,
+                    secondUserInterests,
+                    matchedUsersUid)
 
             }
     }
 
-    fun recyclerView(
-        nickname: Any,
-        aboutMe: Any,
-        allInterests: MutableCollection<Any>
+    private fun addToList(
+        nickname: String,
+        aboutMe: String,
+        allInterests: MutableCollection<Any>,
+        matchedUID: String,
     ) {
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-        persons.add(PersonFindMatch(nickname, aboutMe, allInterests))
-        //persons.add(PersonFindMatch(nickname, aboutMe, allInterests, ))
+        recyclerView.adapter = PersonFindMatchRecycleViewAdapter(this, persons)
 
+        persons.add(PersonFindMatch(nickname, aboutMe, allInterests, matchedUID))
 
-        val adapter = PersonFindMatchRecycleViewAdapter(this, persons)
-        recyclerView.adapter = adapter
-       // recyclerView.isVisible = false
     }
 
     private fun showToast(toastMessage: String) {
@@ -174,5 +174,6 @@ class FindMatchActivity : AppCompatActivity() {
         toast.show()
     }
 
-}
 
+
+}
