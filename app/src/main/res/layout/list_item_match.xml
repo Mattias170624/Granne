@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="320sp"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/white"
+    tools:ignore="HardcodedText">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/tvIntressen"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="40dp"
+        android:text="Interests"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAdd" />
+
+    <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_marginTop="10dp"
+        android:text="Nickname"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tvAboutMe"
+        android:layout_width="230dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:text="About Me"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iwImage"
+        app:layout_constraintTop_toTopOf="@+id/iwImage" />
 
     <ImageView
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:id="@+id/iwImage"
-    android:src="@drawable/userim" />
+        android:id="@+id/iwImage"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_user_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nickname"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="31sp"/>
-        <TextView
-            android:id="@+id/tvInt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Intressen "
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginLeft="31sp"/>
+    <ImageButton
+        android:id="@+id/btnAdd"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#4CAF50"
+        android:src="@drawable/add_person"
+        android:text="Add"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iwImage"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Add"
-            android:layout_marginLeft="150dp"
-            android:src="@drawable/add_person"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAboutMe"
-            android:textStyle="bold"
-            android:text="About Me"
-            android:textSize="13dp"
-            android:layout_marginTop="25dp"
-            android:paddingLeft="0dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvIntressen"
-            android:textStyle="bold"
-            android:text="Interests"
-            android:textSize="20sp"
-            android:layout_marginTop="91dp"
-            />
-
-
-        </LinearLayout>
-
-
-
-</LinearLayout>
 
 
