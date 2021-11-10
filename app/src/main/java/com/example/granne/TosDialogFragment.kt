@@ -12,8 +12,7 @@ class TosDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_tos_dialog, container, false)
 
-        return rootView
+        return inflater.inflate(R.layout.fragment_tos_dialog, container, false)
     }
 }
