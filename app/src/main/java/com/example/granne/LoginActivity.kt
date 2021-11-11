@@ -57,17 +57,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    public override fun onStart() {
-        super.onStart()
-
-        val currentUser = auth.currentUser
-        if (currentUser != null) { // Check if user is signed in
-            reload()
-        } else {
-            Log.d("!", "No user logged in")
-        }
-    }
-
     private fun checkUserInputs(): Boolean {
         email = emailEditText.text.toString()
         password = passwordEditText.text.toString()
@@ -101,14 +90,6 @@ class LoginActivity : AppCompatActivity() {
             homeScreenIntent()
 
         } else Log.d("!", "User failed to log in")
-    }
-
-    private fun reload() {
-        // Reload == keep user logged in
-        val user = auth.currentUser
-        Log.d("!", "Auto logged in with email: ${user?.email}")
-
-        homeScreenIntent()
     }
 
     private fun homeScreenIntent() {

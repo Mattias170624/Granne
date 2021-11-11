@@ -57,7 +57,6 @@ class PersonFindMatchRecycleViewAdapter(
                 .addOnSuccessListener {
 
                     showToast("Added $nickname to chat list!")
-                    removeUserFromList(userUid, position)
 
                     addYourselfToSecondUserMatchedList(userUid)
                 }
@@ -71,11 +70,6 @@ class PersonFindMatchRecycleViewAdapter(
         val aboutMeTextView = itemView.findViewById<TextView>(R.id.tvAboutMe)
         val buttonAdd = itemView.findViewById<ImageButton>(R.id.btnAdd)
 
-    }
-
-    private fun removeUserFromList(uid: String, position: Int) {
-        // Remove user from recyclerview with the position $position
-        // And then update the recycle list
     }
 
     private fun addYourselfToSecondUserMatchedList(uid: String) {
