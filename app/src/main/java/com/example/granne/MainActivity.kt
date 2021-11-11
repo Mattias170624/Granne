@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) { // Check if user is signed in
             startActivity(Intent(this, HomeActivity::class.java))
+            Log.d("!","Auto logged in with email: ${auth.currentUser!!.email}")
         } else {
             Log.d("!", "No user logged in")
         }
