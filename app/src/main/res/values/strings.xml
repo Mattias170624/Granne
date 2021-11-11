@@ -6,23 +6,19 @@
     <string name="create_Account">Create account</string>
     <string name="login">Login</string>
     <string name="spinner">Select Language</string>
-    <string name="TaCHomeScreen">Terms and conditions</string>
     <!--Logga in aktivitet-->
-    <string name="login_Email">Email</string>
+    <string name="login_Username">Username</string>
     <string name="login_Password">Password</string>
     <string name="Keep_logged_in">Keep me logged in</string>
-    <string name="SignIn">Sign in</string>
-    <string name="FrgtPassword">Forgot password?</string>
-    <!--Glömt lösenord aktivitet-->
-    <string name="RecoverPassword">Recover password</string>
-    <string name="enter_emailAdress">Enter email adress</string>
-    <string name="Submit">Submit</string>
+    <string name="Login">Login</string>
     <!--Skapa konto aktivitet-->
     <string name="create_Nickname">Nickname</string>
+    <string name="create_Username">Username</string>
     <string name="create_Password">Password</string>
-    <string name="create_Email">Email</string>
-    <string name="igToS">I agree to the terms of service</string>
-    <string name="Create_accountBtn">Register</string>
+    <string name="Phone_number">Phone number</string>
+    <string name="Code">Code</string>
+    <string name="Tell_us_about_yourself">Tell us about yourself</string>
+    <string name="Create_account">Create account</string>
     <!--Hemskärmen-->
     <string name="Find_Match">Find Match</string>
     <string name="Options">Options</string>
@@ -31,67 +27,43 @@
     <string name="Chat">Chat</string>
     <!--Find Match-->
     <string name="My_Interests">My interests</string>
-    <string name="Search_Users">Search users</string>
-    <string name="nickname">Nickname</string>
-    <string name="location">location</string>
-    <string name="aboutme">om mig</string>
-    <!--List item match-->
-    <string name="about_me">About me</string>
-    <string name="listInterests">Interests</string>
-    <!--Mina intressen-->
-    <string name="WildLife">Wildlife</string>
-    <string name="Travel">Travel</string>
-    <string name="Food">Food</string>
-    <string name="Socialising">Socialising</string>
-    <string name="Books">Books</string>
-    <string name="Games">Games</string>
-    <string name="Netflix">Netflix</string>
-    <string name="SaveChanges">Save changes</string>
-    <!--StatsDialogFragment-->
-    <string name="AccountOverView">Account overview</string>
-    <string name="No_matched_users_found">No matched users found</string>
-    <string name="statsNickname">Nickname</string>
-    <string name="aboutMe">About me</string>
+    <string name="Search_Match">Search match</string>
+    <!--StatsFragment-->
     <!--<string name="statistics"><u>Category Chart</u></string>
     <string name="stats_overview"><u>Personal Statistics</u></string>-->
     <!--Settingsmeny-->
     <string name="Settings">Settings</string>
-    <string name="Change_NickName">Change nickname:</string>
+    <string name="Username...">Username...</string>
+    <string name="Password...">Password...</string>
     <string name="ApplyUsername">Apply</string>
-    <string name="Change_nickNameHint">Change nickname...</string>
-    <string name="applyLocation">Apply</string>
+    <string name="ApplyPassword">Apply</string>
+    <string name="Change_username">Change username:</string>
+    <string name="Change_password">Change password:</string>
     <string name="Change_location">Change location:</string>
     <string name="ApplyPicture">Apply picture</string>
     <string name="BrowsePictures">Browse pictures</string>
     <string name="Change_profile_picture">Change profile picture:</string>
-    <string name="AccountInformation">Account information</string>
-    <string name="SignOut">Sign out</string>
-    <string name="DeleteAccount">Delete account</string>
     <!--stats_dialog_fragment-->
-    <!--<string name="stats_overview">Stats overview</string>
+    <string name="stats_overview">Stats overview</string>
     <string name="TotalMatches">Totalt matches</string>
     <string name="ThumbsUp">Thumbs up</string>
-    <string name="statistics">Statistics</string>-->
+    <string name="statistics">Statistics</string>
 
     <!--Settings dropdown locations-->
     <string name="spinner_location">SpinnerInKotlin</string>
     <string name="selected_item">Selected item:</string>
 
-    <!-- Om appen och regler och villkor -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_this_app">About this app</string>
-    <string name="how_does_it_work">How does it work?</string>
-    <string name="Granne_is_an_app">Granne is an app that makes it possible for you as an older person to find people who share the same interests as you.</string>
-    <string name="The_app_uses_data_from_your_account">The app uses data from your account to find similarities with other people. This process happens inside the Find Match window.</string>
-    <string name="However_you_will_not_be_shown">However you will not be shown to other users until you have entered your interests.</string>
+    <string name="AboutThisAppText">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
     <string name="friendzone_always_strives_to_improve_the_service_and_give_you_more_features_that_are_interesting_and_useful_to_you_this_means_that_from_time_to_time_we_may_add_new_product_features_or_make_improvements_and_even_remove_certain_features_and_if_these_actions_do_not_significantly_affect_your_rights_or_obligations_we_may_not_notify_you_before_implementing_them">Friendzone always strives to improve the service and give you more features that are interesting and useful to you this means that from time to time we may add new product features or make improvements and even remove certain features and if these actions do not significantly affect your rights or obligations we may not notify you before implementing them</string>
     <string name="you_can_terminate_your_account_at_any_time_for_any_reason">You can terminate your account at any time for any reason</string>
     <string name="you_must_be_at_least_18_years_old_to_create_an_account_on_friendzone_and_use_the_service">You must be at least 18 years old to create an account on friendzone and use the service</string>
     <string name="by_creating_a_friendzone_account_or_using_the_app_via_a_mobile_device_mobile_application_or_computer_you_agree_that_you_are_bound_by_these_terms_of_use_we_may_from_time_to_time_make_changes_to_this_agreement_and_the_service_we_can_do_this_for_a_variety_of_reasons_reflecting_changes_in_or_legal_requirements_new_features_or_changes_in_business_practices">By creating a Friendzone account or using the app via a mobile device mobile application or computer you agree that you are bound by these terms of use we may from time to time make changes to this agreement and the service we can do this for a variety of reasons reflecting_changes in or legal requirements new features or changes in business practices</string>
     <string name="terms_and_condition">Terms and condition</string>
-    <string name="terms_of_service">Terms of service</string>
-    <string name="agree">Agree</string>
-    <string name="cancel">Cancel</string>
+    <string name="agree">agree</string>
+    <string name="cancel">cancel</string>
     <string name="register">Register</string>
 
 </resources>

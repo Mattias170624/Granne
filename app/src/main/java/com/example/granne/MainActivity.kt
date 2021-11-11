@@ -1,13 +1,15 @@
 package com.example.granne
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private var currentLanguage = "en"
     private var currentLang: String? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +57,8 @@ class MainActivity : AppCompatActivity() {
         list.add("English")
         list.add("Svenska")
 
-
-        val adapter = ArrayAdapter(this, R.layout.lang_selected_item, list)
-        adapter.setDropDownViewResource(R.layout.lang_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
