@@ -7,23 +7,19 @@
     <string name="create_Account">Skapa konto</string>
     <string name="login">Logga in</string>
     <string name="spinner">Välj Språk</string>
-    <string name="TaCHomeScreen">Regler och villkor</string>
     <!--Logga in aktivitet-->
-    <string name="login_Email">Email</string>
+    <string name="login_Username">Användarnamn</string>
     <string name="login_Password">Lösenord</string>
     <string name="Keep_logged_in">Håll mig inloggad</string>
-    <string name="SignIn">Logga in</string>
-    <string name="FrgtPassword">Glömt lösenord?</string>
-    <!--Glömt lösenord aktivitet-->
-    <string name="RecoverPassword">Återställ lösenord</string>
-    <string name="enter_emailAdress">Skriv in din epost adress</string>
-    <string name="Submit">Skicka</string>
+    <string name="Login">Logga in</string>
     <!--Skapa konto aktivitet-->
     <string name="create_Nickname">Smeknamn</string>
+    <string name="create_Username">Användarnamn</string>
     <string name="create_Password">Lösenord</string>
-    <string name="create_Email">Email</string>
-    <string name="igToS">Jag godkänner villkoren</string>
-    <string name="Create_accountBtn">Registrera</string>
+    <string name="Phone_number">Telefonnummer</string>
+    <string name="Code">Kod</string>
+    <string name="Tell_us_about_yourself">Berätta om dig själv</string>
+    <string name="Create_account">Skapa konto</string>
     <!--Hemskärmen-->
     <string name="Find_Match">Hitta matchningar</string>
     <string name="Options">Alternativ</string>
@@ -32,59 +28,29 @@
     <string name="Chat">Chatt</string>
     <!--Find Match-->
     <string name="My_Interests">Mina intressen</string>
-    <string name="Search_Users">Sök användare</string>
-    <string name="nickname">Smeknamn</string>
-    <string name="location">plats</string>
-    <string name="aboutme">om mig</string>
-    <!--List item match-->
-    <string name="about_me">Om mig</string>
-    <string name="listInterests">Intressen</string>
-    <!--Mina intressen-->
-    <string name="WildLife">Friluftsliv</string>
-    <string name="Travel">Resa</string>
-    <string name="Food">Mat</string>
-    <string name="Socialising">Socialisera</string>
-    <string name="Books">Böcker</string>
-    <string name="Games">Spel</string>
-    <string name="Netflix">Netflix</string>
-    <string name="SaveChanges">Spara ändringar</string>
+    <string name="Search_Match">Sök matchning</string>
     <!--Settingsmeny-->
     <string name="Settings">Inställningar</string>
-    <string name="Change_NickName">Byt smeknamn:</string>
+    <string name="Username...">Användarnamn...</string>
+    <string name="Password...">Lösenord...</string>
     <string name="ApplyUsername">Tillämpa</string>
-    <string name="applyLocation">Tillämpa</string>
-    <string name="Change_nickNameHint">Byt smeknamn...</string>
+    <string name="ApplyPassword">Tillämpa</string>
+    <string name="Change_username">Byt användarnamn:</string>
+    <string name="Change_password">Byt lösenord:</string>
     <string name="Change_location">Byt plats:</string>
     <string name="ApplyPicture">Välj bild</string>
     <string name="BrowsePictures">Bläddra bilder</string>
     <string name="Change_profile_picture">Byt profilbild:</string>
-    <string name="AccountInformation">Kontuppgifter</string>
-    <string name="SignOut">Logga ut</string>
-    <string name="DeleteAccount">Radera konto</string>
-
     <!--stats_dialog_fragment-->
-    <string name="AccountOverView">Kontoöversikt</string>
-    <string name="No_matched_users_found">Inga matchningar funna</string>
-    <string name="statsNickname">Smeknamn</string>
-    <string name="aboutMe">Om mig</string>
+    <string name="stats_overview">Statistiköversikt</string>
+    <string name="TotalMatches">Totala matchningar</string>
+    <string name="ThumbsUp">Tummar upp</string>
+    <string name="statistics">Statistik</string>
     <!--Settings dropdown locations-->
     <string name="spinner_location">SpinnerIKotlin</string>
     <string name="selected_item">Valda objekt:</string>
-    <!-- Om appen och regler och villkor -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hej tomt fragment</string>
     <string name="about_this_app">Om den här appen</string>
-    <string name="how_does_it_work">Hur funkar det?</string>
-    <string name="Granne_is_an_app">Granne är en app som gör det möjligt för dig som är en äldre person att hitta personer som delar samma intressen som du.</string>
-    <string name="The_app_uses_data_from_your_account">Appen använder data från ditt konto för att hitta likheter med andra människor. Processen sker inuti fönstret Hitta Matchningar.</string>
-    <string name="However_you_will_not_be_shown">Däremot kommer du inte visas för andra användare förrän du har valt dina intressen.</string>
-    <string name="friendzone_always_strives_to_improve_the_service_and_give_you_more_features_that_are_interesting_and_useful_to_you_this_means_that_from_time_to_time_we_may_add_new_product_features_or_make_improvements_and_even_remove_certain_features_and_if_these_actions_do_not_significantly_affect_your_rights_or_obligations_we_may_not_notify_you_before_implementing_them">Friendzone strävar alltid mot en förbättrad service och ger dig mer funktioner som är både intressanta och användbara för dig. Emellanåt kan vi att lägga till nya produktfunktioner, förbättra eller till och med radera vissa funktioner. Om dessa förändringar inte påverkar era rättigheter eller skyldigheter kommer vi inte att meddela er när vi genomför dem.</string>
-    <string name="you_can_terminate_your_account_at_any_time_for_any_reason">Du kan radera ditt konto när som helst utan att behöva uppge en anledning.</string>
-    <string name="you_must_be_at_least_18_years_old_to_create_an_account_on_friendzone_and_use_the_service">För att skapa ett konto i Friendzone och att använda det måste du vara minst 18 år gammal.</string>
-    <string name="by_creating_a_friendzone_account_or_using_the_app_via_a_mobile_device_mobile_application_or_computer_you_agree_that_you_are_bound_by_these_terms_of_use_we_may_from_time_to_time_make_changes_to_this_agreement_and_the_service_we_can_do_this_for_a_variety_of_reasons_reflecting_changes_in_or_legal_requirements_new_features_or_changes_in_business_practices">Genom att skapa eller använda ett konto på Friendzone genom mobilenheter eller dator, godkänner du att du är bunden till dessa villkor att vi emellanåt kan göra ändringar i detta avtal och tjänsten. Vi kan göra detta av en mängd olika anledningar som återspeglar ändringar i juridiska krav, nya funktioner eller förändringar i affärspraxis.</string>
-    <string name="terms_and_condition">Regler och villkor</string>
-    <string name="terms_of_service">Villkor</string>
-    <string name="agree">Godkänn</string>
-    <string name="cancel">Avbryt</string>
-    <string name="register">Registrera</string>
-
+    <string name="AboutThisAppText">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
 </resources>
