@@ -73,7 +73,6 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 if (snapshot != null && snapshot.exists()) {
-                    Log.d("!", "Current data: ${snapshot.data}")
                     nicknameUnderIcon.text = snapshot.data!!.getValue("nickname").toString()
                 } else {
                     Log.d("!", "Current data: null")

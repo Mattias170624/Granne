@@ -3,9 +3,12 @@ package com.example.granne
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -14,6 +17,8 @@ import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     lateinit var spinner: Spinner
     lateinit var locale: Locale
@@ -25,12 +30,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        auth = Firebase.auth
+
+        val currentUser = auth.currentUser
+        if (currentUser != null) { // Check if user is signed in
+            startActivity(Intent(this, HomeActivity::class.java))
+        } else {
+            Log.d("!", "No user logged in")
+        }
 
         var textViewTerms = findViewById<TextView>(R.id.textViewTerms)
-        textViewTerms.setOnClickListener{
+        textViewTerms.setOnClickListener {
             var dialog = TermsDialogFragment()
 
-            dialog.show(supportFragmentManager,"termsDialog")
+            dialog.show(supportFragmentManager, "termsDialog")
         }
 
 
@@ -52,10 +65,11 @@ class MainActivity : AppCompatActivity() {
                 parent: AdapterView<*>,
                 view: View?,
                 position: Int,
-                id: Long
+                id: Long,
             ) {
                 when (position) {
-                    0 -> {}
+                    0 -> {
+                    }
                     1 -> setLocale("en")
                     2 -> setLocale("sv")
                 }
@@ -86,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             ).show();
         }
     }
+
 
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
