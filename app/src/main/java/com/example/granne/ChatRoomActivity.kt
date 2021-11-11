@@ -3,8 +3,12 @@ package com.example.granne
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -12,64 +16,132 @@ class ChatRoomActivity : AppCompatActivity() {
 
     data class Message(val name: String? = null, val text: String? = null)
 
+
     private lateinit var auth: FirebaseAuth
+    private lateinit var myNickname: String
     val db = Firebase.firestore
+
+    private lateinit var chatKey: String
+    private lateinit var secondUserNickname: String
+    private lateinit var newMessageEditText: EditText
+    private lateinit var messageTextView: TextView
+    private lateinit var messageButton: Button
+    private lateinit var userTitle: TextView
+    lateinit var messageList: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room)
         auth = Firebase.auth
 
-        val secondUserNickname: String = intent.getStringExtra("secondUserNickname").toString()
+        messageTextView = findViewById(R.id.messageTextView)
+        newMessageEditText = findViewById(R.id.newMessageEditText)
+        messageButton = findViewById(R.id.messageButton)
+        userTitle = findViewById(R.id.userTitle)
+
+        secondUserNickname = intent.getStringExtra("secondUserNickname").toString()
         val secondUserUid: String = intent.getStringExtra("secondUserUid").toString()
-        getChatChannel(secondUserNickname, secondUserUid)
+        val myDocRef = db.collection("userData").document(auth.currentUser!!.uid)
 
 
-        //Log.d("!", "Chatting with: $secondUserNickname")
-        //Log.d("!", "The other persons uid: $secondUserUid")
+        myDocRef.get()
+            .addOnSuccessListener { name ->
+                myNickname = name.data!!.getValue("nickname").toString()
+
+                myDocRef.collection("matchedUsers").document(secondUserUid).get()
+                    .addOnSuccessListener { documents ->
+                        chatKey = documents.data!!.getValue("chatId").toString()
+                        createChatChannel(chatKey)
+                    }
+            }
 
     }
 
-    private fun getChatChannel(secondUserNickname: String, secondUserUid: String) {
-        val docRef = db.collection("userData").document(auth.currentUser!!.uid)
+    private fun createChatChannel(chatKey: String) {
+        val chatDocRef = db.collection("chatRooms").document(chatKey)
+        messageList = arrayListOf()
 
-        var myNickname: String
-        val chatKey = auth.currentUser!!.uid.plus(secondUserUid)
-        val selectedChatRoom = db.collection("chatRooms").document(chatKey)
+        val chatInfo = hashMapOf(
+            "user1" to secondUserNickname,
+            "user2" to myNickname,
+            "messagelist" to messageList
+        )
 
+        chatDocRef.get()
+            .addOnSuccessListener { task ->
+                if (!task.exists()) {
+                    Log.d("!", "No chat with the key: $chatKey")
 
-        //val message = Message("$myNickname", "Hejsaan")
-
-        Log.d("!", "<<<<<<<<<<<<< $chatKey")
-
-        docRef.get()
-            .addOnSuccessListener { documents ->
-                myNickname = documents.data!!.getValue("nickname").toString()
-
-                val message = Message(myNickname, "Hejsaan")
-
-
-
-                selectedChatRoom.get()
-                    .addOnSuccessListener { chatRoom ->
-                        if (chatRoom.exists()) {
-                            Log.d("!", "CHAT EXISTS!")
-                            Log.d("!", "Chats with this user: ${chatRoom.data}")
-
-                        } else {
-                            Log.d("!", "No chat started with this user, creating one now")
-                            db.collection("chatRooms").document(chatKey).set(message)
+                    chatDocRef.set(chatInfo)
+                        .addOnSuccessListener {
+                            Log.d("!", "Created chat with $secondUserNickname")
+                            updateChatUi()
                         }
+                }
+                if (task.exists()) {
+                    Log.d("!", "Joining chat with $secondUserNickname with chatId: $chatKey")
+                    updateChatUi()
+                }
+            }
+
+    }
+
+    private fun updateChatUi() {
+        val chatDocRef = db.collection("chatRooms").document(chatKey)
+
+
+        // Sets title for the chatroom
+        val titleNickname = secondUserNickname
+        userTitle.text = titleNickname
+
+        chatDocRef.get()
+            .addOnSuccessListener { list ->
+                val oldList = list.data!!.getValue("messagelist").toString()
+                messageList.add(oldList)
+
+                // add $messageList to view
+                Log.d("!","new list$messageList")
+
+                messageButton.setOnClickListener {
+                    val text = "$myNickname: ${newMessageEditText.text}"
+                    messageList.add(text)
+                    newMessageEditText.text.clear()
+
+                    // add $text to view
+                    Log.d("!","Sent text: $text")
+
+                    chatDocRef.update("messagelist", messageList)
+
+
+                }
+            }
+
+        chatDocRef
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    return@addSnapshotListener // Stop listening to this snapshot
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val currentList = snapshot.data!!.getValue("messagelist")
+                    if (currentList.toString().isNotEmpty()) {
+
+                        messageTextView.text = currentList.toString()
+                            .replace("]", "")
+                            .replace("[", "")
+                            .replace(",", "")
+
                     }
 
-
-                //db.collection("chatRooms").document()
-                //Kolla om det finns ett document med bådas uid tsm
-
-                //om inte, gör ett nytt document
+                } else {
+                    Log.d("!", "Current data: null")
+                }
 
             }
 
 
     }
 }
+
+
+

@@ -41,10 +41,13 @@ class PersonFindMatchRecycleViewAdapter(
         holder.buttonAdd.setOnClickListener {
             val nickname = person.name.toString()
             val userUid = person.uid.toString()
+            var veryBadIdGenerator = (234234324..4343434345).random().toString()
+
 
             val mapOfDetails = hashMapOf(
                 "nickname" to nickname,
-                "uid" to userUid
+                "uid" to userUid,
+                "chatId" to veryBadIdGenerator
             )
 
             Log.d("!", ">> ${person.name}}")
@@ -58,7 +61,7 @@ class PersonFindMatchRecycleViewAdapter(
 
                     showToast("Added $nickname to chat list!")
 
-                    addYourselfToSecondUserMatchedList(userUid)
+                    addYourselfToSecondUserMatchedList(userUid, veryBadIdGenerator)
                 }
         }
     }
@@ -72,7 +75,7 @@ class PersonFindMatchRecycleViewAdapter(
 
     }
 
-    private fun addYourselfToSecondUserMatchedList(uid: String) {
+    private fun addYourselfToSecondUserMatchedList(uid: String, chatId: String) {
         db.collection("userData").document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { documents ->
                 val myName = documents.data!!.getValue("nickname").toString()
@@ -80,7 +83,8 @@ class PersonFindMatchRecycleViewAdapter(
 
                 val mapOfDetails = hashMapOf(
                     "nickname" to myName,
-                    "uid" to myUid
+                    "uid" to myUid,
+                    "chatId" to chatId
                 )
 
                 db.collection("userData").document(uid)
