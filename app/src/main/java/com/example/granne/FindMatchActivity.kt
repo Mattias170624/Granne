@@ -42,6 +42,7 @@ class FindMatchActivity : AppCompatActivity() {
         interestButton.setOnClickListener {
             val dialog = InterestDialogFragment()
             dialog.show(supportFragmentManager, "interestdialog")
+            recyclerView.isVisible = false
         }
 
         searchMatchButton.setOnClickListener {
