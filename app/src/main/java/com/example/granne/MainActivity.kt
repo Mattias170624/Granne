@@ -40,13 +40,6 @@ class MainActivity : AppCompatActivity() {
             Log.d("!", "No user logged in")
         }
 
-        var textViewTerms = findViewById<TextView>(R.id.textViewTerms)
-        textViewTerms.setOnClickListener {
-            var dialog = TermsDialogFragment()
-
-            dialog.show(supportFragmentManager, "termsDialog")
-        }
-
 
         title = "Granne"
         currentLanguage = intent.getStringExtra(currentLang).toString()
