@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,7 @@ import kotlin.collections.HashMap
 
 class InterestDialogFragment : DialogFragment() {
 
+    private lateinit var aboutMeEditText: EditText
     private lateinit var checkBox1: CheckBox
     private lateinit var checkBox2: CheckBox
     private lateinit var checkBox3: CheckBox
@@ -34,13 +36,14 @@ class InterestDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         val rootView: View = inflater.inflate(R.layout.fragment_interest_dialog, container, false)
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val docRef = db.collection("userData").document(currentUser!!.uid)
+        aboutMeEditText = rootView.findViewById(R.id.aboutmeEditText)
         checkBox1 = rootView.findViewById(R.id.checkBox1)
         checkBox2 = rootView.findViewById(R.id.checkBox2)
         checkBox3 = rootView.findViewById(R.id.checkBox3)
@@ -49,6 +52,7 @@ class InterestDialogFragment : DialogFragment() {
         checkBox6 = rootView.findViewById(R.id.checkBox6)
         checkBox7 = rootView.findViewById(R.id.checkBox7)
         saveChangesButton = rootView.findViewById(R.id.saveChangesButton)
+
 
         saveChangesButton.setOnClickListener {
             val userInterests = hashMapOf<String, String>()
@@ -89,19 +93,19 @@ class InterestDialogFragment : DialogFragment() {
                 count <= 0 -> showToast("Please select at least 1 interest!")
 
                 else -> {
-                    docRef.collection("interests")
-                        .document("interestsList")
-                        .delete()
+                    docRef.collection("interests").document("interestlist")
+                        .set(userInterests)
                         .addOnSuccessListener {
-                            Log.d("!", "Deleted old interests")
-                            docRef.collection("interests")
-                                .document("interestlist")
-                                .set(userInterests)
-                                .addOnSuccessListener {
-                                    Log.d("!", "Created new interest!")
-                                    dismiss()
-                                    showToast("New interests updated!")
-                                }
+                            val aboutme = aboutMeEditText.text.toString()
+
+                            if (aboutme.isNotEmpty()) {
+                                docRef.update("aboutme", aboutme)
+                                    .addOnSuccessListener {
+                                        dismiss()
+                                    }
+                            }
+                            showToast("Updated interest list")
+                            dismiss()
                         }
                 }
             }

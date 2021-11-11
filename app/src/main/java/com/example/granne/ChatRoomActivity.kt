@@ -99,12 +99,20 @@ class ChatRoomActivity : AppCompatActivity() {
                 val oldList = list.data!!.getValue("messagelist").toString()
                 messageList.add(oldList)
 
+                // add $messageList to view
+                Log.d("!","new list$messageList")
+
                 messageButton.setOnClickListener {
                     val text = "$myNickname: ${newMessageEditText.text}"
                     messageList.add(text)
                     newMessageEditText.text.clear()
 
+                    // add $text to view
+                    Log.d("!","Sent text: $text")
+
                     chatDocRef.update("messagelist", messageList)
+
+
                 }
             }
 
@@ -117,15 +125,14 @@ class ChatRoomActivity : AppCompatActivity() {
                 if (snapshot != null && snapshot.exists()) {
                     val currentList = snapshot.data!!.getValue("messagelist")
                     if (currentList.toString().isNotEmpty()) {
+
                         messageTextView.text = currentList.toString()
                             .replace("]", "")
                             .replace("[", "")
-                            .replace(",","")
+                            .replace(",", "")
+
                     }
 
-                    Log.d("!", "Before $messageList")
-                    //messageTextView.text = messageList.toString()
-                    Log.d("!", "AFter $messageList")
                 } else {
                     Log.d("!", "Current data: null")
                 }
