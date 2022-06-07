@@ -18,97 +18,113 @@ import com.google.firebase.ktx.Firebase
 class SettingsDialogFragment : DialogFragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var spinner: Spinner
+    private lateinit var nicknameEditText: EditText
 
     val db = Firebase.firestore
+    val currentUser = auth.currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_settings_dialog, container, false)
 
-        val nicknameEditText = rootView.findViewById<EditText>(R.id.nicknameEditText)
+        val rootView: View = inflater.inflate(R.layout.fragment_settings_dialog, container, false)
         val nicknameButton = rootView.findViewById<Button>(R.id.nicknameButton)
-        val spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
         val buttonSignOut = rootView.findViewById<Button>(R.id.buttonSignOut)
         val locationButton = rootView.findViewById<Button>(R.id.locationButton)
         val deleteAccountButton = rootView.findViewById<Button>(R.id.deleteAccountButton)
 
+        spinner = rootView.findViewById<Spinner>(R.id.spinnerLocation)
+        nicknameEditText = rootView.findViewById<EditText>(R.id.nicknameEditText)
+
         auth = Firebase.auth
 
-        val currentUser = auth.currentUser
-
-        nicknameButton.setOnClickListener {
-            val nickname = nicknameEditText.text.toString()
-            when (nickname.isEmpty()) {
-                true -> showToast("Please enter a new username!")
-
-                false -> {
-                    if (nickname.length < 6) {
-                        showToast("Username cant be less than 6 characters")
-                    } else {
-                        db.collection("userData").document(currentUser!!.uid)
-                            .update("nickname", nickname)
-                            .addOnSuccessListener {
-                                showToast("Nickname changed!")
-                                nicknameEditText.setText("")
-                            }
-
-                            .addOnFailureListener { e -> Log.d("!", "Error:", e) }
-                    }
-                }
-            }
-        }
-
-        val locations = listOf(
+        val locationsList = listOf(
             "Svealand",
             "Götaland",
             "Norrland"
         )
 
         val arrayAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locationsList)
         spinner.adapter = arrayAdapter
 
-        locationButton.setOnClickListener {
-            val newLocation = spinner.selectedItem.toString()
+        nicknameButton.setOnClickListener {
+            addUserName()
+        }
 
-            db.collection("userData").document(currentUser!!.uid)
-                .update("location", newLocation)
-                .addOnSuccessListener {
-                    showToast("Updated location")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("!", "Error adding document", e)
-                }
+        locationButton.setOnClickListener {
+           updateLocation()
         }
 
         buttonSignOut.setOnClickListener {
-            showToast("Logged out")
-            auth.signOut()
-            val startLoginScreen = Intent(activity, MainActivity::class.java)
-            startActivity(startLoginScreen)
+            signOut()
         }
 
         deleteAccountButton.setOnClickListener {
-            db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid)
-                .delete()
-                .addOnSuccessListener {
-                    FirebaseAuth.getInstance().currentUser!!.delete()
-                        .addOnCompleteListener {
-                            Log.d("!", "User deleted in cloud database and auth")
-                            showToast("Account deleted!")
-                            val returnToLoginScreen = Intent(activity, MainActivity::class.java)
-                            startActivity(returnToLoginScreen)
-                        }
-                }
-                .addOnFailureListener { error ->
-                    Log.d("!", "Error! $error")
-                }
+            deleteAccount()
         }
 
         return rootView
+    }
+
+    private fun deleteAccount() {
+        db.collection("userData").document(FirebaseAuth.getInstance().currentUser!!.uid)
+            .delete()
+            .addOnSuccessListener {
+                FirebaseAuth.getInstance().currentUser!!.delete()
+                    .addOnCompleteListener {
+                        Log.d("!", "User deleted in cloud database and auth")
+                        showToast("Account deleted!")
+                        val returnToLoginScreen = Intent(activity, MainActivity::class.java)
+                        startActivity(returnToLoginScreen)
+                }
+            }
+            .addOnFailureListener { error ->
+                Log.d("!", "Error! $error")
+        }
+    }
+
+    private fun signOut() {
+        showToast("Logged out")
+        auth.signOut()
+        val startLoginScreen = Intent(activity, MainActivity::class.java)
+        startActivity(startLoginScreen)
+    }
+
+    private fun updateLocation() {
+        val newLocation = spinner.selectedItem.toString()
+
+        db.collection("userData").document(currentUser!!.uid)
+            .update("location", newLocation)
+            .addOnSuccessListener {
+                showToast("Updated location")
+            }
+            .addOnFailureListener { e ->
+                Log.w("!", "Error adding document", e)
+        }
+    }
+
+    private fun addUserName() {
+        val nickname = nicknameEditText.text.toString()
+        when (nickname.isEmpty()) {
+            true -> showToast("Please enter a new username!")
+            false -> {
+                if (nickname.length < 6) {
+                    showToast("Username cant be less than 6 characters")
+                } else {
+                    db.collection("userData").document(currentUser!!.uid)
+                        .update("nickname", nickname)
+                        .addOnSuccessListener {
+                            showToast("Nickname changed!")
+                            nicknameEditText.setText("")
+                        }
+                        .addOnFailureListener { e -> Log.d("!", "Error:", e) }
+                }
+            }
+        }
     }
 
     private fun showToast(toastMessage: String) {

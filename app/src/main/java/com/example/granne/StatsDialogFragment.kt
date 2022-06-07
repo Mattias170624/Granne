@@ -15,6 +15,10 @@ import com.google.firebase.ktx.Firebase
 class StatsDialogFragment : DialogFragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var nickname: TextView
+    private lateinit var email: TextView
+    private lateinit var aboutMe: TextView
+    private lateinit var matchedUsers: TextView
     val db = Firebase.firestore
 
     override fun onCreateView(
@@ -26,37 +30,38 @@ class StatsDialogFragment : DialogFragment() {
         auth = Firebase.auth
 
         val rootView: View = inflater.inflate(R.layout.stats_dialog_fragment, container, false)
-        val docRef = db.collection("userData").document(auth.currentUser!!.uid)
+        nickname = rootView.findViewById<TextView>(R.id.nicknameText)
+        email = rootView.findViewById<TextView>(R.id.emailText)
+        aboutMe = rootView.findViewById<TextView>(R.id.aboutMeText)
 
-        val nickname = rootView.findViewById<TextView>(R.id.nicknameText)
-        val email = rootView.findViewById<TextView>(R.id.emailText)
-        val aboutMe = rootView.findViewById<TextView>(R.id.aboutMeText)
-        val matchedUsers = rootView.findViewById<TextView>(R.id.matchedUsers)
+        matchedUsers = rootView.findViewById<TextView>(R.id.matchedUsers)
 
-        docRef.get()
-            .addOnSuccessListener { documents ->
-                nickname.text = "Nickname: ${documents.data!!.getValue("nickname")}"
-                email.text = "Email: ${documents.data!!.getValue("email")}"
-                aboutMe.text = "About me: ${documents.data!!.getValue("aboutme")}"
-
-                docRef.collection("matchedUsers").get()
-                    .addOnSuccessListener { usersMatched ->
-                        val matchedList = mutableListOf<String>()
-
-                        for (user in usersMatched) {
-                            val matchedUserNickname = user.getString("nickname")
-
-                            if (matchedUserNickname != null) {
-                                matchedList.add(matchedUserNickname)
-                            }
-                        }
-                        if (matchedList.isNotEmpty()) {
-                            matchedUsers.text = "Active matches with: $matchedList"
-                        }
-
-                    }
-            }
+        getUserData()
 
         return rootView
+    }
+
+    private fun getUserData() {
+        db.collection("userData").document(auth.currentUser!!.uid).get()
+
+            .addOnSuccessListener { documents ->
+            nickname.text = "Nickname: ${documents.data!!.getValue("nickname")}"
+            email.text = "Email: ${documents.data!!.getValue("email")}"
+            aboutMe.text = "About me: ${documents.data!!.getValue("aboutme")}"
+
+            db.collection("matchedUsers").get()
+                .addOnSuccessListener { usersMatched ->
+                    val matchedList = mutableListOf<String>()
+                    for (user in usersMatched) {
+                        val matchedUserNickname = user.getString("nickname")
+                        if (matchedUserNickname != null) {
+                            matchedList.add(matchedUserNickname)
+                        }
+                    }
+                    if (matchedList.isNotEmpty()) {
+                        matchedUsers.text = "Active matches with: $matchedList"
+                }
+            }
+        }
     }
 }

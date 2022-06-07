@@ -13,17 +13,17 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class PersonFindMatchRecycleViewAdapter(
+class PersonFindMatchRecyclerViewAdapter(
     val context: Context,
-    val persons: List<PersonFindMatch>,
-) : RecyclerView.Adapter<PersonFindMatchRecycleViewAdapter.ViewHolder>() {
+    val personsList: List<PersonFindMatch>,
+) : RecyclerView.Adapter<PersonFindMatchRecyclerViewAdapter.ViewHolder>() {
 
     var auth = Firebase.auth
     val db = Firebase.firestore
     val layoutInflater = LayoutInflater.from(context)
 
     override fun getItemCount(): Int {
-        return persons.size
+        return personsList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,27 +32,26 @@ class PersonFindMatchRecycleViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val person = persons[position]
+        val person = personsList[position]
 
         holder.nameTextView.text = person.name.toString()
-        holder.interestTextView.text = person.intressen.toString()
+        holder.interestTextView.text = person.interests.toString()
         holder.aboutMeTextView.text = person.aboutMe.toString()
 
         holder.buttonAdd.setOnClickListener {
             val nickname = person.name.toString()
             val userUid = person.uid.toString()
-            var veryBadIdGenerator = (234234324..4343434345).random().toString()
-
+            var idGenerator = (234234324..4343434345).random().toString()
 
             val mapOfDetails = hashMapOf(
                 "nickname" to nickname,
                 "uid" to userUid,
-                "chatId" to veryBadIdGenerator
+                "chatId" to idGenerator
             )
 
             Log.d("!", ">> ${person.name}}")
             Log.d("!", ">> ${person.aboutMe}}")
-            Log.d("!", ">> ${person.intressen}}")
+            Log.d("!", ">> ${person.interests}}")
             Log.d("!", ">> ${person.uid}}")
 
             db.collection("userData").document(auth.currentUser!!.uid)
@@ -61,21 +60,20 @@ class PersonFindMatchRecycleViewAdapter(
 
                     showToast("Added $nickname to chat list!")
 
-                    addYourselfToSecondUserMatchedList(userUid, veryBadIdGenerator)
-                }
+                    addToMatchedList(userUid, idGenerator)
+            }
         }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val nameTextView = itemView.findViewById<TextView>(R.id.tvName)
-        val interestTextView = itemView.findViewById<TextView>(R.id.tvIntressen)
-        val aboutMeTextView = itemView.findViewById<TextView>(R.id.tvAboutMe)
-        val buttonAdd = itemView.findViewById<ImageButton>(R.id.btnAdd)
-
+        val nameTextView = itemView.findViewById<TextView>(R.id.nameTextView)
+        val interestTextView = itemView.findViewById<TextView>(R.id.interestTextView)
+        val aboutMeTextView = itemView.findViewById<TextView>(R.id.aboutMeTextView)
+        val buttonAdd = itemView.findViewById<ImageButton>(R.id.buttonAdd)
     }
 
-    private fun addYourselfToSecondUserMatchedList(uid: String, chatId: String) {
+    private fun addToMatchedList(uid: String, chatId: String) {
         db.collection("userData").document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { documents ->
                 val myName = documents.data!!.getValue("nickname").toString()

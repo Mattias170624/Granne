@@ -24,12 +24,10 @@ class HomeActivity : AppCompatActivity() {
     lateinit var buttonChat: ImageButton
     lateinit var buttonInfo: ImageButton
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         auth = Firebase.auth
-
 
         nicknameUnderIcon = findViewById(R.id.nicknameUnderIcon)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
@@ -37,29 +35,21 @@ class HomeActivity : AppCompatActivity() {
         buttonChat = findViewById(R.id.buttonChat)
         buttonInfo = findViewById(R.id.buttonInformation)
 
-
         buttonChat.setOnClickListener {
-            startActivity(Intent(this, ChatListActivity::class.java))
-
-            //val chatIntent = Intent(this, ChatActivity::class.java)
-            //startActivity(chatIntent)
+            startChat()
         }
 
         buttonOptions.setOnClickListener {
-            val dialog = SettingsDialogFragment()
-            dialog.show(supportFragmentManager, "optionsdialog")
+            showOptions()
         }
 
         buttonFindMatch.setOnClickListener {
-            val findMatchIntent = Intent(this, FindMatchActivity::class.java)
-            startActivity(findMatchIntent)
+            findMatch()
         }
 
         buttonInfo.setOnClickListener {
-            val dialog = CustomDialogFragment()
-            dialog.show(supportFragmentManager, "customDialog")
+            showInfo()
         }
-
     }
 
     override fun onStart() {
@@ -71,13 +61,31 @@ class HomeActivity : AppCompatActivity() {
                 if (error != null) {
                     return@addSnapshotListener // Stop listening to this snapshot
                 }
-
                 if (snapshot != null && snapshot.exists()) {
                     nicknameUnderIcon.text = snapshot.data!!.getValue("nickname").toString()
                 } else {
                     Log.d("!", "Current data: null")
-                }
             }
+        }
+    }
+
+    private fun showInfo() {
+        val dialog = CustomDialogFragment()
+        dialog.show(supportFragmentManager, "customDialog")
+    }
+
+    private fun findMatch() {
+        val findMatchIntent = Intent(this, FindMatchActivity::class.java)
+        startActivity(findMatchIntent)
+    }
+
+    private fun showOptions() {
+        val dialog = SettingsDialogFragment()
+        dialog.show(supportFragmentManager, "optionsdialog")
+    }
+
+    private fun startChat() {
+        startActivity(Intent(this, ChatListActivity::class.java))
     }
 
     fun statsDialogButton(view: View) {

@@ -26,13 +26,13 @@ class MainActivity : AppCompatActivity() {
     private var currentLanguage = "en"
     private var currentLang: String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         auth = Firebase.auth
 
         val currentUser = auth.currentUser
+
         if (currentUser != null) { // Check if user is signed in
             startActivity(Intent(this, HomeActivity::class.java))
             Log.d("!","Auto logged in with email: ${auth.currentUser!!.email}")
@@ -40,17 +40,16 @@ class MainActivity : AppCompatActivity() {
             Log.d("!", "No user logged in")
         }
 
-
         title = "Granne"
         currentLanguage = intent.getStringExtra(currentLang).toString()
         spinner = findViewById(R.id.spinner)
 
-        val list = ArrayList<String>()
-        list.add("Language")
-        list.add("English")
-        list.add("Svenska")
+        val languageList = ArrayList<String>()
+        languageList.add("Language")
+        languageList.add("English")
+        languageList.add("Svenska")
 
-        val adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list)
+        val adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, languageList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
@@ -70,7 +69,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
-
         }
     }
 
@@ -87,14 +85,9 @@ class MainActivity : AppCompatActivity() {
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
         } else {
-            Toast.makeText(
-                this@MainActivity,
-                "Language already selected!",
-                Toast.LENGTH_SHORT
-            ).show();
+            showToast("Language already selected!")
         }
     }
-
 
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
@@ -103,6 +96,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
         exitProcess(0)
+    }
+
+    private fun showToast(toastMessage: String) {
+        val toast = Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_SHORT)
+        toast.show()
     }
 
     fun startLoginActivity(view: View) {
@@ -114,8 +112,6 @@ class MainActivity : AppCompatActivity() {
         val createAccountIntent = Intent(this, CreateAccountActivity::class.java)
         startActivity(createAccountIntent)
     }
-
-
 }
 
 

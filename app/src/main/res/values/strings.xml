@@ -65,5 +65,19 @@
     <string name="agree">agree</string>
     <string name="cancel">cancel</string>
     <string name="register">Register</string>
+    <string name="send_message">Send message</string>
+    <string name="message">Message</string>
+    <string name="terms_of_service">Terms Of Service</string>
+    <string name="recover_password">Recover password</string>
+    <string name="enter_email_adress">Enter email adress</string>
+    <string name="submit">Submit</string>
+    <string name="wildlife">Wildlife</string>
+    <string name="travel">Travel</string>
+    <string name="food">Food</string>
+    <string name="socialising">Socialising</string>
+    <string name="books">Books</string>
+    <string name="games">Games</string>
+    <string name="netflix">Netflix</string>
+    <string name="save_changes">Save changes</string>
 
 </resources>
