@@ -26,7 +26,7 @@ class ChatRoomActivity : AppCompatActivity() {
     private lateinit var newMessageEditText: EditText
     private lateinit var messageTextView: TextView
     private lateinit var messageButton: Button
-    private lateinit var userTitle: TextView
+    private lateinit var userTitleTextView: TextView
     lateinit var messageList: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,23 +37,11 @@ class ChatRoomActivity : AppCompatActivity() {
         messageTextView = findViewById(R.id.messageTextView)
         newMessageEditText = findViewById(R.id.newMessageEditText)
         messageButton = findViewById(R.id.messageButton)
-        userTitle = findViewById(R.id.userTitle)
+        userTitleTextView = findViewById(R.id.userTitle)
 
         secondUserNickname = intent.getStringExtra("secondUserNickname").toString()
-        val secondUserUid: String = intent.getStringExtra("secondUserUid").toString()
-        val myDocRef = db.collection("userData").document(auth.currentUser!!.uid)
 
-
-        myDocRef.get()
-            .addOnSuccessListener { name ->
-                myNickname = name.data!!.getValue("nickname").toString()
-
-                myDocRef.collection("matchedUsers").document(secondUserUid).get()
-                    .addOnSuccessListener { documents ->
-                        chatKey = documents.data!!.getValue("chatId").toString()
-                        createChatChannel(chatKey)
-                    }
-            }
+        getUserData()
 
     }
 
@@ -76,70 +64,64 @@ class ChatRoomActivity : AppCompatActivity() {
                         .addOnSuccessListener {
                             Log.d("!", "Created chat with $secondUserNickname")
                             updateChatUi()
-                        }
+                    }
                 }
                 if (task.exists()) {
                     Log.d("!", "Joining chat with $secondUserNickname with chatId: $chatKey")
                     updateChatUi()
-                }
             }
+        }
+    }
 
+    private fun getUserData() {
+        val secondUserUid: String = intent.getStringExtra("secondUserUid").toString()
+        val myDocRef = db.collection("userData").document(auth.currentUser!!.uid)
+            myDocRef.get()
+                .addOnSuccessListener { name ->
+                    myNickname = name.data!!.getValue("nickname").toString()
+                    myDocRef.collection("matchedUsers").document(secondUserUid).get()
+                        .addOnSuccessListener { documents ->
+                            chatKey = documents.data!!.getValue("chatId").toString()
+                            createChatChannel(chatKey)
+            }
+        }
     }
 
     private fun updateChatUi() {
         val chatDocRef = db.collection("chatRooms").document(chatKey)
-
-
-        // Sets title for the chatroom
         val titleNickname = secondUserNickname
-        userTitle.text = titleNickname
+        userTitleTextView.text = titleNickname
 
         chatDocRef.get()
             .addOnSuccessListener { list ->
                 val oldList = list.data!!.getValue("messagelist").toString()
                 messageList.add(oldList)
-
-                // add $messageList to view
-                Log.d("!","new list$messageList")
-
                 messageButton.setOnClickListener {
                     val text = "$myNickname: ${newMessageEditText.text}"
                     messageList.add(text)
                     newMessageEditText.text.clear()
-
-                    // add $text to view
-                    Log.d("!","Sent text: $text")
-
                     chatDocRef.update("messagelist", messageList)
-
-
                 }
             }
 
         chatDocRef
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
-                    return@addSnapshotListener // Stop listening to this snapshot
+                    return@addSnapshotListener
                 }
 
                 if (snapshot != null && snapshot.exists()) {
                     val currentList = snapshot.data!!.getValue("messagelist")
                     if (currentList.toString().isNotEmpty()) {
-
                         messageTextView.text = currentList.toString()
                             .replace("]", "")
                             .replace("[", "")
                             .replace(",", "")
-
                     }
-
                 } else {
                     Log.d("!", "Current data: null")
-                }
-
             }
-
-
+        }
     }
 }
 

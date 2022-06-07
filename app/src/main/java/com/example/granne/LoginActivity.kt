@@ -23,8 +23,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var buttonSignIn: Button
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
-    lateinit var tv_forgotPassword: TextView
-
+    lateinit var forgotPasswordTextView: TextView
     lateinit var email: String
     lateinit var password: String
 
@@ -36,25 +35,30 @@ class LoginActivity : AppCompatActivity() {
         buttonSignIn = findViewById(R.id.buttonSignIn)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        tv_forgotPassword = findViewById(R.id.tv_forgotPassword)
+        forgotPasswordTextView = findViewById(R.id.tv_forgotPassword)
 
-        tv_forgotPassword.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
+        forgotPasswordTextView.setOnClickListener {
+            forgotPassword()
         }
-
 
         buttonSignIn.setOnClickListener {
-            when {
-                checkUserInputs() -> {
-                    if (password.length < 6) {
-                        showToast("Password must be at least 6 characters")
-                    } else signIn(email, password)
-                }
-
-                !checkUserInputs() -> showToast("Empty inputs")
-            }
+            signInClicked()
         }
+    }
 
+    private fun forgotPassword() {
+        startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
+    }
+
+    private fun signInClicked() {
+        when {
+            checkUserInputs() -> {
+                if (password.length < 6) {
+                    showToast("Password must be at least 6 characters")
+                } else signIn(email, password)
+            }
+            !checkUserInputs() -> showToast("Empty inputs")
+        }
     }
 
     private fun checkUserInputs(): Boolean {
@@ -74,22 +78,20 @@ class LoginActivity : AppCompatActivity() {
                     showToast("Logged in")
                     val user = auth.currentUser
                     updateUI(user)
-
                 } else {
                     // If sign in fails. Display a toast to the user
-                    Log.w("!", "signInWithEmail:failure", task.exception)
+                    Log.w("signInWithEmail:failure", task.exception)
                     showToast("Email doesn't exist or is badly written")
                     updateUI(null)
-                }
-            }
+           }
+        }
     }
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             Log.d("!", "Logged in")
             homeScreenIntent()
-
-        } else Log.d("!", "User failed to log in")
+        }  else Log.d("!", "User failed to log in")
     }
 
     private fun homeScreenIntent() {

@@ -11,19 +11,16 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
 class ChatRecyclerAdapter(
-    private var nickname: List<String>,
-    private var userUid: MutableList<String>,
-) : RecyclerView.Adapter<ChatRecyclerAdapter.ViewHolder>() {
+    private var nicknamesList: List<String>,
+    private var userUidList: MutableList<String>,
+    ) : RecyclerView.Adapter<ChatRecyclerAdapter.ViewHolder>() {
 
     var auth = Firebase.auth
     val db = Firebase.firestore
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val itemNickname: TextView = itemView.findViewById(R.id.nicknameText)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,19 +30,17 @@ class ChatRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemNickname.text = nickname[position]
+        holder.itemNickname.text = nicknamesList[position]
 
         holder.itemView.setOnClickListener {
-            //When pressing on a user in the list, go to ChatRoomActivity
             val intent = Intent(holder.itemView.context, ChatRoomActivity::class.java)
-                .putExtra("secondUserNickname", nickname[position])
-                .putExtra("secondUserUid", userUid[position])
+                .putExtra("secondUserNickname", nicknamesList[position])
+                .putExtra("secondUserUid", userUidList[position])
             holder.itemView.context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return nickname.size
+        return nicknamesList.size
     }
-
 }

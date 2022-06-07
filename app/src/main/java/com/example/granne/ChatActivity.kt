@@ -45,7 +45,6 @@ class ChatActivity : AppCompatActivity() {
         messageEditText = findViewById(R.id.messageEditText)
         nicknameTextView.text = "User"
 
-
         realtimeUpdateListener()
 
         buttonSendMessage.setOnClickListener {
@@ -61,7 +60,6 @@ class ChatActivity : AppCompatActivity() {
         firestoreChat.set(newMessage).addOnSuccessListener {
             Toast.makeText(this@ChatActivity, "Message Sent", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener { e -> e.message?.let { Log.e("ERROR", it) } }
-
     }
 
     private fun realtimeUpdateListener() {
@@ -75,7 +73,6 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
     }
 }

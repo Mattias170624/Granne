@@ -23,7 +23,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/emailEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="" />
 
 
     <EditText
@@ -42,7 +43,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -59,10 +61,11 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="" />
 
     <TextView
-        android:id="@+id/tosText"
+        android:id="@+id/termsOfServiceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -76,12 +79,12 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
     <CheckBox
-        android:id="@+id/tosCheckBox"
+        android:id="@+id/termsOfServiceCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/tosText"
+        app:layout_constraintStart_toEndOf="@+id/termsOfServiceTextView"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
     <Button

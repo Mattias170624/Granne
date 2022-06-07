@@ -16,7 +16,8 @@
         android:src="@drawable/ic_user_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="userImage" />
 
 
     <TextView
@@ -47,7 +48,8 @@
             android:background="@drawable/circle_btn"
             android:paddingBottom="30dp"
             android:src="@drawable/ic_find_user"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"
+            android:contentDescription="findMatch" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +62,6 @@
 
     </RelativeLayout>
 
-
     <ImageButton
         android:id="@+id/buttonOptions"
         android:layout_width="80sp"
@@ -71,7 +72,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/findMatchLayout"
         app:srcCompat="@drawable/ic_options_button"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="options" />
 
     <ImageButton
         android:id="@+id/buttonInformation"
@@ -84,7 +86,8 @@
         android:text="@string/Info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/findMatchLayout"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="information" />
 
     <ImageButton
         android:id="@+id/buttonStats"
@@ -98,7 +101,8 @@
         app:layout_constraintBottom_toTopOf="@+id/findMatchLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_stats_button"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="stats" />
 
     <ImageButton
         android:id="@+id/buttonChat"
@@ -111,6 +115,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_chat_button"
         tools:ignore="SpeakableTextPresentCheck" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

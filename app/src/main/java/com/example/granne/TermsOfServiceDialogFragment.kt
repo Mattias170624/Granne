@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
-class TosDialogFragment : DialogFragment() {
+class TermsOfServiceDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        return inflater.inflate(R.layout.fragment_terms_of_service_dialog, container, false)
 
-        return inflater.inflate(R.layout.fragment_tos_dialog, container, false)
     }
 }

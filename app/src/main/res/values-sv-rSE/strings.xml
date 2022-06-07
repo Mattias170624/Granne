@@ -31,8 +31,6 @@
     <string name="Search_Match">Sök matchning</string>
     <!--Settingsmeny-->
     <string name="Settings">Inställningar</string>
-    <string name="Username...">Användarnamn...</string>
-    <string name="Password...">Lösenord...</string>
     <string name="ApplyUsername">Tillämpa</string>
     <string name="ApplyPassword">Tillämpa</string>
     <string name="Change_username">Byt användarnamn:</string>
@@ -52,5 +50,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hej tomt fragment</string>
     <string name="about_this_app">Om den här appen</string>
-    <string name="AboutThisAppText">Ähfksdhfdhfdfdsfkjdsfsdgjsödgsdgjsdjfsdfjsfjsdfk kjsdfhsfksdjhfsdfkwjsdfksfskjfklsdjkfsdfjdfsdjfskljfr akjfkfkdhfdksfhdsfhdsfkdsljfs sdkljsdfk</string>
+    <string name="AboutThisAppText">Den här appen</string>
 </resources>
