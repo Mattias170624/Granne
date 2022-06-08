@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.granne.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -15,34 +16,26 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
-    lateinit var buttonSignIn: Button
-    lateinit var emailEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var tvForgotpassword: TextView
+    private lateinit var binding: ActivityLoginBinding
 
     lateinit var email: String
     lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         auth = Firebase.auth
 
-        buttonSignIn = findViewById(R.id.buttonSignIn)
-        emailEditText = findViewById(R.id.emailEditText)
-        passwordEditText = findViewById(R.id.passwordEditText)
-        tvForgotpassword = findViewById(R.id.tv_forgotPassword)
-
-        tvForgotpassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
             startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
         }
 
-
-        buttonSignIn.setOnClickListener {
+        binding.buttonSignIn.setOnClickListener {
             when {
                 checkUserInputs() -> {
                     if (password.length < 6) {
@@ -57,8 +50,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserInputs(): Boolean {
-        email = emailEditText.text.toString()
-        password = passwordEditText.text.toString()
+        email = binding.emailEditText.text.toString()
+        password = binding.passwordEditText.text.toString()
 
         return !(email.isEmpty() || password.isEmpty())
     }
