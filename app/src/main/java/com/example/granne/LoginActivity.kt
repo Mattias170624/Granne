@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -23,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var buttonSignIn: Button
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
-    lateinit var tv_forgotPassword: TextView
+    lateinit var tvForgotpassword: TextView
 
     lateinit var email: String
     lateinit var password: String
@@ -36,9 +35,9 @@ class LoginActivity : AppCompatActivity() {
         buttonSignIn = findViewById(R.id.buttonSignIn)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        tv_forgotPassword = findViewById(R.id.tv_forgotPassword)
+        tvForgotpassword = findViewById(R.id.tv_forgotPassword)
 
-        tv_forgotPassword.setOnClickListener {
+        tvForgotpassword.setOnClickListener {
             startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
         }
 
