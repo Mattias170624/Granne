@@ -13,7 +13,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
