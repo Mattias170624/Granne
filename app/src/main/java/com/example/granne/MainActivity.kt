@@ -3,13 +3,11 @@ package com.example.granne
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) { // Check if user is signed in
             startActivity(Intent(this, HomeActivity::class.java))
-            Log.d("!","Auto logged in with email: ${auth.currentUser!!.email}")
+            Log.d("!", "Auto logged in with email: ${auth.currentUser!!.email}")
         } else {
             Log.d("!", "No user logged in")
         }
 
 
-        title = "Granne"
+        title = resources.getString(R.string.app_name)
         currentLanguage = intent.getStringExtra(currentLang).toString()
         spinner = findViewById(R.id.spinner)
 
