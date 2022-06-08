@@ -4,19 +4,22 @@ import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.example.granne.databinding.ActivityForgotPasswordBinding
-import com.example.granne.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityForgotPasswordBinding
+
+    private fun showToast(message: String) {
+        Toast.makeText(
+            this@ForgotPasswordActivity,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,30 +30,19 @@ class ForgotPasswordActivity : AppCompatActivity() {
             val email: String = binding.etEnterEmail.text.toString().trim { it <= ' ' }
             if (email.isEmpty()) {
                 Log.d(TAG, "Enter Email")
-                Toast.makeText(
-                    this@ForgotPasswordActivity,
-                    "Please enter your email adress.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast("Please enter your email address.")
             } else {
                 Firebase.auth
                     .sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "Email sent")
-                            Toast.makeText(
-                                this@ForgotPasswordActivity,
-                                "Email successfully sent to reset your password.",
-                                Toast.LENGTH_LONG
-                            ).show()
-
+                            showToast("Email successfully sent to reset your password.")
                             finish()
                         } else {
-                            Toast.makeText(
-                                this@ForgotPasswordActivity,
-                                task.exception!!.message.toString(),
-                                Toast.LENGTH_LONG
-                            ).show()
+                            task.exception?.message?.let {
+                                showToast(it)
+                            }
                         }
                     }
             }
