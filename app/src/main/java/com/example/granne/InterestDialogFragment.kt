@@ -1,122 +1,89 @@
 package com.example.granne
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Layout
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import kotlin.collections.HashMap
+import androidx.lifecycle.lifecycleScope
+import com.example.granne.databinding.FragmentInterestDialogBinding
+import com.example.granne.repo.RemoteStorage
+import kotlinx.coroutines.launch
 
 class InterestDialogFragment : DialogFragment() {
 
-    private lateinit var aboutMeEditText: EditText
-    private lateinit var checkBox1: CheckBox
-    private lateinit var checkBox2: CheckBox
-    private lateinit var checkBox3: CheckBox
-    private lateinit var checkBox4: CheckBox
-    private lateinit var checkBox5: CheckBox
-    private lateinit var checkBox6: CheckBox
-    private lateinit var checkBox7: CheckBox
-    lateinit var saveChangesButton: Button
+    private lateinit var binding: FragmentInterestDialogBinding
 
-    lateinit var auth: FirebaseAuth
+    private val interest = mutableListOf<CheckboxWrapper>()
 
-    val db = Firebase.firestore
+    private val remoteStorage = RemoteStorage()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_interest_dialog, container, false)
-
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        val docRef = db.collection("userData").document(currentUser!!.uid)
-        aboutMeEditText = rootView.findViewById(R.id.aboutmeEditText)
-        checkBox1 = rootView.findViewById(R.id.checkBox1)
-        checkBox2 = rootView.findViewById(R.id.checkBox2)
-        checkBox3 = rootView.findViewById(R.id.checkBox3)
-        checkBox4 = rootView.findViewById(R.id.checkBox4)
-        checkBox5 = rootView.findViewById(R.id.checkBox5)
-        checkBox6 = rootView.findViewById(R.id.checkBox6)
-        checkBox7 = rootView.findViewById(R.id.checkBox7)
-        saveChangesButton = rootView.findViewById(R.id.saveChangesButton)
+        binding = FragmentInterestDialogBinding.inflate(inflater)
 
 
-        saveChangesButton.setOnClickListener {
-            val userInterests = hashMapOf<String, String>()
-            var count = 0
+        interest.add(CheckboxWrapper(binding.checkBox1, "Wildlife", 1))
+        interest.add(CheckboxWrapper(binding.checkBox2, "Travel", 2))
+        interest.add(CheckboxWrapper(binding.checkBox3, "Food", 3))
+        interest.add(CheckboxWrapper(binding.checkBox4, "Socialising", 4))
+        interest.add(CheckboxWrapper(binding.checkBox5, "Books", 5))
+        interest.add(CheckboxWrapper(binding.checkBox6, "Games", 6))
+        interest.add(CheckboxWrapper(binding.checkBox7, "Netflix", 7))
 
-            if (checkBox1.isChecked) {
-                count++
-                userInterests["interest$count"] = "Wildlife"
-            }
-            if (checkBox2.isChecked) {
-                count++
-                userInterests["interest$count"] = "Travel"
-            }
-            if (checkBox3.isChecked) {
-                count++
-                userInterests["interest$count"] = "Food"
-            }
-            if (checkBox4.isChecked) {
-                count++
-                userInterests["interest$count"] = "Socialising"
-            }
-            if (checkBox5.isChecked) {
-                count++
-                userInterests["interest$count"] = "Books"
-            }
-            if (checkBox6.isChecked) {
-                count++
-                userInterests["interest$count"] = "Games"
-            }
-            if (checkBox7.isChecked) {
-                count++
-                userInterests["interest$count"] = "Netflix"
-            }
-
-            when {
-                count > 6 -> showToast("Max 6 interests allowed!")
-
-                count <= 0 -> showToast("Please select at least 1 interest!")
-
-                else -> {
-                    docRef.collection("interests").document("interestlist")
-                        .set(userInterests)
-                        .addOnSuccessListener {
-                            val aboutme = aboutMeEditText.text.toString()
-
-                            if (aboutme.isNotEmpty()) {
-                                docRef.update("aboutme", aboutme)
-                                    .addOnSuccessListener {
-                                        dismiss()
-                                    }
-                            }
-                            showToast("Updated interest list")
-                            dismiss()
-                        }
+        binding.saveChangesButton.setOnClickListener {
+            val count = countInterests()
+            if (count == 0) {
+                showToast("Please select at least 1 interest!")
+            } else if (count > 6) {
+                showToast("Max 6 interests allowed!")
+            } else {
+                lifecycleScope.launch {
+                    remoteStorage.updateInterests(
+                        generateInterestList(),
+                        binding.aboutmeEditText.text.toString()
+                    )
                 }
+                showToast("Updated interest list")
+                dismiss()
             }
         }
+        return binding.root
+    }
 
-        return rootView
+    private fun countInterests(): Int {
+        var count = 0
+        interest.forEach {
+            if (it.checkbox.isChecked)
+                count++
+        }
+        return count
+    }
+
+    private fun generateInterestList(): HashMap<String, String> {
+        val userInterests = hashMapOf<String, String>()
+        interest.forEach {
+            if (it.checkbox.isChecked)
+                userInterests[it.getIdentifier()] = it.interest
+        }
+        return userInterests
     }
 
     private fun showToast(toastMessage: String) {
         val toast = Toast.makeText(activity, toastMessage, Toast.LENGTH_SHORT)
         toast.show()
+    }
+
+    class CheckboxWrapper(val checkbox: CheckBox, val interest: String, val id: Int) {
+        fun getIdentifier(): String {
+            return "interest$id"
+        }
     }
 }
 

@@ -35,7 +35,7 @@ class PersonFindMatchRecycleViewAdapter(
         val person = persons[position]
 
         holder.nameTextView.text = person.name.toString()
-        holder.interestTextView.text = person.intressen.toString()
+        holder.interestTextView.text = person.interests.toString()
         holder.aboutMeTextView.text = person.aboutMe.toString()
 
         holder.buttonAdd.setOnClickListener {
@@ -52,7 +52,7 @@ class PersonFindMatchRecycleViewAdapter(
 
             Log.d("!", ">> ${person.name}}")
             Log.d("!", ">> ${person.aboutMe}}")
-            Log.d("!", ">> ${person.intressen}}")
+            Log.d("!", ">> ${person.interests}}")
             Log.d("!", ">> ${person.uid}}")
 
             db.collection("userData").document(auth.currentUser!!.uid)
@@ -68,10 +68,10 @@ class PersonFindMatchRecycleViewAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val nameTextView = itemView.findViewById<TextView>(R.id.tvName)
-        val interestTextView = itemView.findViewById<TextView>(R.id.tvIntressen)
-        val aboutMeTextView = itemView.findViewById<TextView>(R.id.tvAboutMe)
-        val buttonAdd = itemView.findViewById<ImageButton>(R.id.btnAdd)
+        val nameTextView: TextView = itemView.findViewById(R.id.tvName)
+        val interestTextView: TextView = itemView.findViewById(R.id.tvIntressen)
+        val aboutMeTextView: TextView = itemView.findViewById(R.id.tvAboutMe)
+        val buttonAdd: ImageButton = itemView.findViewById(R.id.btnAdd)
 
     }
 

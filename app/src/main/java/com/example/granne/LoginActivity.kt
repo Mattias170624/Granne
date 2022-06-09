@@ -4,46 +4,29 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
+import com.example.granne.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
+    private val firebaseAuth = Firebase.auth
+    private lateinit var binding: ActivityLoginBinding
 
-    private lateinit var auth: FirebaseAuth
-    val db = Firebase.firestore
-
-    lateinit var buttonSignIn: Button
-    lateinit var emailEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var tv_forgotPassword: TextView
-
-    lateinit var email: String
-    lateinit var password: String
+    private lateinit var email: String
+    private lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        auth = Firebase.auth
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        buttonSignIn = findViewById(R.id.buttonSignIn)
-        emailEditText = findViewById(R.id.emailEditText)
-        passwordEditText = findViewById(R.id.passwordEditText)
-        tv_forgotPassword = findViewById(R.id.tv_forgotPassword)
-
-        tv_forgotPassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
             startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
         }
 
-
-        buttonSignIn.setOnClickListener {
+        binding.buttonSignIn.setOnClickListener {
             when {
                 checkUserInputs() -> {
                     if (password.length < 6) {
@@ -54,25 +37,24 @@ class LoginActivity : AppCompatActivity() {
                 !checkUserInputs() -> showToast("Empty inputs")
             }
         }
-
     }
 
     private fun checkUserInputs(): Boolean {
-        email = emailEditText.text.toString()
-        password = passwordEditText.text.toString()
+        email = binding.emailEditText.text.toString()
+        password = binding.passwordEditText.text.toString()
 
         return !(email.isEmpty() || password.isEmpty())
     }
 
     private fun signIn(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
+        firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
 
                 if (task.isSuccessful) {
                     // Sign in success. Start HomeActivity
                     Log.d("!", "signInWithEmail:success")
                     showToast("Logged in")
-                    val user = auth.currentUser
+                    val user = firebaseAuth.currentUser
                     updateUI(user)
 
                 } else {
