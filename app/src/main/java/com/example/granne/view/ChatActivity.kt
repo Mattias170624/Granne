@@ -19,10 +19,10 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
-    lateinit var buttonSendMessage: Button
-    lateinit var nicknameTextView: TextView
-    lateinit var messageEditText: EditText
-    lateinit var textDisplay: TextView
+    private lateinit var buttonSendMessage: Button
+    private lateinit var nicknameTextView: TextView
+    private lateinit var messageEditText: EditText
+    private lateinit var textDisplay: TextView
 
     companion object {
         const val COLLECTION_KEY = "Chat"
