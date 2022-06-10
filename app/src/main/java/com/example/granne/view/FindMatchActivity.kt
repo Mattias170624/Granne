@@ -1,4 +1,4 @@
-package com.example.granne
+package com.example.granne.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,10 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.granne.fragments.InterestDialogFragment
+import com.example.granne.model.PersonFindMatch
+import com.example.granne.PersonFindMatchRecycleViewAdapter
+import com.example.granne.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

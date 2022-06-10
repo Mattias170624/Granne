@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_1"
-    tools:context=".ChatListActivity"
+    tools:context=".view.ChatListActivity"
     tools:ignore="HardcodedText">
 
     <androidx.recyclerview.widget.RecyclerView

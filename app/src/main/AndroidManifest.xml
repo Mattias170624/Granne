@@ -10,31 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Granne">
         <activity
-            android:name=".ChatRoomActivity"
+            android:name=".view.ChatRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatListActivity"
+            android:name=".view.ChatListActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".view.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".view.ChatActivity"
             android:exported="true" />
         <activity
-            android:name=".FindMatchActivity"
+            android:name=".view.FindMatchActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".view.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".view.CreateAccountActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
