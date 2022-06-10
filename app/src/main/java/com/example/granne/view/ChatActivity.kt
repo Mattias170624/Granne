@@ -1,4 +1,4 @@
-package com.example.granne
+package com.example.granne.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.granne.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,10 +19,10 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
-    lateinit var buttonSendMessage: Button
-    lateinit var nicknameTextView: TextView
-    lateinit var messageEditText: EditText
-    lateinit var textDisplay: TextView
+    private lateinit var buttonSendMessage: Button
+    private lateinit var nicknameTextView: TextView
+    private lateinit var messageEditText: EditText
+    private lateinit var textDisplay: TextView
 
     companion object {
         const val COLLECTION_KEY = "Chat"

@@ -9,18 +9,19 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.granne.model.PersonFindMatch
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class PersonFindMatchRecycleViewAdapter(
     val context: Context,
-    val persons: List<PersonFindMatch>,
+    private val persons: List<PersonFindMatch>,
 ) : RecyclerView.Adapter<PersonFindMatchRecycleViewAdapter.ViewHolder>() {
 
     var auth = Firebase.auth
     val db = Firebase.firestore
-    val layoutInflater = LayoutInflater.from(context)
+    private val layoutInflater = LayoutInflater.from(context)
 
     override fun getItemCount(): Int {
         return persons.size
@@ -35,7 +36,7 @@ class PersonFindMatchRecycleViewAdapter(
         val person = persons[position]
 
         holder.nameTextView.text = person.name.toString()
-        holder.interestTextView.text = person.intressen.toString()
+        holder.interestTextView.text = person.interest.toString()
         holder.aboutMeTextView.text = person.aboutMe.toString()
 
         holder.buttonAdd.setOnClickListener {
@@ -52,7 +53,7 @@ class PersonFindMatchRecycleViewAdapter(
 
             Log.d("!", ">> ${person.name}}")
             Log.d("!", ">> ${person.aboutMe}}")
-            Log.d("!", ">> ${person.intressen}}")
+            Log.d("!", ">> ${person.interest}}")
             Log.d("!", ">> ${person.uid}}")
 
             db.collection("userData").document(auth.currentUser!!.uid)

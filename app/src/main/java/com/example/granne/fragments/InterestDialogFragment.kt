@@ -1,9 +1,6 @@
-package com.example.granne
+package com.example.granne.fragments
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Layout
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +9,10 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.granne.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlin.collections.HashMap
 
 class InterestDialogFragment : DialogFragment() {
 

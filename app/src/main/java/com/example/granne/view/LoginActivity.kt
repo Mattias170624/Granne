@@ -1,14 +1,14 @@
-package com.example.granne
+package com.example.granne.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.granne.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var buttonSignIn: Button
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
-    lateinit var tv_forgotPassword: TextView
+    lateinit var tvForgotPassword: TextView
 
     lateinit var email: String
     lateinit var password: String
@@ -36,9 +36,9 @@ class LoginActivity : AppCompatActivity() {
         buttonSignIn = findViewById(R.id.buttonSignIn)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        tv_forgotPassword = findViewById(R.id.tv_forgotPassword)
+        tvForgotPassword = findViewById(R.id.tv_forgotPassword)
 
-        tv_forgotPassword.setOnClickListener {
+        tvForgotPassword.setOnClickListener {
             startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
         }
 

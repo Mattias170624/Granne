@@ -1,4 +1,4 @@
-package com.example.granne
+package com.example.granne.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
-import android.widget.AdapterView
+import com.example.granne.R
+import com.example.granne.view.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

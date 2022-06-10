@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_1"
-    tools:context=".ChatRoomActivity"
+    tools:context=".view.ChatRoomActivity"
     tools:ignore="HardcodedText">
 
     <TextView
