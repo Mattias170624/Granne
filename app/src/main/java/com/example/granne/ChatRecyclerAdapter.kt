@@ -13,8 +13,8 @@ import com.google.firebase.ktx.Firebase
 
 
 class ChatRecyclerAdapter(
-    private var nickname: List<String>,
-    private var userUid: MutableList<String>,
+    private var nickNameList: List<String>,
+    private var userUidList: MutableList<String>,
 ) : RecyclerView.Adapter<ChatRecyclerAdapter.ViewHolder>() {
 
     var auth = Firebase.auth
@@ -33,19 +33,18 @@ class ChatRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemNickname.text = nickname[position]
-
+        holder.itemNickname.text = nickNameList[position]
         holder.itemView.setOnClickListener {
             //When pressing on a user in the list, go to ChatRoomActivity
             val intent = Intent(holder.itemView.context, ChatRoomActivity::class.java)
-                .putExtra("secondUserNickname", nickname[position])
-                .putExtra("secondUserUid", userUid[position])
+                .putExtra("secondUserNickname", nickNameList[position])
+                .putExtra("secondUserUid", userUidList[position])
             holder.itemView.context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return nickname.size
+        return nickNameList.size
     }
 
 }

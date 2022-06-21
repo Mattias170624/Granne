@@ -12,7 +12,6 @@ class TosDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
         return inflater.inflate(R.layout.fragment_tos_dialog, container, false)
     }
 }

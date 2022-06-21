@@ -13,25 +13,23 @@ import com.google.firebase.ktx.Firebase
 
 class ChatListActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var chatListRecyclerView: RecyclerView
     private var nicknameList = mutableListOf<String>()
     private var userUidList = mutableListOf<String>()
-
-    private lateinit var auth: FirebaseAuth
+    private lateinit var authentication: FirebaseAuth
     val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
-        auth = Firebase.auth
+        authentication = Firebase.auth
 
         getAllMatchedUsers()
     }
 
     private fun getAllMatchedUsers() {
-        val docRefSecondUser = db.collection("userData").document(auth.currentUser!!.uid)
+        val docRefSecondUser = db.collection("userData").document(authentication.currentUser!!.uid)
             .collection("matchedUsers")
-
         docRefSecondUser.get()
             .addOnSuccessListener { result ->
                 // Shows all our matched users in the RecycleView
@@ -39,17 +37,13 @@ class ChatListActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext,
                         "You have no active chats!",
                         Toast.LENGTH_SHORT).show()
-
                 } else {
                     for (document in result) {
-                        Log.d("!", "Matched users uid > ${document.id} ")
-
                         // For each matched user get their nickname
                         docRefSecondUser.document(document.id)
                             .get()
                             .addOnSuccessListener { name ->
                                 val nickname = name.data!!.getValue("nickname").toString()
-
                                 addToList(nickname, document.id)
                             }
                     }
@@ -58,10 +52,9 @@ class ChatListActivity : AppCompatActivity() {
     }
 
     private fun addToList(nickname: String, userUid: String) {
-        recyclerView = findViewById(R.id.chatRecycleView)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ChatRecyclerAdapter(nicknameList, userUidList)
+        chatListRecyclerView = findViewById(R.id.chatRecycleView)
+        chatListRecyclerView.layoutManager = LinearLayoutManager(this)
+        chatListRecyclerView.adapter = ChatRecyclerAdapter(nicknameList, userUidList)
         nicknameList.add(nickname)
         userUidList.add(userUid)
     }

@@ -15,14 +15,12 @@ import com.google.firebase.ktx.Firebase
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var authentication: FirebaseAuth
     val db = Firebase.firestore
-
     lateinit var buttonSendMessage: Button
     lateinit var nicknameTextView: TextView
     lateinit var messageEditText: EditText
     lateinit var textDisplay: TextView
-
     companion object {
         const val COLLECTION_KEY = "Chat"
         const val DOCUMENT_KEY = "Message"
@@ -37,17 +35,13 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        auth = Firebase.auth
-
+        authentication = Firebase.auth
         textDisplay = findViewById(R.id.textDisplay)
         buttonSendMessage = findViewById(R.id.buttonSendMessage)
         nicknameTextView = findViewById(R.id.nicknameTextView)
         messageEditText = findViewById(R.id.messageEditText)
         nicknameTextView.text = "User"
-
-
         realtimeUpdateListener()
-
         buttonSendMessage.setOnClickListener {
             sendMessage()
         }
@@ -61,7 +55,6 @@ class ChatActivity : AppCompatActivity() {
         firestoreChat.set(newMessage).addOnSuccessListener {
             Toast.makeText(this@ChatActivity, "Message Sent", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener { e -> e.message?.let { Log.e("ERROR", it) } }
-
     }
 
     private fun realtimeUpdateListener() {
@@ -75,7 +68,6 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
     }
 }
