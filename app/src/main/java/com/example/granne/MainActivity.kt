@@ -19,41 +19,33 @@ import kotlin.system.exitProcess
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
     lateinit var spinner: Spinner
     lateinit var locale: Locale
-
     private var currentLanguage = "en"
     private var currentLang: String? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         auth = Firebase.auth
-
         val currentUser = auth.currentUser
         if (currentUser != null) { // Check if user is signed in
             startActivity(Intent(this, HomeActivity::class.java))
-            Log.d("!","Auto logged in with email: ${auth.currentUser!!.email}")
-        } else {
-            Log.d("!", "No user logged in")
         }
-
-
         title = "Granne"
         currentLanguage = intent.getStringExtra(currentLang).toString()
         spinner = findViewById(R.id.spinner)
+        val listLanguage = ArrayList<String>()
+        listLanguage.add("Language")
+        listLanguage.add("English")
+        listLanguage.add("Svenska")
+        listLanguageadapterfun(listLanguage)
+    }
 
-        val list = ArrayList<String>()
-        list.add("Language")
-        list.add("English")
-        list.add("Svenska")
-
-        val adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
+    private fun listLanguageadapterfun(listLanguage :ArrayList<String>){
+        val listLanguageAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, listLanguage)
+        listLanguageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = listLanguageAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -62,15 +54,11 @@ class MainActivity : AppCompatActivity() {
                 id: Long,
             ) {
                 when (position) {
-                    0 -> {
-                    }
                     1 -> setLocale("en")
                     2 -> setLocale("sv")
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
-
         }
     }
 
@@ -78,11 +66,10 @@ class MainActivity : AppCompatActivity() {
         if (localeName != currentLanguage) {
             locale = Locale(localeName)
             val res = resources
-            val dm = res.displayMetrics
-            val conf = res.configuration
-
-            conf.locale = locale
-            res.updateConfiguration(conf, dm)
+            val displayMetrics = res.displayMetrics
+            val config = res.configuration
+            config.locale = locale
+            res.updateConfiguration(config, displayMetrics)
             val refresh = Intent(this, MainActivity::class.java)
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
@@ -94,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             ).show();
         }
     }
-
 
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
@@ -114,8 +100,6 @@ class MainActivity : AppCompatActivity() {
         val createAccountIntent = Intent(this, CreateAccountActivity::class.java)
         startActivity(createAccountIntent)
     }
-
-
 }
 
 

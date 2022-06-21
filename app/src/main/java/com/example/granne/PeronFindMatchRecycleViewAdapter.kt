@@ -15,15 +15,14 @@ import com.google.firebase.ktx.Firebase
 
 class PersonFindMatchRecycleViewAdapter(
     val context: Context,
-    val persons: List<PersonFindMatch>,
+    val listPersons: List<PersonFindMatch>,
 ) : RecyclerView.Adapter<PersonFindMatchRecycleViewAdapter.ViewHolder>() {
-
     var auth = Firebase.auth
     val db = Firebase.firestore
     val layoutInflater = LayoutInflater.from(context)
 
     override fun getItemCount(): Int {
-        return persons.size
+        return listPersons.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,47 +31,33 @@ class PersonFindMatchRecycleViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val person = persons[position]
-
+        val person = listPersons[position]
         holder.nameTextView.text = person.name.toString()
         holder.interestTextView.text = person.intressen.toString()
         holder.aboutMeTextView.text = person.aboutMe.toString()
-
         holder.buttonAdd.setOnClickListener {
             val nickname = person.name.toString()
             val userUid = person.uid.toString()
             var veryBadIdGenerator = (234234324..4343434345).random().toString()
-
-
             val mapOfDetails = hashMapOf(
                 "nickname" to nickname,
                 "uid" to userUid,
                 "chatId" to veryBadIdGenerator
             )
-
-            Log.d("!", ">> ${person.name}}")
-            Log.d("!", ">> ${person.aboutMe}}")
-            Log.d("!", ">> ${person.intressen}}")
-            Log.d("!", ">> ${person.uid}}")
-
             db.collection("userData").document(auth.currentUser!!.uid)
                 .collection("matchedUsers").document(userUid).set(mapOfDetails)
                 .addOnSuccessListener {
-
                     showToast("Added $nickname to chat list!")
-
                     addYourselfToSecondUserMatchedList(userUid, veryBadIdGenerator)
                 }
         }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val nameTextView = itemView.findViewById<TextView>(R.id.tvName)
         val interestTextView = itemView.findViewById<TextView>(R.id.tvIntressen)
         val aboutMeTextView = itemView.findViewById<TextView>(R.id.tvAboutMe)
         val buttonAdd = itemView.findViewById<ImageButton>(R.id.btnAdd)
-
     }
 
     private fun addYourselfToSecondUserMatchedList(uid: String, chatId: String) {

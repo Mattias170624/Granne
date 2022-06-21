@@ -16,23 +16,19 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
-
         auth = Firebase.auth
+        sendResetEmailPassword()
+    }
 
-        lateinit var btn_submitPassword: Button
-        lateinit var et_enterEmail: EditText
-
-        btn_submitPassword = findViewById(R.id.btn_submitPassword)
-        et_enterEmail = findViewById(R.id.et_enterEmail)
-
+    private fun sendResetEmailPassword(){
+        var btn_submitPassword: Button = findViewById(R.id.btn_submitPassword)
+        var editText_enterEmail: EditText =findViewById(R.id.et_enterEmail)
         btn_submitPassword.setOnClickListener {
-            val email: String = et_enterEmail.text.toString().trim { it <= ' ' }
+            val email: String = editText_enterEmail.text.toString().trim { it <= ' ' }
             if (email.isEmpty()) {
-                Log.d(TAG, "Enter Email")
                 Toast.makeText(
                     this@ForgotPasswordActivity,
                     "Please enter your email adress.",
@@ -42,13 +38,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 Firebase.auth.sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
                         if(task.isSuccessful){
-                            Log.d(TAG, "Email sent")
                             Toast.makeText(
                                 this@ForgotPasswordActivity,
                                 "Email successfully sent to reset your password.",
                                 Toast.LENGTH_LONG
                             ).show()
-
                             finish()
                         }
                         else{

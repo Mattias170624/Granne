@@ -17,32 +17,23 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
-
-    lateinit var nicknameUnderIcon: TextView
+    lateinit var nicknameUnderIconTextView: TextView
     lateinit var buttonFindMatch: ImageButton
     lateinit var buttonOptions: ImageButton
     lateinit var buttonChat: ImageButton
     lateinit var buttonInfo: ImageButton
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         auth = Firebase.auth
-
-
-        nicknameUnderIcon = findViewById(R.id.nicknameUnderIcon)
+        nicknameUnderIconTextView = findViewById(R.id.nicknameUnderIcon)
         buttonFindMatch = findViewById(R.id.buttonFindMatch)
         buttonOptions = findViewById(R.id.buttonOptions)
         buttonChat = findViewById(R.id.buttonChat)
         buttonInfo = findViewById(R.id.buttonInformation)
 
-
         buttonChat.setOnClickListener {
             startActivity(Intent(this, ChatListActivity::class.java))
-
-            //val chatIntent = Intent(this, ChatActivity::class.java)
-            //startActivity(chatIntent)
         }
 
         buttonOptions.setOnClickListener {
@@ -59,23 +50,18 @@ class HomeActivity : AppCompatActivity() {
             val dialog = CustomDialogFragment()
             dialog.show(supportFragmentManager, "customDialog")
         }
-
     }
 
     override fun onStart() {
         super.onStart()
-
         // Listen for changes in nickname
         db.collection("userData").document(auth.currentUser!!.uid)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
                     return@addSnapshotListener // Stop listening to this snapshot
                 }
-
                 if (snapshot != null && snapshot.exists()) {
-                    nicknameUnderIcon.text = snapshot.data!!.getValue("nickname").toString()
-                } else {
-                    Log.d("!", "Current data: null")
+                    nicknameUnderIconTextView.text = snapshot.data!!.getValue("nickname").toString()
                 }
             }
     }
